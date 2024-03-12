@@ -8,12 +8,18 @@
 #include <iostream>
 #include <memory>
 #include <stdexcept>
-#include "mylib.hpp"
+#include "my_log.hpp"
+#include "DLLoader.hpp"
+#include "IDisplayModule.hpp"
 
 int main(int argc, const char *argv[])
 {
     try {
-        // ! code
+        arc::DLLoader<IDisplayModule> GameLib("./lib/arcade_pacman.so");
+        IDisplayModule *game = GameLib.getInstance("entryPoint");
+
+        std::cout << "The game is: " << game->getName() << "\n";
+
     } catch (const std::exception &exception) {
         my::log::error(exception.what());
         return 84;

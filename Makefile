@@ -7,16 +7,17 @@
 
 SRC				:=	$(shell find src/ -name "*.cpp")
 
-CPPFLAGS		=	-std=c++20 -Wall -Wextra \
+CPPFLAGS		=	-std=c++20 -Wall -Wextra -fno-gnu-unique \
 					$(ADDITIONAL_FLAGS)
 
-INCLUDE_PATH	=	-I./include/ -I./include/lib
+INCLUDE_PATH	=	-I./include/ \
+					-I./include/utils/
 
 NAME			=	arcade
 
-LIB_PATH		=	lib/
+GAME_LIB		=	./game_lib/
 
-LIB_NAME		=	lib/my_cpplib.a
+GRAPHICAL_LIB	=	./graphical_lib/
 
 SRC_TESTS		:=	$(shell find tests/ -name "*.cpp")
 
@@ -26,49 +27,64 @@ NAME_TESTS		=	unit_tests
 
 OBJ				=	$(SRC:.cpp=.o)
 
+.DEFAULT_GOAL = build_all
+
 %.o: %.cpp
 	@g++ $(CPPFLAGS) $(INCLUDE_PATH) -c $< -o $@ && \
 	printf "[\e[92mOK\e[0m] g++ $(CPPFLAGS) -c $< -o $@\n" || \
 	printf "[\e[1;91mKO\e[0m] g++ $(CPPFLAGS) -c $< -o $@\n"
 
 $(NAME): $(OBJ)
-	@cd $(LIB_PATH) && $(MAKE) ADDITIONAL_FLAGS="$(ADDITIONAL_FLAGS)"
-	@if g++ -o $(NAME) $(OBJ) $(LIB_NAME) $(CPPFLAGS) $(INCLUDE_PATH); then \
+	@if g++ -o $(NAME) $(OBJ) $(CPPFLAGS) $(INCLUDE_PATH); then \
 		printf "[\e[92mCOMPILATION OK\e[0m] "; \
-		printf "g++ -o $(NAME) $(OBJ) $(LIB_NAME) $(CPPFLAGS)\n"; \
+		printf "g++ -o $(NAME) $(OBJ) $(CPPFLAGS)\n"; \
 	else \
 		printf "[\e[1;91mCOMPILATION KO\e[0m] "; \
-		printf "g++ -o $(NAME) $(OBJ) $(LIB_NAME) $(CPPFLAGS)\n"; \
+		printf "g++ -o $(NAME) $(OBJ) $(CPPFLAGS)\n"; \
 		exit 1; \
 	fi
 
-all: $(NAME)
+all: build_all
 
-clean:
+core_clean:
 	rm -f $(OBJ) $(shell find src/ -name "*.o")
 	@rm -f $(shell find src/ -name "*.gcno")
 	@rm -f $(shell find src/ -name "*.gcda")
 	rm -f *.gcno *.gcda gmon.out compile_commands.json
 
-fclean: clean
+clean: core_clean
+	cd $(GAME_LIB) && $(MAKE) clean
+	cd $(GRAPHICAL_LIB) && $(MAKE) clean
+
+fclean: core_clean
 	rm -f $(NAME)
 	rm -f $(NAME_TESTS)
-	@cd $(LIB_PATH) && $(MAKE) fclean
+	cd $(GAME_LIB) && $(MAKE) fclean
+	cd $(GRAPHICAL_LIB) && $(MAKE) fclean
 
 re: fclean all
 
+core: $(NAME)
+
+games:
+	cd $(GAME_LIB) && $(MAKE)
+
+graphicals:
+	cd $(GRAPHICAL_LIB) && $(MAKE)
+
+build_all: core games graphicals
+
 unit_tests: SRC := $(patsubst src/main.cpp%,%,$(SRC))
 unit_tests: fclean
-	@cd $(LIB_PATH) && $(MAKE)
 	@if g++ -o $(NAME_TESTS) $(SRC_TESTS) $(SRC) \
-		$(LIB_NAME) $(CPPFLAGS) $(RUN_TEST) $(INCLUDE_PATH); then \
+		$(CPPFLAGS) $(RUN_TEST) $(INCLUDE_PATH); then \
 		printf "[\e[92mCOMPILATION OK\e[0m] "; \
 		printf "g++ -o -o $(NAME_TESTS) $(SRC_TESTS) $(SRC)"; \
-		printf "$(LIB_NAME) $(CPPFLAGS) $(RUN_TEST)\n"; \
+		printf "$(CPPFLAGS) $(RUN_TEST)\n"; \
 	else \
 		printf "[\e[1;91mCOMPILATION KO\e[0m] "; \
 		printf "g++ -o -o $(NAME_TESTS) $(SRC_TESTS) $(OBJ)"; \
-		printf "$(LIB_NAME) $(CPPFLAGS) $(RUN_TEST)\n"; \
+		printf "$(CPPFLAGS) $(RUN_TEST)\n"; \
 		exit 1; \
 	fi
 
