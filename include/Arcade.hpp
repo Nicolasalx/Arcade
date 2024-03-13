@@ -15,10 +15,10 @@ namespace Arc
     class Arcade
     {
         public:
-            Arcade(int argc, char **argv);
+            Arcade(int argc, const char **argv);
             ~Arcade() = default;
 
-            void lauch();
+            void launch();
 
         private:
             std::string graphicalLib;

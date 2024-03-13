@@ -7,8 +7,12 @@
 
 #include "Arcade.hpp"
 #include "my_tracked_exception.hpp"
+#include "DLLoader.hpp"
+#include "IDisplayModule.hpp"
+#include "IGameModule.hpp"
+#include <iostream>
 
-Arc::Arcade::Arcade(int argc, char **argv)
+Arc::Arcade::Arcade(int argc, const char **argv)
 {
     if (argc != 2) {
         throw my::tracked_exception("Invalide nb of arg\n\n"
@@ -19,7 +23,10 @@ Arc::Arcade::Arcade(int argc, char **argv)
     this->graphicalLib = std::string(argv[1]);
 }
 
-void Arc::Arcade::lauch()
+void Arc::Arcade::launch()
 {
+    Arc::DLLoader<Arc::IDisplayModule> displayLib(this->graphicalLib);
+    Arc::IDisplayModule *displayInstance = displayLib.getInstance("entryPoint");
 
+    std::cout << "The graphical lib is : " <<  displayInstance->getName() << '\n';
 }

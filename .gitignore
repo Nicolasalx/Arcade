@@ -6,6 +6,7 @@ vgcore.*
 
 # ? lib
 *.a
+*.so
 
 # ? executable
 *.out
