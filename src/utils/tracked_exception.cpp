@@ -8,7 +8,7 @@
 #include "my_tracked_exception.hpp"
 #include <iostream>
 
-static std::string indent_excepetion(const std::string &str)
+static std::string indent_exception(const std::string &str)
 {
     std::string result;
 
@@ -24,7 +24,7 @@ static std::string indent_excepetion(const std::string &str)
 my::tracked_exception::tracked_exception(const std::string &message,
     const std::source_location location)
 {
-    message_ += indent_excepetion(message);
+    message_ += indent_exception(message);
     message_ += this->format_src_location(location);
 }
 

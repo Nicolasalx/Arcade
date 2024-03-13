@@ -8,10 +8,12 @@
 #ifndef PACMAN_HPP_
     #define PACMAN_HPP_
 
-    #include "IDisplayModule.hpp"
+    #include "IGameModule.hpp"
 
-class Pacman : public IDisplayModule
+namespace Arc
 {
+    class Pacman : public IGameModule
+    {
     public:
         Pacman();
         ~Pacman();
@@ -22,6 +24,7 @@ class Pacman : public IDisplayModule
 
     private:
         std::string name = "Pacman";
-};
+    };
+}
 
 #endif /* !PACMAN_HPP_ */

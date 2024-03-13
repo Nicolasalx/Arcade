@@ -15,8 +15,8 @@
 int main(int argc, const char *argv[])
 {
     try {
-        arc::DLLoader<IDisplayModule> GameLib("./lib/arcade_pacman.so");
-        IDisplayModule *game = GameLib.getInstance("entryPoint");
+        Arc::DLLoader<Arc::IDisplayModule> GameLib("./lib/arcade_pacman.so");
+        Arc::IDisplayModule *game = GameLib.getInstance("entryPoint");
 
         std::cout << "The game is: " << game->getName() << "\n";
 
