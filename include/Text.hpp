@@ -10,10 +10,13 @@
 
     #include <string>
 
-struct Text
+namespace Arc
 {
-    std::string text;
-    std::string fontPath;
-};
+    struct Text
+    {
+        std::string text;
+        std::string fontPath;
+    };
+}
 
 #endif /* !TEXT_HPP_ */
