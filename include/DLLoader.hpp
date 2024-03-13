@@ -18,22 +18,31 @@ namespace Arc
     class DLLoader
     {
     public:
+        DLLoader() = default;
         DLLoader(const std::string &libName)
         {
-            this->handle = dlopen(libName.c_str(), RTLD_LAZY);
-            if (!this->handle) {
+            this->_handle = dlopen(libName.c_str(), RTLD_LAZY);
+            if (!this->_handle) {
                 throw my::tracked_exception(dlerror());
             }
         }
 
         ~DLLoader()
         {
-            dlclose(this->handle);
+            dlclose(this->_handle);
+        }
+
+        void load(const std::string &libName)
+        {
+            this->_handle = dlopen(libName.c_str(), RTLD_LAZY);
+            if (!this->_handle) {
+                throw my::tracked_exception(dlerror());
+            }
         }
 
         T *getInstance(const std::string &name)
         {
-            auto func = reinterpret_cast<T *(*)(void)>(dlsym(this->handle, name.c_str()));
+            auto func = reinterpret_cast<T *(*)(void)>(dlsym(this->_handle, name.c_str()));
             if (!func) {
                 throw my::tracked_exception(dlerror());
             }
@@ -41,7 +50,7 @@ namespace Arc
         }
 
     private:
-        void *handle = nullptr;
+        void *_handle = nullptr;
     };
 }
 

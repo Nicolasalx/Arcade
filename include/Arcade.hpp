@@ -12,6 +12,7 @@
     #include <memory>
     #include "IDisplayModule.hpp"
     #include "IGameModule.hpp"
+    #include "DLLoader.hpp"
 
 namespace Arc
 {
@@ -26,8 +27,10 @@ namespace Arc
 
         private:
             std::string graphicalLib;
-            std::unique_ptr<IDisplayModule> displayModule;
-            std::unique_ptr<IGameModule> gameModule;
+            Arc::IDisplayModule *displayModule;
+            Arc::IGameModule *gameModule;
+            Arc::DLLoader<Arc::IDisplayModule> displayLoader;
+            Arc::DLLoader<Arc::IGameModule> gameLoader;
     };
 }
 

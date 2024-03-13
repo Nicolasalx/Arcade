@@ -21,11 +21,6 @@ int main(int argc, const char *argv[])
         arcade.launch();
         arcade.loop();
 
-        Arc::DLLoader<Arc::IGameModule> displayLib("lib/arcade_menu.so");
-        Arc::IGameModule *displayInstance = displayLib.getInstance("entryPoint");
-
-        std::cout << "The graphical lib is : " << displayInstance->getName() << '\n';
-
     } catch (const std::exception &exception) {
         my::log::error(exception.what());
         return 84;
