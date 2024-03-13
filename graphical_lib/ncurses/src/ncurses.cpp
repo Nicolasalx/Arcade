@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2024
 ** B-OOP-400-PAR-4-1-arcade-thibaud.cathala
 ** File description:
-** pacman
+** Ncurses
 */
 
 #include <iostream>
@@ -10,44 +10,46 @@
 
 __attribute__((constructor)) void init(void)
 {
-    std::cout << "Pacman loaded !\n";
+    std::cout << "Ncurses loaded !\n";
 }
 
 extern "C"
 {
-    Arc::IGameModule *entryPoint(void)
+    Arc::IDisplayModule *entryPoint(void)
     {
-        std::cout << "entry point Pacman !\n";
-        return new Arc::Pacman();
+        std::cout << "entry point Ncurses !\n";
+        return new Arc::Ncurses();
     }
 }
 
 __attribute__((destructor)) void destroy(void)
 {
-    std::cout << "Pacman unloaded !\n";
+    std::cout << "Ncurses unloaded !\n";
 }
 
-Arc::Pacman::Pacman()
+void Arc::Ncurses::init()
 {
-    std::cout << "Pacman is class constructed.\n";
+    std::cout << "Ncurses is init.\n";
 }
 
-Arc::Pacman::~Pacman()
+std::vector<Arc::Event> Arc::Ncurses::getEvent()
 {
-    std::cout << "Pacman is class destroyed.\n";
+    std::cout << "Ncurses get event.\n";
+    return std::vector<Arc::Event>();
 }
 
-void Arc::Pacman::init()
+void Arc::Ncurses::refresh(const Arc::GameData &gameData)
 {
-    std::cout << "Pacman is init.\n";
+    (void) gameData;
+    std::cout << "Refresh Ncurses ...";
 }
 
-void Arc::Pacman::stop()
+void Arc::Ncurses::stop()
 {
-    std::cout << "Pacman is stopped.\n";
+    std::cout << "Ncurses is stopped.\n";
 }
 
-const std::string &Arc::Pacman::getName() const
+const std::string &Arc::Ncurses::getName() const
 {
     return this->name;
 }

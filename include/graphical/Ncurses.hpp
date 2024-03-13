@@ -8,14 +8,26 @@
 #ifndef NCURSES_HPP_
     #define NCURSES_HPP_
 
-class Ncurses
-{
-    public:
-        Ncurses();
-        ~Ncurses();
+    #include "IDisplayModule.hpp"
 
-    protected:
-    private:
-};
+namespace Arc
+{
+    class Ncurses: public IDisplayModule
+    {
+        public:
+            Ncurses() = default;
+            ~Ncurses() = default;
+
+            void init();
+            std::vector<Arc::Event> getEvent();
+            void refresh(const Arc::GameData &gameData);
+            void stop();
+            const std::string &getName() const;
+
+        protected:
+        private:
+            std::string name = "Ncurses";
+    };
+}
 
 #endif /* !NCURSES_HPP_ */

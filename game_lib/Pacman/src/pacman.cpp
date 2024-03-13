@@ -47,6 +47,12 @@ void Arc::Pacman::stop()
     std::cout << "Pacman is stopped.\n";
 }
 
+const Arc::GameData &Arc::Pacman::update(const std::vector<Arc::Event> &)
+{
+    std::cout << "Update Pacman ...\n";
+    return this->gameData;
+}
+
 const std::string &Arc::Pacman::getName() const
 {
     return this->name;

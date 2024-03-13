@@ -15,10 +15,10 @@ __attribute__((constructor)) void init(void)
 
 extern "C"
 {
-    IDisplayModule *entryPoint(void)
+    Arc::IGameModule *entryPoint(void)
     {
         std::cout << "entry point Snake !\n";
-        return new Snake();
+        return new Arc::Snake();
     }
 }
 
@@ -27,27 +27,34 @@ __attribute__((destructor)) void destroy(void)
     std::cout << "Snake unloaded !\n";
 }
 
-Snake::Snake()
+Arc::Snake::Snake()
 {
     std::cout << "Snake is class constructed.\n";
+    
 }
 
-Snake::~Snake()
+Arc::Snake::~Snake()
 {
     std::cout << "Snake is class destroyed.\n";
 }
 
-void Snake::init()
+void Arc::Snake::init()
 {
     std::cout << "Snake is init.\n";
 }
 
-void Snake::stop()
+void Arc::Snake::stop()
 {
     std::cout << "Snake is stopped.\n";
 }
 
-const std::string &Snake::getName() const
+const Arc::GameData &Arc::Snake::update(const std::vector<Arc::Event> &)
+{
+    std::cout << "Update Pacman ...\n";
+    return this->gameData;
+}
+
+const std::string &Arc::Snake::getName() const
 {
     return this->name;
 }

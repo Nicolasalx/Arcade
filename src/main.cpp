@@ -15,11 +15,11 @@
 int main(int argc, const char *argv[])
 {
     try {
-        Arc::DLLoader<Arc::IDisplayModule> GameLib("./lib/arcade_pacman.so");
-        Arc::IDisplayModule *game = GameLib.getInstance("entryPoint");
+        Arc::DLLoader<Arc::IDisplayModule> PacmanLib("./lib/arcade_pacman.so");
+        Arc::IDisplayModule *pacman = PacmanLib.getInstance("entryPoint");
 
-        arc::DLLoader<IDisplayModule> SnakeLib("./lib/arcade_snake.so");
-        IDisplayModule *snake = SnakeLib.getInstance("entryPoint");
+        Arc::DLLoader<Arc::IDisplayModule> SnakeLib("./lib/arcade_snake.so");
+        Arc::IDisplayModule *snake = SnakeLib.getInstance("entryPoint");
 
         std::cout << "The game is: " << pacman->getName() << "\n";
         std::cout << "The game is: " << snake->getName() << "\n";
