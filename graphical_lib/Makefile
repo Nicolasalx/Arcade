@@ -5,7 +5,7 @@
 ## Makefile
 ##
 
-SRC		=
+SRC		=	./ncurses/
 
 all: $(SRC)
 	@for graphical_lib in $^ ; do \
