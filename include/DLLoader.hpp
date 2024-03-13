@@ -12,7 +12,7 @@
     #include <dlfcn.h>
     #include "my_tracked_exception.hpp"
 
-namespace arc
+namespace Arc
 {
     template<typename T>
     class DLLoader

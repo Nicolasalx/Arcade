@@ -2,30 +2,29 @@
 ** EPITECH PROJECT, 2024
 ** B-OOP-400-PAR-4-1-arcade-thibaud.cathala
 ** File description:
-** IDisplayModule
+** IGameModule
 */
 
-#ifndef IDISPLAYMODULE_HPP_
-    #define IDISPLAYMODULE_HPP_
+#ifndef IGAMEMODULE_HPP_
+    #define IGAMEMODULE_HPP_
 
     #include <string>
+    #include <vector>
     #include "Event.hpp"
     #include "GameData.hpp"
-    #include <vector>
 
 namespace Arc
 {
-    class IDisplayModule
+    class IGameModule
     {
     public:
-        virtual ~IDisplayModule() = default;
+        virtual ~IGameModule() = default;
 
         virtual void init() = 0;
-        virtual std::vector<Arc::Event> getEvent() = 0;
-        virtual void refresh(const Arc::GameData &gameData) = 0;
+        virtual const Arc::GameData &update(const std::vector<Arc::Event> &event) = 0;
         virtual void stop() = 0;
         virtual const std::string &getName() const = 0;
     };
 }
 
-#endif /* !IDISPLAYMODULE_HPP_ */
+#endif /* !IGAMEMODULE_HPP_ */

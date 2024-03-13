@@ -15,8 +15,8 @@
 int main(int argc, const char *argv[])
 {
     try {
-        arc::DLLoader<IDisplayModule> PacmanLib("./lib/arcade_pacman.so");
-        IDisplayModule *pacman = PacmanLib.getInstance("entryPoint");
+        Arc::DLLoader<Arc::IDisplayModule> GameLib("./lib/arcade_pacman.so");
+        Arc::IDisplayModule *game = GameLib.getInstance("entryPoint");
 
         arc::DLLoader<IDisplayModule> SnakeLib("./lib/arcade_snake.so");
         IDisplayModule *snake = SnakeLib.getInstance("entryPoint");
