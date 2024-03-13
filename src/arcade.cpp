@@ -25,8 +25,22 @@ Arc::Arcade::Arcade(int argc, const char **argv)
 
 void Arc::Arcade::launch()
 {
-    Arc::DLLoader<Arc::IDisplayModule> displayLib(this->graphicalLib);
-    Arc::IDisplayModule *displayInstance = displayLib.getInstance("entryPoint");
+    Arc::DLLoader<Arc::IDisplayModule> displayLoader(this->graphicalLib);
+    this->displayModule = std::unique_ptr<Arc::IDisplayModule>(displayLoader.getInstance("entryPoint"));
 
-    std::cout << "The graphical lib is : " <<  displayInstance->getName() << '\n';
+    Arc::DLLoader<Arc::IGameModule> menuLoader("arcade_menu.so");
+    this->gameModule = std::unique_ptr<Arc::IGameModule>(menuLoader.getInstance("entryPoint"));
+}
+
+void Arc::Arcade::loop()
+{
+    this->displayModule->init();
+    this->gameModule->init();
+
+    for (size_t i = 0; i < 10; ++i)
+    {
+        this->displayModule->refresh(this->gameModule->update(this->displayModule->getEvent()));
+    }
+    this->gameModule->stop();
+    this->displayModule->stop();
 }
