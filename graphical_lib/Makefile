@@ -5,7 +5,8 @@
 ## Makefile
 ##
 
-SRC		=	./ncurses/
+SRC		=	./ncurses/ \
+			./sfml/
 
 all: $(SRC)
 	@for graphical_lib in $^ ; do \

@@ -30,7 +30,6 @@ __attribute__((destructor)) void destroy(void)
 Arc::Snake::Snake()
 {
     std::cout << "Snake is class constructed.\n";
-    
 }
 
 Arc::Snake::~Snake()
