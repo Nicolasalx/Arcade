@@ -8,11 +8,11 @@
 #ifndef SFML_HPP_
     #define SFML_HPP_
 
-    #include "IDisplayModule.hpp"
+    #include "ADisplayModule.hpp"
 
 namespace Arc
 {
-    class Sfml : public IDisplayModule
+    class Sfml : public ADisplayModule
     {
         public:
             Sfml() = default;

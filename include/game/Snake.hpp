@@ -8,11 +8,11 @@
 #ifndef SNAKE_HPP_
     #define SNAKE_HPP_
 
-    #include "IGameModule.hpp"
+    #include "AGameModule.hpp"
 
 namespace Arc
 {
-    class Snake : public IGameModule
+    class Snake : public AGameModule
     {
         public:
             Snake();
