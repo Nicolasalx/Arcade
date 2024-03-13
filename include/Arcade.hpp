@@ -9,6 +9,10 @@
     #define ARCADE_HPP_
 
     #include <string>
+    #include <memory>
+    #include "IDisplayModule.hpp"
+    #include "IGameModule.hpp"
+    #include "DLLoader.hpp"
 
 namespace Arc
 {
@@ -19,9 +23,14 @@ namespace Arc
             ~Arcade() = default;
 
             void launch();
+            void loop();
 
         private:
             std::string graphicalLib;
+            Arc::IDisplayModule *displayModule;
+            Arc::IGameModule *gameModule;
+            Arc::DLLoader<Arc::IDisplayModule> displayLoader;
+            Arc::DLLoader<Arc::IGameModule> gameLoader;
     };
 }
 
