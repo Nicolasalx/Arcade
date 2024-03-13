@@ -19,6 +19,7 @@ int main(int argc, const char *argv[])
         Arc::Arcade arcade(argc, argv);
 
         arcade.launch();
+        arcade.loop();
 
     } catch (const std::exception &exception) {
         my::log::error(exception.what());
