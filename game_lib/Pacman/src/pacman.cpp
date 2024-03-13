@@ -55,5 +55,5 @@ const Arc::GameData &Arc::Pacman::update(const std::vector<Arc::Event> &)
 
 const std::string &Arc::Pacman::getName() const
 {
-    return this->name;
+    return this->_name;
 }

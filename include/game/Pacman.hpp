@@ -23,7 +23,7 @@ namespace Arc
         void stop();
         const std::string &getName() const;
     private:
-        std::string name = "Pacman";
+        std::string _name = "Pacman";
     };
 }
 

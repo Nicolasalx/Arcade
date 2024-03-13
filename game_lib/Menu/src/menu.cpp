@@ -37,8 +37,21 @@ Arc::Menu::~Menu()
     std::cout << "Menu is class destroyed.\n";
 }
 
+
 void Arc::Menu::init()
 {
+    /*
+        Liste de SfText :
+        - Position initialiser
+        - Color initialiser
+
+        Open the directory -> List all files
+    */
+
+    std::string path = "./lib/";
+    for (const auto & entry : std::filesystem::directory_iterator(path)) {
+        std::cout << entry.path() << std::endl;
+    }
     std::cout << "Menu is init.\n";
 }
 
@@ -49,11 +62,11 @@ void Arc::Menu::stop()
 
 const Arc::GameData &Arc::Menu::update(const std::vector<Arc::Event> &)
 {
-    std::cout << "Update Pacman ...\n";
+    std::cout << "Update Menu ...\n";
     return this->gameData;
 }
 
 const std::string &Arc::Menu::getName() const
 {
-    return this->name;
+    return this->_name;
 }

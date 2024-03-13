@@ -55,5 +55,5 @@ const Arc::GameData &Arc::Snake::update(const std::vector<Arc::Event> &)
 
 const std::string &Arc::Snake::getName() const
 {
-    return this->name;
+    return this->_name;
 }

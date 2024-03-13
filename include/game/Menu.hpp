@@ -9,6 +9,7 @@
     #define PACMAN_HPP_
 
     #include "IGameModule.hpp"
+    #include <filesystem>
 
 namespace Arc
 {
@@ -23,7 +24,7 @@ namespace Arc
         void stop();
         const std::string &getName() const;
     private:
-        std::string name = "Menu";
+        std::string _name = "Menu";
     };
 }
 
