@@ -6,7 +6,8 @@
 ##
 
 SRC		=	./Pacman/ \
-			./Snake/
+			./Snake/ \
+			./Menu/
 
 all: $(SRC)
 	@for game_dir in $^ ; do \
