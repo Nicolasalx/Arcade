@@ -15,10 +15,14 @@
 int main(int argc, const char *argv[])
 {
     try {
-        arc::DLLoader<IDisplayModule> GameLib("./lib/arcade_pacman.so");
-        IDisplayModule *game = GameLib.getInstance("entryPoint");
+        arc::DLLoader<IDisplayModule> PacmanLib("./lib/arcade_pacman.so");
+        IDisplayModule *pacman = PacmanLib.getInstance("entryPoint");
 
-        std::cout << "The game is: " << game->getName() << "\n";
+        arc::DLLoader<IDisplayModule> SnakeLib("./lib/arcade_snake.so");
+        IDisplayModule *snake = SnakeLib.getInstance("entryPoint");
+
+        std::cout << "The game is: " << pacman->getName() << "\n";
+        std::cout << "The game is: " << snake->getName() << "\n";
 
     } catch (const std::exception &exception) {
         my::log::error(exception.what());

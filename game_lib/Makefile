@@ -5,7 +5,8 @@
 ## Makefile
 ##
 
-SRC		=	./Pacman/
+SRC		=	./Pacman/ \
+			./Snake/
 
 all: $(SRC)
 	@for game_dir in $^ ; do \
