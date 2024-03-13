@@ -9,6 +9,9 @@
     #define ARCADE_HPP_
 
     #include <string>
+    #include <memory>
+    #include "IDisplayModule.hpp"
+    #include "IGameModule.hpp"
 
 namespace Arc
 {
@@ -19,9 +22,12 @@ namespace Arc
             ~Arcade() = default;
 
             void launch();
+            void loop();
 
         private:
             std::string graphicalLib;
+            std::unique_ptr<IDisplayModule> displayModule;
+            std::unique_ptr<IGameModule> gameModule;
     };
 }
 
