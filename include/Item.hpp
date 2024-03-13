@@ -8,7 +8,7 @@
 #ifndef ITEM_HPP_
     #define ITEM_HPP_
 
-namespace
+namespace Arc
 {
     struct Item
     {

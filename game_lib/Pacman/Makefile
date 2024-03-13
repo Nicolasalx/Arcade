@@ -12,7 +12,8 @@ CPPFLAGS		=	-std=c++20 -Wall -Wextra -fno-gnu-unique \
 					$(ADDITIONAL_FLAGS)
 
 INCLUDE_PATH	=	-I../../include/ \
-					-I../../utils/
+					-I../../include/utils/ \
+					-I../../include/game/
 
 NAME			=	../../lib/arcade_pacman.so
 

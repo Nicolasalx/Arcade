@@ -22,7 +22,7 @@ namespace Arc
         std::vector<std::vector<Arc::Tile>> tileSet;
         std::vector<Arc::Text> textSet;
         Arc::Player player;
-        std::vector<Arc::Enemy> item;
+        std::vector<Arc::Enemy> enemy;
         std::vector<Arc::Item> item;
     };
 }

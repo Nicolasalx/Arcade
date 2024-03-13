@@ -15,10 +15,10 @@ __attribute__((constructor)) void init(void)
 
 extern "C"
 {
-    IDisplayModule *entryPoint(void)
+    Arc::IGameModule *entryPoint(void)
     {
         std::cout << "entry point Pacman !\n";
-        return new Pacman();
+        return new Arc::Pacman();
     }
 }
 
@@ -27,27 +27,27 @@ __attribute__((destructor)) void destroy(void)
     std::cout << "Pacman unloaded !\n";
 }
 
-Pacman::Pacman()
+Arc::Pacman::Pacman()
 {
     std::cout << "Pacman is class constructed.\n";
 }
 
-Pacman::~Pacman()
+Arc::Pacman::~Pacman()
 {
     std::cout << "Pacman is class destroyed.\n";
 }
 
-void Pacman::init()
+void Arc::Pacman::init()
 {
     std::cout << "Pacman is init.\n";
 }
 
-void Pacman::stop()
+void Arc::Pacman::stop()
 {
     std::cout << "Pacman is stopped.\n";
 }
 
-const std::string &Pacman::getName() const
+const std::string &Arc::Pacman::getName() const
 {
     return this->name;
 }
