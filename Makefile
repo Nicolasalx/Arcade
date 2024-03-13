@@ -80,11 +80,11 @@ unit_tests: fclean
 		$(CPPFLAGS) $(RUN_TEST) $(INCLUDE_PATH); then \
 		printf "[\e[92mCOMPILATION OK\e[0m] "; \
 		printf "g++ -o -o $(NAME_TESTS) $(SRC_TESTS) $(SRC)"; \
-		printf "$(CPPFLAGS) $(RUN_TEST)\n"; \
+		printf " $(CPPFLAGS) $(RUN_TEST)\n"; \
 	else \
 		printf "[\e[1;91mCOMPILATION KO\e[0m] "; \
 		printf "g++ -o -o $(NAME_TESTS) $(SRC_TESTS) $(OBJ)"; \
-		printf "$(CPPFLAGS) $(RUN_TEST)\n"; \
+		printf " $(CPPFLAGS) $(RUN_TEST)\n"; \
 		exit 1; \
 	fi
 
