@@ -15,7 +15,10 @@ namespace Arc
     struct Player
     {
         Arc::Pos pos;
-        int health;
+        int health = 0;
+        std::string userName;
+        std::size_t score;
+        std::vector<Tile> tileSet;
     };
 }
 

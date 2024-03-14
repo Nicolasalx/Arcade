@@ -29,24 +29,40 @@ __attribute__((destructor)) void destroy(void)
 
 void Arc::Ncurses::init()
 {
-    std::cout << "Ncurses is init.\n";
+    initscr();
+    noecho();
+    curs_set(0);
+    timeout(0);
 }
 
 std::vector<Arc::Event> Arc::Ncurses::getEvent()
 {
-    std::cout << "Ncurses get event.\n";
-    return std::vector<Arc::Event>();
+    std::vector<Arc::Event> event;
+    int c = getch();
+    while (c != ERR) {
+        if (c == 'e') {
+            event.push_back(Arc::Event::KEY_E);
+        }
+        c = getch();
+    }
+    return event;
 }
 
 void Arc::Ncurses::refresh(const Arc::GameData &gameData)
 {
-    (void) gameData;
-    std::cout << "Refresh Ncurses ...";
+    int size_x;
+    int size_y;
+    getmaxyx(stdscr, size_y, size_x);
+
+    for (const auto &currentText : gameData.textSet) {
+        mvprintw(currentText.pos.y / 1080.0 * size_y, currentText.pos.x / 1920.0 * size_x, currentText.text.c_str());
+    }
+    ::refresh();
 }
 
 void Arc::Ncurses::stop()
 {
-    std::cout << "Ncurses is stopped.\n";
+    endwin();
 }
 
 const std::string &Arc::Ncurses::getName() const

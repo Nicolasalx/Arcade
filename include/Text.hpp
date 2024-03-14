@@ -18,9 +18,9 @@ namespace Arc
     {
         std::string text;
         std::string fontPath;
-        Arc::Color color;
+        Arc::Color color = Arc::Color::WHITE;
         Arc::Pos pos;
-        std::size_t size;
+        std::size_t size = 0;
     };
 }
 

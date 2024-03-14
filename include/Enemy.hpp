@@ -15,7 +15,8 @@ namespace Arc
     struct Enemy
     {
         Arc::Pos pos;
-        int health;
+        int health = 0;
+        std::vector<Tile> tileSet;
     };
 }
 

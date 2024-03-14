@@ -37,14 +37,15 @@ Arc::Menu::~Menu()
     std::cout << "Menu is class destroyed.\n";
 }
 
-void Arc::Menu::createTextWithLib(const std::string &name, size_t &posY)
+void Arc::Menu::createTextWithLib(const std::string &name, double &posY)
 {
     Arc::Text text;
 
     text.text = name;
     text.color = Arc::Color::RED;
-    text.fontPath = "fonts/heavitas.ttf";
+    text.fontPath = "fonts/DroidSansMono.ttf";
     text.pos = {100, posY += 50};
+    text.size = 20;
     this->gameData.textSet.push_back(text);
 }
 
@@ -65,9 +66,9 @@ void Arc::Menu::getLibFromDirectory()
     }
 }
 
-const Arc::GameData Arc::Menu::init()
+void Arc::Menu::init()
 {
-    size_t posY = 0;
+    double posY = 0;
 
     _cursorPlace = {"arcade_menu.so", "arcade_menu.so"};
     getLibFromDirectory();
@@ -80,17 +81,15 @@ const Arc::GameData Arc::Menu::init()
     for (const auto &libGraphical : _mapLibGraphical) {
         createTextWithLib(libGraphical, posY);
     }
-    return this->gameData;
 }
 
 void Arc::Menu::stop()
 {
-    std::cout << "Menu is stopped.\n";
+    std::cerr << "Menu is stopped.\n";
 }
 
 const Arc::GameData &Arc::Menu::update(const std::vector<Arc::Event> &event)
 {
-    std::cout << "Update Menu ...\n";
     return this->gameData;
 }
 

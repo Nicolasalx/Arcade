@@ -18,9 +18,7 @@ namespace Arc
         BLUE,
         MAGENTA,
         CYAN,
-        BLACK,
-        PINK,
-        PURPLE
+        BLACK
     };
 };
 

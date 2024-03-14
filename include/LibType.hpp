@@ -10,7 +10,7 @@
 
 namespace Arc
 {
-    enum LibType
+    enum class LibType
     {
         GAME,
         DISPLAY

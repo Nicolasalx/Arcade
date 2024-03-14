@@ -25,7 +25,7 @@ my::tracked_exception::tracked_exception(const std::string &message,
     const std::source_location location)
 {
     message_ += indent_exception(message);
-    message_ += this->format_src_location(location);
+    message_ += my::tracked_exception::format_src_location(location);
 }
 
 const char *my::tracked_exception::what() const noexcept

@@ -8,7 +8,7 @@
 SRC				:=	$(shell find src/ -name "*.cpp")
 
 CPPFLAGS		=	-std=c++20 -Wall -Wextra -fno-gnu-unique \
-					-shared -fpic \
+					-shared -fpic -lncurses \
 					$(ADDITIONAL_FLAGS)
 
 INCLUDE_PATH	=	-I../../include/ \

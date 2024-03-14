@@ -27,6 +27,10 @@ namespace Arc
 
         private:
             sf::RenderWindow _window;
+            sf::Event _event;
+            std::vector<sf::Text> _textList;
+            std::map<std::string, sf::Font> _fontList;
+
             std::string name = "Sfml";
     };
 }
