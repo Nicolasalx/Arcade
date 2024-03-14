@@ -40,9 +40,22 @@ std::vector<Arc::Event> Arc::Sfml::getEvent()
 
 void Arc::Sfml::refresh(const Arc::GameData &gameData)
 {
-    (void) gameData;
     if (_window.isOpen()) {
         _window.clear(sf::Color::Black);
+
+        for (size_t i = 0; i < gameData.textSet.size(); ++i) {
+
+            sf::Font font;
+            if (!font.loadFromFile(gameData.textSet[i].fontPath)) {
+                return;
+            }
+
+            sf::Text text(gameData.textSet[i].text, font, 20);
+            text.setFillColor(sf::Color::White);
+            text.setStyle(sf::Text::Regular);
+            text.setPosition(sf::Vector2f(gameData.textSet[i].pos.x, gameData.textSet[i].pos.y));
+            _window.draw(text);
+        }
 
         _window.display();
     }
