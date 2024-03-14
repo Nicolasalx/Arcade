@@ -52,8 +52,6 @@ void Arc::Menu::getLibFromDirectory()
 {
     std::string filename;
 
-    
-
     for (const auto &entry : std::filesystem::directory_iterator("./lib/")) {
         filename = entry.path().filename().string();
         if (_allLibGame.contains(filename)) {
