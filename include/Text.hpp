@@ -20,6 +20,7 @@ namespace Arc
         std::string fontPath;
         Arc::Color color;
         Arc::Pos pos;
+        std::size_t size;
     };
 }
 
