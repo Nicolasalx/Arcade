@@ -43,7 +43,7 @@ void Arc::Menu::createTextWithLib(const std::string &libGame, size_t &posY)
 
     text.text = libGame;
     text.color = Arc::Color::RED;
-    text.fontPath = fontPath;
+    text.fontPath = "fonts/heavitas.ttf";
     text.pos = {100, posY += 50};
     this->gameData.textSet.push_back(text);
 }
@@ -51,7 +51,6 @@ void Arc::Menu::createTextWithLib(const std::string &libGame, size_t &posY)
 void Arc::Menu::getLibFromDirectory()
 {
     std::string filename;
-    fontPath = "./fonts/heavitas.ttf";
 
     for (const auto &entry : std::filesystem::directory_iterator("./lib/")) {
         filename = entry.path().filename().string();

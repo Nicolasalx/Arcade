@@ -28,8 +28,6 @@ namespace Arc
         void createTextWithLib(const std::string &libGame, size_t &posY);
         void getLibFromDirectory();
 
-        static std::string fontPath;
-
     private:
         std::string _name = "Menu";
         std::set<std::string> allLibGame = {
