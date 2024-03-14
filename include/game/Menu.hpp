@@ -8,6 +8,9 @@
 #ifndef PACMAN_HPP_
     #define PACMAN_HPP_
 
+    #include "IGameModule.hpp"
+    #include <filesystem>
+    #include <set>
     #include "AGameModule.hpp"
 
 namespace Arc
@@ -18,12 +21,28 @@ namespace Arc
         Menu();
         ~Menu();
 
-        void init();
+        const Arc::GameData init();
         const Arc::GameData &update(const std::vector<Arc::Event> &event);
         void stop();
         const std::string &getName() const;
+        void createTextWithLib(const std::string &libGame, size_t &posY);
+        void getLibFromDirectory();
+
     private:
-        std::string name = "Menu";
+        std::string _name = "Menu";
+        std::set<std::string> allLibGame = {
+            "arcade_menu.so",
+            "arcade_snake.so",
+            "arcade_pacman.so"
+        };
+
+        std::set<std::string> allLibGraphical = {
+            {"arcade_ncurses.so"},
+            {"arcade_sfml.so"}
+        };
+
+        std::set<std::string> mapLibGame;
+        std::set<std::string> mapLibGraphical;
     };
 }
 

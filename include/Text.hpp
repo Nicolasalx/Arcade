@@ -9,6 +9,8 @@
     #define TEXT_HPP_
 
     #include <string>
+    #include <ColorEnum.hpp>
+    #include <Pos.hpp>
 
 namespace Arc
 {
@@ -16,6 +18,8 @@ namespace Arc
     {
         std::string text;
         std::string fontPath;
+        Arc::Color color;
+        Arc::Pos pos;
     };
 }
 

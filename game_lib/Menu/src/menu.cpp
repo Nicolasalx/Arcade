@@ -37,9 +37,44 @@ Arc::Menu::~Menu()
     std::cout << "Menu is class destroyed.\n";
 }
 
-void Arc::Menu::init()
+void Arc::Menu::createTextWithLib(const std::string &libGame, size_t &posY)
 {
-    std::cout << "Menu is init.\n";
+    Arc::Text text;
+
+    text.text = libGame;
+    text.color = Arc::Color::RED;
+    text.fontPath = "fonts/heavitas.ttf";
+    text.pos = {100, posY += 50};
+    this->gameData.textSet.push_back(text);
+}
+
+void Arc::Menu::getLibFromDirectory()
+{
+    std::string filename;
+
+    for (const auto &entry : std::filesystem::directory_iterator("./lib/")) {
+        filename = entry.path().filename().string();
+        if (allLibGame.find(filename) != allLibGame.end()) {
+            mapLibGame.insert(filename);
+        }
+        if (allLibGraphical.find(filename) != allLibGraphical.end()) {
+            mapLibGraphical.insert(filename);
+        }
+    }
+}
+
+const Arc::GameData Arc::Menu::init()
+{
+    size_t posY = 0;
+
+    getLibFromDirectory();
+    for (const auto &libGame : mapLibGame) {
+        createTextWithLib(libGame, posY);
+    }
+    for (const auto &libGraphical : mapLibGraphical) {
+        createTextWithLib(libGraphical, posY);
+    }
+    return this->gameData;
 }
 
 void Arc::Menu::stop()
@@ -49,11 +84,11 @@ void Arc::Menu::stop()
 
 const Arc::GameData &Arc::Menu::update(const std::vector<Arc::Event> &)
 {
-    std::cout << "Update Pacman ...\n";
+    std::cout << "Update Menu ...\n";
     return this->gameData;
 }
 
 const std::string &Arc::Menu::getName() const
 {
-    return this->name;
+    return this->_name;
 }
