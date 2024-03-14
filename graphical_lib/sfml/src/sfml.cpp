@@ -50,7 +50,7 @@ void Arc::Sfml::refresh(const Arc::GameData &gameData)
                 return;
             }
 
-            sf::Text text(gameData.textSet[i].text, font, 20);
+            sf::Text text(gameData.textSet[i].text, font, gameData.textSet[i].size);
             text.setFillColor(sf::Color::White);
             text.setStyle(sf::Text::Regular);
             text.setPosition(sf::Vector2f(gameData.textSet[i].pos.x, gameData.textSet[i].pos.y));

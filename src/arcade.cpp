@@ -38,7 +38,7 @@ void Arc::Arcade::loop()
     this->displayModule->init();
     this->gameModule->init();
 
-    for (int i = 0; i < 60; ++i)
+    for (int i = 0; i < 100; ++i)
     {
         Arc::FrameRate::start();
 
