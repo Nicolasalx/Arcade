@@ -24,7 +24,7 @@ namespace Arc
             ~Arcade() = default;
 
             void launch();
-            void loop(const std::size_t &frameRate);
+            void loop();
 
         private:
             std::string graphicalLib;
