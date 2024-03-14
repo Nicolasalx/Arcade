@@ -37,9 +37,10 @@ Arc::Snake::~Snake()
     std::cout << "Snake is class destroyed.\n";
 }
 
-void Arc::Snake::init()
+const Arc::GameData Arc::Snake::init()
 {
     std::cout << "Snake is init.\n";
+    return this->gameData;
 }
 
 void Arc::Snake::stop()

@@ -17,18 +17,19 @@ namespace Arc
 {
     class Menu : public AGameModule
     {
-    enum libIsPresent {
-        PRESENT,
-        NOT_PRESENT
-    };
     public:
         Menu();
         ~Menu();
 
-        void init();
+        const Arc::GameData init();
         const Arc::GameData &update(const std::vector<Arc::Event> &event);
         void stop();
         const std::string &getName() const;
+        void createTextWithLib(const std::string &libGame, size_t &posY);
+        void getLibFromDirectory();
+
+        static std::string fontPath;
+
     private:
         std::string _name = "Menu";
         std::set<std::string> allLibGame = {

@@ -37,39 +37,45 @@ Arc::Menu::~Menu()
     std::cout << "Menu is class destroyed.\n";
 }
 
-void Arc::Menu::init()
+void Arc::Menu::createTextWithLib(const std::string &libGame, size_t &posY)
 {
-    /*
-        Liste de SfText :
-        - Position initialiser
-        - Color initialiser
+    Arc::Text text;
 
-        Open the directory -> List all files
-    */
+    text.text = libGame;
+    text.color = Arc::Color::RED;
+    text.fontPath = fontPath;
+    text.pos = {100, posY += 50};
+    this->gameData.textSet.push_back(text);
+}
 
-    std::string path = "./lib/";
-    for (const auto &entry : std::filesystem::directory_iterator(path)) {
-        std::string filename = entry.path().filename().string();
+void Arc::Menu::getLibFromDirectory()
+{
+    std::string filename;
+    fontPath = "./fonts/heavitas.ttf";
 
+    for (const auto &entry : std::filesystem::directory_iterator("./lib/")) {
+        filename = entry.path().filename().string();
         if (allLibGame.find(filename) != allLibGame.end()) {
             mapLibGame.insert(filename);
         }
-
         if (allLibGraphical.find(filename) != allLibGraphical.end()) {
             mapLibGraphical.insert(filename);
         }
     }
+}
 
-    std::cout << "LIB GAME\n" << "\n";
-    for (const auto& element : mapLibGame) {
-        std::cout << element << std::endl;
-    }
+const Arc::GameData Arc::Menu::init()
+{
+    size_t posY = 0;
 
-    std::cout << "LIB GRAPHICAL\n" << "\n";
-    for (const auto& element : mapLibGraphical) {
-        std::cout << element << std::endl;
+    getLibFromDirectory();
+    for (const auto &libGame : mapLibGame) {
+        createTextWithLib(libGame, posY);
     }
-    std::cout << "Menu is init.\n";
+    for (const auto &libGraphical : mapLibGraphical) {
+        createTextWithLib(libGraphical, posY);
+    }
+    return this->gameData;
 }
 
 void Arc::Menu::stop()

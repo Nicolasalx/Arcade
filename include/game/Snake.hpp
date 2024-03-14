@@ -18,7 +18,7 @@ namespace Arc
             Snake();
             ~Snake();
 
-            void init();
+            const Arc::GameData init();
             const Arc::GameData &update(const std::vector<Arc::Event> &event);
             void stop();
             const std::string &getName() const;
