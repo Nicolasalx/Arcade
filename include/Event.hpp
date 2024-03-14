@@ -9,12 +9,13 @@
     #define EVENT_HPP_
 
     #include <string>
+    #include "EventType.hpp"
 
 namespace Arc
 {
     struct Event
     {
-        std::string name;
+        EventType type;
     };
 }
 

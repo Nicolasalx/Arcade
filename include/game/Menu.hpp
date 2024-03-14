@@ -8,10 +8,15 @@
 #ifndef PACMAN_HPP_
     #define PACMAN_HPP_
 
-    #include "IGameModule.hpp"
     #include <filesystem>
     #include <set>
     #include "AGameModule.hpp"
+    #include "Pos.hpp"
+
+struct cursorPlace_t {
+    std::string libInSelection;
+    std::string libSelectionned;
+};
 
 namespace Arc
 {
@@ -30,19 +35,18 @@ namespace Arc
 
     private:
         std::string _name = "Menu";
-        std::set<std::string> allLibGame = {
+        std::set<std::string> _allLibGame = {
             "arcade_menu.so",
             "arcade_snake.so",
             "arcade_pacman.so"
         };
-
-        std::set<std::string> allLibGraphical = {
-            {"arcade_ncurses.so"},
-            {"arcade_sfml.so"}
+        std::set<std::string> _allLibGraphical = {
+            "arcade_ncurses.so",
+            "arcade_sfml.so"
         };
-
-        std::set<std::string> mapLibGame;
-        std::set<std::string> mapLibGraphical;
+        std::set<std::string> _mapLibGame;
+        std::set<std::string> _mapLibGraphical;
+        cursorPlace_t _cursorPlace;
     };
 }
 

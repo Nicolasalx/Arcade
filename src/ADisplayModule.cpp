@@ -7,8 +7,7 @@
 
 #include "ADisplayModule.hpp"
 
-//Arc::LibType Arc::ADisplayModule::getType() const
-//{
-//    return Arc::DISPLAY;
-//}
-//
+Arc::LibType Arc::ADisplayModule::getType() const
+{
+    return Arc::DISPLAY;
+}

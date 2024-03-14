@@ -17,7 +17,7 @@ namespace Arc
     public:
         virtual ~AGameModule() = default;
 
-//        Arc::LibType getType() const;
+        Arc::LibType getType() const;
 
     protected:
         Arc::GameData gameData;

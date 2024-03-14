@@ -37,11 +37,11 @@ Arc::Menu::~Menu()
     std::cout << "Menu is class destroyed.\n";
 }
 
-void Arc::Menu::createTextWithLib(const std::string &libGame, size_t &posY)
+void Arc::Menu::createTextWithLib(const std::string &name, size_t &posY)
 {
     Arc::Text text;
 
-    text.text = libGame;
+    text.text = name;
     text.color = Arc::Color::RED;
     text.fontPath = "fonts/heavitas.ttf";
     text.pos = {100, posY += 50};
@@ -52,13 +52,15 @@ void Arc::Menu::getLibFromDirectory()
 {
     std::string filename;
 
+    
+
     for (const auto &entry : std::filesystem::directory_iterator("./lib/")) {
         filename = entry.path().filename().string();
-        if (allLibGame.find(filename) != allLibGame.end()) {
-            mapLibGame.insert(filename);
+        if (_allLibGame.contains(filename)) {
+            _mapLibGame.insert(filename);
         }
-        if (allLibGraphical.find(filename) != allLibGraphical.end()) {
-            mapLibGraphical.insert(filename);
+        if (_allLibGraphical.contains(filename)) {
+            _mapLibGraphical.insert(filename);
         }
     }
 }
@@ -67,11 +69,15 @@ const Arc::GameData Arc::Menu::init()
 {
     size_t posY = 0;
 
+    _cursorPlace = {"arcade_menu.so", "arcade_menu.so"};
     getLibFromDirectory();
-    for (const auto &libGame : mapLibGame) {
+    createTextWithLib("Games list:", posY);
+    createTextWithLib("Graphicals list:", posY);
+    createTextWithLib("Username:", posY);
+    for (const auto &libGame : _mapLibGame) {
         createTextWithLib(libGame, posY);
     }
-    for (const auto &libGraphical : mapLibGraphical) {
+    for (const auto &libGraphical : _mapLibGraphical) {
         createTextWithLib(libGraphical, posY);
     }
     return this->gameData;
@@ -82,7 +88,7 @@ void Arc::Menu::stop()
     std::cout << "Menu is stopped.\n";
 }
 
-const Arc::GameData &Arc::Menu::update(const std::vector<Arc::Event> &)
+const Arc::GameData &Arc::Menu::update(const std::vector<Arc::Event> &event)
 {
     std::cout << "Update Menu ...\n";
     return this->gameData;

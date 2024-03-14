@@ -7,8 +7,7 @@
 
 #include "AGameModule.hpp"
 
-//Arc::LibType Arc::AGameModule::getType() const
-//{
-//    return Arc::GAME;
-//}
-//
+Arc::LibType Arc::AGameModule::getType() const
+{
+    return Arc::GAME;
+}
