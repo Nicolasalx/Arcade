@@ -11,10 +11,11 @@
     #include "IGameModule.hpp"
     #include <filesystem>
     #include <set>
+    #include "AGameModule.hpp"
 
 namespace Arc
 {
-    class Menu : public IGameModule
+    class Menu : public AGameModule
     {
     enum libIsPresent {
         PRESENT,

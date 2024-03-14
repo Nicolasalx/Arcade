@@ -13,6 +13,7 @@
     #include "IDisplayModule.hpp"
     #include "IGameModule.hpp"
     #include "DLLoader.hpp"
+    #include <set>
 
 namespace Arc
 {
@@ -23,7 +24,7 @@ namespace Arc
             ~Arcade() = default;
 
             void launch();
-            void loop();
+            void loop(const std::size_t &frameRate);
 
         private:
             std::string graphicalLib;

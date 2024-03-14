@@ -8,11 +8,11 @@
 #ifndef NCURSES_HPP_
     #define NCURSES_HPP_
 
-    #include "IDisplayModule.hpp"
+    #include "ADisplayModule.hpp"
 
 namespace Arc
 {
-    class Ncurses: public IDisplayModule
+    class Ncurses: public ADisplayModule
     {
         public:
             Ncurses() = default;

@@ -8,11 +8,11 @@
 #ifndef PACMAN_HPP_
     #define PACMAN_HPP_
 
-    #include "IGameModule.hpp"
+    #include "AGameModule.hpp"
 
 namespace Arc
 {
-    class Pacman : public IGameModule
+    class Pacman : public AGameModule
     {
     public:
         Pacman();

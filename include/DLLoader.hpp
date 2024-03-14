@@ -29,6 +29,9 @@ namespace Arc
 
         ~DLLoader()
         {
+            if (this->_handle == nullptr) {
+                return;
+            }
             dlclose(this->_handle);
         }
 
