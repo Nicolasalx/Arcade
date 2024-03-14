@@ -10,9 +10,8 @@
 #include "DLLoader.hpp"
 #include "IDisplayModule.hpp"
 #include "IGameModule.hpp"
+#include "FrameRate.hpp"
 #include <iostream>
-#include <chrono>
-#include <thread>
 
 Arc::Arcade::Arcade(int argc, const char **argv)
 {
@@ -34,25 +33,20 @@ void Arc::Arcade::launch()
     this->gameModule = this->gameLoader.getInstance("entryPoint");
 }
 
-void Arc::Arcade::loop(const std::size_t &frameRate)
+void Arc::Arcade::loop()
 {
     this->displayModule->init();
     this->gameModule->init();
 
-    int frameTime = 1000 / frameRate;
     for (int i = 0; i < 60; ++i)
     {
-        auto start = std::chrono::steady_clock::now();
+        Arc::FrameRate::start();
 
         std::vector<Arc::Event> eventList = this->displayModule->getEvent();
         const GameData &data = this->gameModule->update(eventList);
         this->displayModule->refresh(data);
 
-        auto end = std::chrono::steady_clock::now();
-        auto deltaT = std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count();
-        if (deltaT < frameTime) {
-            std::this_thread::sleep_for(std::chrono::milliseconds(frameTime - deltaT));
-        }
+        Arc::FrameRate::end();
     }
     this->gameModule->stop();
     this->displayModule->stop();
