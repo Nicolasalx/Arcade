@@ -5,11 +5,10 @@
 ## Makefile
 ##
 
-SRC				:=	$(shell find src/ -name "*.cpp") \
-					../ADisplayModule.cpp
+SRC				:=	$(shell find src/ -name "*.cpp")
 
 CPPFLAGS		=	-std=c++20 -Wall -Wextra -fno-gnu-unique \
-					-shared -fpic \
+					-shared -fpic -lsfml-graphics -lsfml-window -lsfml-system \
 					$(ADDITIONAL_FLAGS)
 
 INCLUDE_PATH	=	-I../../include/ \
