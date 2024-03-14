@@ -9,6 +9,7 @@
     #define SFML_HPP_
 
     #include "ADisplayModule.hpp"
+    #include <SFML/Graphics.hpp>
 
 namespace Arc
 {
@@ -24,12 +25,9 @@ namespace Arc
             void stop();
             const std::string &getName() const;
 
-        protected:
         private:
+            sf::RenderWindow _window;
             std::string name = "Sfml";
-
-        protected:
-        private:
     };
 }
 

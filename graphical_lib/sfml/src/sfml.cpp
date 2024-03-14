@@ -29,7 +29,7 @@ __attribute__((destructor)) void destroy(void)
 
 void Arc::Sfml::init()
 {
-    std::cout << "Sfml is init.\n";
+    this->_window.create(sf::VideoMode(1920, 1080), "SFML Arcade");
 }
 
 std::vector<Arc::Event> Arc::Sfml::getEvent()
