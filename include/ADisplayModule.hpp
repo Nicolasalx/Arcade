@@ -16,7 +16,6 @@ namespace Arc
     {
     public:
         virtual ~ADisplayModule() = default;
-        Arc::LibType getType() const;
     };
 }
 
