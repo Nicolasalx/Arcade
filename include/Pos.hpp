@@ -14,8 +14,8 @@ namespace Arc
 {
     struct Pos
     {
-        std::size_t x;
-        std::size_t y;
+        double x;
+        double y;
     };
 }
 
