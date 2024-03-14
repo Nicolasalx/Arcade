@@ -41,11 +41,17 @@ std::vector<Arc::Event> Arc::Sfml::getEvent()
 void Arc::Sfml::refresh(const Arc::GameData &gameData)
 {
     (void) gameData;
+    if (_window.isOpen()) {
+        _window.clear(sf::Color::Black);
+
+        _window.display();
+    }
     std::cout << "Refresh Sfml ...";
 }
 
 void Arc::Sfml::stop()
 {
+    this->_window.close();
     std::cout << "Sfml is stopped.\n";
 }
 

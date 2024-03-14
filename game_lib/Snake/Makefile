@@ -5,8 +5,7 @@
 ## Makefile
 ##
 
-SRC				:=	$(shell find src/ -name "*.cpp") \
-					../AGameModule.cpp
+SRC				:=	$(shell find src/ -name "*.cpp")
 
 CPPFLAGS		=	-std=c++20 -Wall -Wextra -fno-gnu-unique \
 					-shared -fpic \
