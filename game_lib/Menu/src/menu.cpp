@@ -37,7 +37,6 @@ Arc::Menu::~Menu()
     std::cout << "Menu is class destroyed.\n";
 }
 
-
 void Arc::Menu::init()
 {
     /*
@@ -49,8 +48,26 @@ void Arc::Menu::init()
     */
 
     std::string path = "./lib/";
-    for (const auto & entry : std::filesystem::directory_iterator(path)) {
-        std::cout << entry.path() << std::endl;
+    for (const auto &entry : std::filesystem::directory_iterator(path)) {
+        std::string filename = entry.path().filename().string();
+
+        if (allLibGame.find(filename) != allLibGame.end()) {
+            mapLibGame.insert(filename);
+        }
+
+        if (allLibGraphical.find(filename) != allLibGraphical.end()) {
+            mapLibGraphical.insert(filename);
+        }
+    }
+
+    std::cout << "LIB GAME\n" << "\n";
+    for (const auto& element : mapLibGame) {
+        std::cout << element << std::endl;
+    }
+
+    std::cout << "LIB GRAPHICAL\n" << "\n";
+    for (const auto& element : mapLibGraphical) {
+        std::cout << element << std::endl;
     }
     std::cout << "Menu is init.\n";
 }

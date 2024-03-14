@@ -10,11 +10,16 @@
 
     #include "IGameModule.hpp"
     #include <filesystem>
+    #include <set>
 
 namespace Arc
 {
     class Menu : public IGameModule
     {
+    enum libIsPresent {
+        PRESENT,
+        NOT_PRESENT
+    };
     public:
         Menu();
         ~Menu();
@@ -25,6 +30,19 @@ namespace Arc
         const std::string &getName() const;
     private:
         std::string _name = "Menu";
+        std::set<std::string> allLibGame = {
+            "arcade_menu.so",
+            "arcade_snake.so",
+            "arcade_pacman.so"
+        };
+
+        std::set<std::string> allLibGraphical = {
+            {"arcade_ncurses.so"},
+            {"arcade_sfml.so"}
+        };
+
+        std::set<std::string> mapLibGame;
+        std::set<std::string> mapLibGraphical;
     };
 }
 
