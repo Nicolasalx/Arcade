@@ -28,6 +28,9 @@ void Arc::Arcade::launch()
 {
     this->displayLoader.load(this->graphicalLib);
     this->displayModule = displayLoader.getInstance("entryPoint");
+    if (this->displayModule->getType() != Arc::DISPLAY) {
+        throw my::tracked_exception("Invalid graphical library.");
+    }
 
     this->gameLoader.load("./lib/arcade_menu.so");
     this->gameModule = this->gameLoader.getInstance("entryPoint");
