@@ -51,14 +51,17 @@ void Arc::Menu::createTextWithLib(const std::string &name, double &posY)
 
 void Arc::Menu::selectTypeLib(const std::string &filename)
 {
-    Arc::DLLoader<void> libLoader(filename);
+    Arc::DLLoader<void> libLoader;
+    std::string nameLib;
 
     try {
-        
+        libLoader.load(filename);
+        nameLib = libLoader.getName();
+    } catch (const std::exception& e) {
+        return;
     }
-    catch(const std::exception& e) {
-        std::cerr << e.what() << '\n';
-    }
+
+    std::cout << "HERE NAME LIB: " << nameLib << "\n";
 
     if (filename.find("arcade") == std::string::npos) {
         return;
