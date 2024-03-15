@@ -31,7 +31,7 @@ namespace Arc
             std::vector<sf::Text> _textList;
             std::map<std::string, sf::Font> _fontList;
 
-            std::vector<std::pair<sf::Keyboard::Key, Arc::EventType>> _keybind = {
+            std::vector<std::pair<sf::Keyboard::Key, Arc::EventType>> _keyBind = {
                 {sf::Keyboard::E, Arc::EventType::EXIT},
                 {sf::Keyboard::Up, Arc::EventType::UP},
                 {sf::Keyboard::Down, Arc::EventType::DOWN},
@@ -45,7 +45,7 @@ namespace Arc
                 {sf::Keyboard::Z, Arc::EventType::INTERACT_2},
                 {sf::Keyboard::Enter, Arc::EventType::ENTER}
             };
-            std::map<Arc::Color, sf::Color> _colorbind = {
+            std::map<Arc::Color, sf::Color> _colorBind = {
                 {Arc::Color::WHITE, sf::Color::White},
                 {Arc::Color::RED, sf::Color::Red},
                 {Arc::Color::GREEN, sf::Color::Green},
