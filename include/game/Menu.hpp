@@ -34,7 +34,7 @@ namespace Arc
         void getLibFromDirectory();
 
     private:
-        std::string _name = "Menu";
+        std::string _name = "arcade_D_menu";
         std::set<std::string> _allLibGame = {
             "arcade_menu.so",
             "arcade_snake.so",
