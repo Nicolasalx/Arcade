@@ -30,7 +30,7 @@ void Arc::Sfml::refresh(const Arc::GameData &gameData)
             this->_textList[i].setString(gameData.textSet[i].text);
             this->_textList[i].setFont(this->_fontList.at(gameData.textSet[i].fontPath));
             this->_textList[i].setCharacterSize(gameData.textSet[i].size);
-            this->_textList[i].setFillColor(this->_colorbind.at(gameData.textSet[i].color));
+            this->_textList[i].setFillColor(this->_colorBind.at(gameData.textSet[i].color));
             this->_textList[i].setPosition(sf::Vector2f(gameData.textSet[i].pos.x, gameData.textSet[i].pos.y));
             _window.draw(this->_textList[i]);
         }

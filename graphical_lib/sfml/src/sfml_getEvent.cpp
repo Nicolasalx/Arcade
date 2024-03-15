@@ -24,7 +24,7 @@ Arc::Event Arc::Sfml::getEvent()
                 event.buffer += this->_event.text.unicode;
             }
         } else {
-            for (const auto &currentKey : this->_keybind) {
+            for (const auto &currentKey : this->_keyBind) {
                 if (sf::Keyboard::isKeyPressed(currentKey.first)) {
                     event.eventType.push_back(currentKey.second);
                 }

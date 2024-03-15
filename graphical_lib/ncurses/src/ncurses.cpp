@@ -33,6 +33,11 @@ void Arc::Ncurses::init()
     curs_set(0);
     timeout(0);
     keypad(stdscr, TRUE);
+    start_color();
+    for (const auto &currentCol : this->_colorBind) {
+        init_color(currentCol.second.color, currentCol.second.r, currentCol.second.g, currentCol.second.b);
+        init_pair(currentCol.second.pair, currentCol.second.color, COLOR_BLACK);
+    }
 }
 
 Arc::Event Arc::Ncurses::getEvent()
@@ -48,7 +53,7 @@ Arc::Event Arc::Ncurses::getEvent()
                 event.buffer += c;
             }
         } else {
-            for (const auto &currentKey : this->_keybind) {
+            for (const auto &currentKey : this->_keyBind) {
                 if (c == currentKey.first) {
                     event.eventType.push_back(currentKey.second);
                 }
@@ -64,9 +69,13 @@ void Arc::Ncurses::refresh(const Arc::GameData &gameData)
     int size_x;
     int size_y;
     getmaxyx(stdscr, size_y, size_x);
+    clear();
 
     for (const auto &currentText : gameData.textSet) {
-        mvprintw(currentText.pos.y / 1080.0 * size_y, currentText.pos.x / 1920.0 * size_x, currentText.text.c_str());
+        attron(COLOR_PAIR(this->_colorBind.at(currentText.color).pair));
+        mvprintw(currentText.pos.y / 1080.0 * size_y,
+            currentText.pos.x / 1920.0 * size_x, currentText.text.c_str());
+        attroff(COLOR_PAIR(this->_colorBind.at(currentText.color).pair));
     }
     ::refresh();
     this->_ignoreKey = gameData.player.ignoreKey;
