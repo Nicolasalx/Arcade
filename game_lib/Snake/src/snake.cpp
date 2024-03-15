@@ -52,11 +52,6 @@ const Arc::GameData &Arc::Snake::update(const Arc::Event &)
     return this->gameData;
 }
 
-const std::string &Arc::Snake::getName() const
-{
-    return this->_name;
-}
-
 extern "C"
 {
     const std::string &getName()

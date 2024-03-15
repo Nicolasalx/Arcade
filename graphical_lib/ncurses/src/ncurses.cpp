@@ -77,11 +77,6 @@ void Arc::Ncurses::stop()
     endwin();
 }
 
-const std::string &Arc::Ncurses::getName() const
-{
-    return this->_name;
-}
-
 extern "C"
 {
     const std::string &getName()

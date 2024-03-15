@@ -223,11 +223,6 @@ const Arc::GameData &Arc::Menu::update(const Arc::Event &event)
     return this->gameData;
 }
 
-const std::string &Arc::Menu::getName() const
-{
-    return this->_name;
-}
-
 extern "C"
 {
     const std::string &getName()

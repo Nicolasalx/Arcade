@@ -26,11 +26,6 @@ __attribute__((destructor)) void destroy(void)
     std::cout << "Sfml unloaded !\n";
 }
 
-const std::string &Arc::Sfml::getName() const
-{
-    return this->_name;
-}
-
 extern "C"
 {
     const std::string &getName()
