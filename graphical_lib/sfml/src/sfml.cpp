@@ -41,8 +41,14 @@ Arc::Event Arc::Sfml::getEvent()
         if (this->_event.type == sf::Event::Closed) {
             event.eventType.push_back(Arc::EventType::EXIT);
         }
-        if (_ignoreKey) {
-
+        if (this->_ignoreKey) {
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)) {
+                event.eventType.push_back(Arc::EventType::ENTER);
+            }
+            else if (this->_event.type == sf::Event::TextEntered
+            && this->_event.text.unicode < 128) {
+                event.buffer += this->_event.text.unicode;
+            }
         } else {
             for (const auto &currentKey : this->_keybind) {
                 if (sf::Keyboard::isKeyPressed(currentKey.first)) {
@@ -76,13 +82,14 @@ void Arc::Sfml::refresh(const Arc::GameData &gameData)
             this->_textList[i].setString(gameData.textSet[i].text);
             this->_textList[i].setFont(this->_fontList.at(gameData.textSet[i].fontPath));
             this->_textList[i].setCharacterSize(gameData.textSet[i].size);
-            this->_textList[i].setFillColor(sf::Color::White);
+            this->_textList[i].setFillColor(this->_colorbind.at(gameData.textSet[i].color));
             this->_textList[i].setPosition(sf::Vector2f(gameData.textSet[i].pos.x, gameData.textSet[i].pos.y));
             _window.draw(this->_textList[i]);
         }
 
         _window.display();
     }
+    this->_ignoreKey = gameData.player.ignoreKey;
     std::cout << "Refresh Sfml ...";
 }
 

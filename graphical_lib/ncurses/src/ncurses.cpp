@@ -39,17 +39,20 @@ Arc::Event Arc::Ncurses::getEvent()
 {
     Arc::Event event;
     int c = getch();
+
     while (c != ERR) {
-        if (c == 'e') {
-            event.eventType.push_back(Arc::EventType::EXIT);
-        } else if (c == KEY_UP) {
-            event.eventType.push_back(Arc::EventType::UP);
-        } else if (c == KEY_DOWN) {
-            event.eventType.push_back(Arc::EventType::DOWN);
-        } else if (c == KEY_RIGHT) {
-            event.eventType.push_back(Arc::EventType::RIGHT);
-        } else if (c == KEY_LEFT) {
-            event.eventType.push_back(Arc::EventType::LEFT);
+        if (this->_ignoreKey) {
+            if (c == '\n') {
+                event.eventType.push_back(Arc::EventType::ENTER);
+            } else if (c < 128) {
+                event.buffer += c;
+            }
+        } else {
+            for (const auto &currentKey : this->_keybind) {
+                if (c == currentKey.first) {
+                    event.eventType.push_back(currentKey.second);
+                }
+            }
         }
         c = getch();
     }
@@ -66,6 +69,7 @@ void Arc::Ncurses::refresh(const Arc::GameData &gameData)
         mvprintw(currentText.pos.y / 1080.0 * size_y, currentText.pos.x / 1920.0 * size_x, currentText.text.c_str());
     }
     ::refresh();
+    this->_ignoreKey = gameData.player.ignoreKey;
 }
 
 void Arc::Ncurses::stop()

@@ -25,9 +25,23 @@ namespace Arc
             void stop();
             const std::string &getName() const;
 
-        protected:
         private:
             std::string _name = "Ncurses";
+
+            std::vector<std::pair<int, Arc::EventType>> _keybind = {
+                {'e', Arc::EventType::EXIT},
+                {KEY_UP, Arc::EventType::UP},
+                {KEY_DOWN, Arc::EventType::DOWN},
+                {KEY_LEFT, Arc::EventType::LEFT},
+                {KEY_RIGHT, Arc::EventType::RIGHT},
+                {'n', Arc::EventType::NEXT_DISPLAY},
+                {'g', Arc::EventType::NEXT_GAME},
+                {'m', Arc::EventType::BACK_MENU},
+                {'r', Arc::EventType::RESTART},
+                {'a', Arc::EventType::INTERACT_1},
+                {'z', Arc::EventType::INTERACT_2},
+                {'\n', Arc::EventType::ENTER}
+            };
     };
 }
 
