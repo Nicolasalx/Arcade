@@ -18,7 +18,7 @@ namespace Arc
         Pacman();
         ~Pacman();
 
-        void init(const std::string &lib);
+        void init();
         const Arc::GameData &update(const Arc::Event &event);
         void stop();
         const std::string &getName() const;
