@@ -42,14 +42,11 @@ std::vector<Arc::Event> Arc::Sfml::getEvent()
         if (this->_event.type == sf::Event::Closed ||
         sf::Keyboard::isKeyPressed(sf::Keyboard::E)) {
             event.push_back(Arc::Event::EXIT);
-        } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
-            event.push_back(Arc::Event::UP);
-        } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
-            event.push_back(Arc::Event::DOWN);
-        } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
-            event.push_back(Arc::Event::RIGHT);
-        } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
-            event.push_back(Arc::Event::LEFT);
+        }
+        for (const auto &currentKey : this->_keybind) {
+            if (sf::Keyboard::isKeyPressed(currentKey.first)) {
+                event.push_back(currentKey.second);
+            }
         }
     }
     return event;

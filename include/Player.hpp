@@ -17,8 +17,9 @@ namespace Arc
         Arc::Pos pos;
         int health = 0;
         std::string userName;
-        std::size_t score;
+        std::size_t score = 0;
         std::vector<Tile> tileSet;
+        bool ignoreKey = false;
     };
 }
 
