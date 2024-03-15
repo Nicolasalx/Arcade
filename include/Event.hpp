@@ -11,17 +11,18 @@
 namespace Arc
 {
     enum class Event {
-        KEY_PRESSED,
-        KEY_RELEASED,
-        MOUSE_BUTTON_PRESSED,
-        MOUSE_BUTTON_RELEASED,
-        SPACE,
+        EXIT,
         UP,
         DOWN,
         LEFT,
         RIGHT,
-        ENTER,
-        KEY_E
+        NEXT_DISPLAY,
+        NEXT_GAME,
+        BACK_MENU,
+        RESTART,
+        INTERACT_1,
+        INTERACT_2,
+        ENTER
     };
 }
 

@@ -41,7 +41,15 @@ std::vector<Arc::Event> Arc::Sfml::getEvent()
     while (this->_window.pollEvent(this->_event)) {
         if (this->_event.type == sf::Event::Closed ||
         sf::Keyboard::isKeyPressed(sf::Keyboard::E)) {
-            event.push_back(Arc::Event::KEY_E);
+            event.push_back(Arc::Event::EXIT);
+        } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
+            event.push_back(Arc::Event::UP);
+        } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
+            event.push_back(Arc::Event::DOWN);
+        } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
+            event.push_back(Arc::Event::RIGHT);
+        } else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
+            event.push_back(Arc::Event::LEFT);
         }
     }
     return event;
@@ -57,8 +65,7 @@ void Arc::Sfml::refresh(const Arc::GameData &gameData)
             if (!this->_fontList.contains(gameData.textSet[i].fontPath)) {
                 sf::Font font;
                 if (!font.loadFromFile(gameData.textSet[i].fontPath)) {
-//                    throw my::tracked_exception("Failed to load: " + gameData.textSet[i].fontPath);
-                    return;
+                    throw my::tracked_exception("Failed to load: " + gameData.textSet[i].fontPath);
                 }
                 this->_fontList[gameData.textSet[i].fontPath] = font;
             }
