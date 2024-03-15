@@ -31,7 +31,7 @@ namespace Arc
         const Arc::GameData &update(const std::vector<Arc::Event> &event);
         void stop();
         const std::string &getName() const;
-        void createTextWithLib(const std::string &libGame, double &posY);
+        void createTextWithLib(const std::string &libGame, Pos pos);
         void getLibFromDirectory();
         void selectTypeLib(const std::string &filename);
 
@@ -40,7 +40,7 @@ namespace Arc
         std::vector<std::string> _mapLibGame;
         std::vector<std::string> _mapLibGraphical;
         cursorPlace_t _cursorPlace;
-        
+        std::vector<Arc::Text> _allText;
     };
 }
 

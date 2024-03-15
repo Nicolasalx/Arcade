@@ -37,16 +37,17 @@ Arc::Menu::~Menu()
     std::cout << "Menu is class destroyed.\n";
 }
 
-void Arc::Menu::createTextWithLib(const std::string &name, double &posY)
+void Arc::Menu::createTextWithLib(const std::string &name, Pos pos)
 {
     Arc::Text text;
 
     text.text = name;
     text.color = Arc::Color::RED;
     text.fontPath = "fonts/DroidSansMono.ttf";
-    text.pos = {100, posY += 50};
+    text.pos = {pos.x, pos.y};
     text.size = 20;
     this->gameData.textSet.push_back(text);
+    this->_allText.push_back(text);
 }
 
 void Arc::Menu::selectTypeLib(const std::string &filename)
@@ -81,19 +82,22 @@ void Arc::Menu::getLibFromDirectory()
 
 void Arc::Menu::init()
 {
-    double posY = 0;
+    double posY = 250;
 
     getLibFromDirectory();
 
-    createTextWithLib("Games list:", posY);
-    createTextWithLib("Graphicals list:", posY);
-    createTextWithLib("Username:", posY);
+    createTextWithLib("Games list:", (Arc::Pos) {500, 200});
     for (const auto &libGame : _mapLibGame) {
-        createTextWithLib(libGame, posY);
+        createTextWithLib(libGame, (Arc::Pos) {500, posY += 50});
     }
+
+    posY = 250;
+    createTextWithLib("Graphicals list:", (Arc::Pos) {1100, 200});
     for (const auto &libGraphical : _mapLibGraphical) {
-        createTextWithLib(libGraphical, posY);
+        createTextWithLib(libGraphical, (Arc::Pos) {1100, posY += 50});
     }
+    createTextWithLib("Username", (Arc::Pos) {400, 900});
+    createTextWithLib("Valider", (Arc::Pos) {1300, 900});
 }
 
 void Arc::Menu::stop()
