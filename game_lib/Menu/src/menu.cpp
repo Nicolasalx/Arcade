@@ -92,7 +92,7 @@ void Arc::Menu::getLibFromDirectory()
     }
 }
 
-void Arc::Menu::init()
+void Arc::Menu::init(const std::string &lib)
 {
     double posY = 250;
 

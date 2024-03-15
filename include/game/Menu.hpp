@@ -34,7 +34,7 @@ namespace Arc
         Menu();
         ~Menu();
 
-        void init();
+        void init(const std::string &lib);
         const Arc::GameData &update(const Arc::Event &event);
         void stop();
         const std::string &getName() const;

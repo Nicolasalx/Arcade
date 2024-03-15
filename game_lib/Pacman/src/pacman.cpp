@@ -36,7 +36,7 @@ Arc::Pacman::~Pacman()
     std::cout << "Pacman is class destroyed.\n";
 }
 
-void Arc::Pacman::init()
+void Arc::Pacman::init(const std::string &)
 {
     std::cout << "Pacman is init.\n";
 }

@@ -50,7 +50,7 @@ static bool exitDetected(const Arc::Event &eventList)
 void Arc::Arcade::loop()
 {
     this->displayModule->init();
-    this->gameModule->init();
+    this->gameModule->init(this->graphicalLib);
 
     while (true)
     {
