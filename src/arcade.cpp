@@ -36,7 +36,7 @@ void Arc::Arcade::launch()
 
 static bool exitDetected(const std::vector<Arc::Event> &eventList)
 {
-    for (size_t i = 0; i < eventList.size(); ++i) {
+    for (std::size_t i = 0; i < eventList.size(); ++i) {
         if (eventList[i] == Arc::Event::KEY_E) {
             return true;
         }
