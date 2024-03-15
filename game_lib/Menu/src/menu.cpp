@@ -49,18 +49,35 @@ void Arc::Menu::createTextWithLib(const std::string &name, double &posY)
     this->gameData.textSet.push_back(text);
 }
 
+void Arc::Menu::selectTypeLib(const std::string &filename)
+{
+    Arc::DLLoader<void> libLoader(filename);
+
+    try {
+        
+    }
+    catch(const std::exception& e) {
+        std::cerr << e.what() << '\n';
+    }
+
+    if (filename.find("arcade") == std::string::npos) {
+        return;
+    }
+    if (filename.find("D") != std::string::npos) {
+        _mapLibGame.insert(filename);
+    }
+    if (filename.find("G") != std::string::npos) {
+        _mapLibGraphical.insert(filename);
+    }
+}
+
 void Arc::Menu::getLibFromDirectory()
 {
     std::string filename;
 
     for (const auto &entry : std::filesystem::directory_iterator("./lib/")) {
         filename = entry.path().filename().string();
-        if (_allLibGame.contains(filename)) {
-            _mapLibGame.insert(filename);
-        }
-        if (_allLibGraphical.contains(filename)) {
-            _mapLibGraphical.insert(filename);
-        }
+        selectTypeLib(filename);
     }
 }
 
@@ -68,17 +85,17 @@ void Arc::Menu::init()
 {
     double posY = 0;
 
-    _cursorPlace = {"arcade_menu.so", "arcade_menu.so"};
     getLibFromDirectory();
-    createTextWithLib("Games list:", posY);
-    createTextWithLib("Graphicals list:", posY);
-    createTextWithLib("Username:", posY);
-    for (const auto &libGame : _mapLibGame) {
-        createTextWithLib(libGame, posY);
-    }
-    for (const auto &libGraphical : _mapLibGraphical) {
-        createTextWithLib(libGraphical, posY);
-    }
+    
+    //createTextWithLib("Games list:", posY);
+    //createTextWithLib("Graphicals list:", posY);
+    //createTextWithLib("Username:", posY);
+    //for (const auto &libGame : _mapLibGame) {
+    //    createTextWithLib(libGame, posY);
+    //}
+    //for (const auto &libGraphical : _mapLibGraphical) {
+    //    createTextWithLib(libGraphical, posY);
+    //}
 }
 
 void Arc::Menu::stop()
@@ -86,7 +103,7 @@ void Arc::Menu::stop()
     std::cerr << "Menu is stopped.\n";
 }
 
-const Arc::GameData &Arc::Menu::update(const std::vector<Arc::Event> &event)
+const Arc::GameData &Arc::Menu::update(const std::vector<Arc::Event> &)
 {
     return this->gameData;
 }

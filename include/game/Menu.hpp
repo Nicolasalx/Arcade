@@ -12,6 +12,7 @@
     #include <set>
     #include "AGameModule.hpp"
     #include "Pos.hpp"
+    #include "DLLoader.hpp"
 
 struct cursorPlace_t {
     std::string libInSelection;
@@ -32,6 +33,7 @@ namespace Arc
         const std::string &getName() const;
         void createTextWithLib(const std::string &libGame, double &posY);
         void getLibFromDirectory();
+        void selectTypeLib(const std::string &filename);
 
     private:
         std::string _name = "arcade_D_menu";
