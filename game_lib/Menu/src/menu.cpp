@@ -55,22 +55,17 @@ void Arc::Menu::selectTypeLib(const std::string &filename)
     std::string nameLib;
 
     try {
-        libLoader.load(filename);
+        libLoader.load("./lib/" + filename);
         nameLib = libLoader.getName();
-    } catch (const std::exception& e) {
+    } catch (const std::exception &e) {
         return;
     }
 
-    std::cout << "HERE NAME LIB: " << nameLib << "\n";
-
-    if (filename.find("arcade") == std::string::npos) {
-        return;
+    if (nameLib.find("arcade_G") != std::string::npos) {
+        _mapLibGame.push_back(filename);
     }
-    if (filename.find("D") != std::string::npos) {
-        _mapLibGame.insert(filename);
-    }
-    if (filename.find("G") != std::string::npos) {
-        _mapLibGraphical.insert(filename);
+    if (nameLib.find("arcade_D") != std::string::npos) {
+        _mapLibGraphical.push_back(filename);
     }
 }
 
@@ -89,16 +84,16 @@ void Arc::Menu::init()
     double posY = 0;
 
     getLibFromDirectory();
-    
-    //createTextWithLib("Games list:", posY);
-    //createTextWithLib("Graphicals list:", posY);
-    //createTextWithLib("Username:", posY);
-    //for (const auto &libGame : _mapLibGame) {
-    //    createTextWithLib(libGame, posY);
-    //}
-    //for (const auto &libGraphical : _mapLibGraphical) {
-    //    createTextWithLib(libGraphical, posY);
-    //}
+
+    createTextWithLib("Games list:", posY);
+    createTextWithLib("Graphicals list:", posY);
+    createTextWithLib("Username:", posY);
+    for (const auto &libGame : _mapLibGame) {
+        createTextWithLib(libGame, posY);
+    }
+    for (const auto &libGraphical : _mapLibGraphical) {
+        createTextWithLib(libGraphical, posY);
+    }
 }
 
 void Arc::Menu::stop()

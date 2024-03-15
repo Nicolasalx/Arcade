@@ -9,7 +9,7 @@
     #define PACMAN_HPP_
 
     #include <filesystem>
-    #include <set>
+    #include <vector>
     #include "AGameModule.hpp"
     #include "Pos.hpp"
     #include "DLLoader.hpp"
@@ -37,18 +37,10 @@ namespace Arc
 
     private:
         std::string _name = "arcade_D_menu";
-        std::set<std::string> _allLibGame = {
-            "arcade_menu.so",
-            "arcade_snake.so",
-            "arcade_pacman.so"
-        };
-        std::set<std::string> _allLibGraphical = {
-            "arcade_ncurses.so",
-            "arcade_sfml.so"
-        };
-        std::set<std::string> _mapLibGame;
-        std::set<std::string> _mapLibGraphical;
+        std::vector<std::string> _mapLibGame;
+        std::vector<std::string> _mapLibGraphical;
         cursorPlace_t _cursorPlace;
+        
     };
 }
 
