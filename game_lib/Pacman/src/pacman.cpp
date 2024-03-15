@@ -57,3 +57,12 @@ const std::string &Arc::Pacman::getName() const
 {
     return this->_name;
 }
+
+extern "C"
+{
+    const char *getName()
+    {
+        static const char name[] = "arcade_G_pacman";
+        return name;
+    }
+}
