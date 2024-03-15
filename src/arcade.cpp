@@ -29,8 +29,11 @@ void Arc::Arcade::launch()
     this->displayLoader.load(this->graphicalLib);
     this->displayModule = displayLoader.getInstance("entryPoint");
 
+    if (!this->displayLoader.getName().starts_with("arcade_D_")) {
+        throw my::tracked_exception("Invalid graphical lib.");
+    }
+
     this->gameLoader.load("./lib/arcade_menu.so");
-    const char *str = this->gameLoader.getName();
     this->gameModule = this->gameLoader.getInstance("entryPoint");
 }
 

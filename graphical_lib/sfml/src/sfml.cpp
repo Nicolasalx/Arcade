@@ -18,7 +18,6 @@ extern "C"
 {
     Arc::IDisplayModule *entryPoint(void)
     {
-        std::cout << "entry point Sfml !\n";
         return new Arc::Sfml();
     }
 }
@@ -39,8 +38,7 @@ std::vector<Arc::Event> Arc::Sfml::getEvent()
     std::vector<Arc::Event> event;
 
     while (this->_window.pollEvent(this->_event)) {
-        if (this->_event.type == sf::Event::Closed ||
-        sf::Keyboard::isKeyPressed(sf::Keyboard::E)) {
+        if (this->_event.type == sf::Event::Closed) {
             event.push_back(Arc::Event::EXIT);
         }
         for (const auto &currentKey : this->_keybind) {
@@ -97,9 +95,9 @@ const std::string &Arc::Sfml::getName() const
 
 extern "C"
 {
-    const char *getName()
+    const std::string &getName()
     {
-        static const char name[] = "arcade_D_sfml";
+        static const std::string name = "arcade_D_sfml";
         return name;
     }
 }

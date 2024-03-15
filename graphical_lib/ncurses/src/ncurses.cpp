@@ -17,7 +17,6 @@ extern "C"
 {
     Arc::IDisplayModule *entryPoint(void)
     {
-        std::cout << "entry point Ncurses !\n";
         return new Arc::Ncurses();
     }
 }
@@ -81,9 +80,9 @@ const std::string &Arc::Ncurses::getName() const
 
 extern "C"
 {
-    const char *getName()
+    const std::string &getName()
     {
-        static const char name[] = "arcade_D_ncurses";
+        static const std::string name = "arcade_D_ncurses";
         return name;
     }
 }

@@ -17,7 +17,6 @@ extern "C"
 {
     Arc::IGameModule *entryPoint(void)
     {
-        std::cout << "entry point Menu !\n";
         return new Arc::Menu();
     }
 }
@@ -117,9 +116,9 @@ const std::string &Arc::Menu::getName() const
 
 extern "C"
 {
-    const char *getName()
+    const std::string &getName()
     {
-        static const char name[] = "arcade_G_menu";
+        static const std::string name = "arcade_G_menu";
         return name;
     }
 }
