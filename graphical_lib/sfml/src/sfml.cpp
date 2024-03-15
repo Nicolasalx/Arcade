@@ -88,5 +88,14 @@ void Arc::Sfml::stop()
 
 const std::string &Arc::Sfml::getName() const
 {
-    return this->name;
+    return this->_name;
+}
+
+extern "C"
+{
+    const char *getName()
+    {
+        static const char name[] = "arcade_D_sfml";
+        return name;
+    }
 }

@@ -30,6 +30,7 @@ void Arc::Arcade::launch()
     this->displayModule = displayLoader.getInstance("entryPoint");
 
     this->gameLoader.load("./lib/arcade_menu.so");
+    const char *str = this->gameLoader.getName();
     this->gameModule = this->gameLoader.getInstance("entryPoint");
 }
 

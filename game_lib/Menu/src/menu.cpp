@@ -97,3 +97,12 @@ const std::string &Arc::Menu::getName() const
 {
     return this->_name;
 }
+
+extern "C"
+{
+    const char *getName()
+    {
+        static const char name[] = "arcade_G_menu";
+        return name;
+    }
+}
