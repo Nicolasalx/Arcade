@@ -56,7 +56,6 @@ void Arc::Menu::createTextWithLib(const std::string &name, Pos pos, enum isSelec
     text.pos = {pos.x, pos.y};
     text.size = 20;
     this->gameData.textSet.push_back(text);
-
     if (isSelectable == SELECTABLE) {
         _allTextSelectable.push_back(text);
     }
@@ -73,7 +72,6 @@ void Arc::Menu::selectTypeLib(const std::string &filename)
     } catch (const std::exception &e) {
         return;
     }
-
     if (nameLib.find("arcade_G") != std::string::npos) {
         this->gameData.lib.gamePath.push_back(filename);
     }
@@ -98,7 +96,6 @@ void Arc::Menu::init()
 
     getLibFromDirectory();
     createTextWithLib("Games list:", (Arc::Pos) {500, 200}, isSelectable_e::NOT_SELECTABLE);
-
     for (const auto &libGame : this->gameData.lib.gamePath) {
         createTextWithLib(libGame, (Arc::Pos) {500, posY += 50}, isSelectable_e::SELECTABLE);
     }
@@ -122,13 +119,29 @@ void Arc::Menu::stop()
     std::cerr << "Menu is stopped.\n";
 }
 
-const Arc::GameData &Arc::Menu::update(const std::vector<Arc::Event> &)
+const Arc::GameData &Arc::Menu::update(const std::vector<Arc::Event> &event)
 {
     for (const auto &test: _allTextSelectable) {
         std::cout << test.text << "\n";
     }
 
-    
+    for ()
+        switch (event)
+        {
+            case Arc::Event::DOWN:
+            
+            break;
+        
+        default:
+            break;
+        }
+
+
+        if (event == Arc::Event::DOWN) {
+
+        }
+
+
     // ! If Down
     // Change text at index in white
     // _cursorPlace.indexInSelection += 1;
