@@ -36,6 +36,9 @@ Arc::Menu::~Menu()
     std::cout << "Menu is class destroyed.\n";
 }
 
+// ! WARNING -> The filepath can be different don't put ./lib/ in DUR
+// ../lib/arcade_valo.so
+
 std::string Arc::Menu::defineNewName(const std::string &name)
 {
     const std::string libPath = "./lib/";
@@ -51,14 +54,14 @@ void Arc::Menu::createTextWithLib(const std::string &name, Pos pos, enum isSelec
     Arc::Text text;
 
     text.text = defineNewName(name);
-    text.color = Arc::Color::RED;
+    text.color = Arc::Color::WHITE;
     text.fontPath = "fonts/DroidSansMono.ttf";
     text.pos = {pos.x, pos.y};
     text.size = 20;
     this->gameData.textSet.push_back(text);
+    
     if (isSelectable == SELECTABLE) {
-        _allTextSelectable.push_back(std::make_pair(text, isSelectable));
-    } else {
+        std::cout << "SELECTABLE -> " << text.text << "\n";
         _allTextSelectable.push_back(std::make_pair(text, isSelectable));
     }
 }
@@ -125,7 +128,8 @@ void Arc::Menu::selectNextChoice()
 {
     std::size_t indexText = 0;
 
-    if (_cursorPlace.elemInSelect + 1 > _allTextSelectable.size()) {
+    std::cout << "CURSOR ->>>> " << _cursorPlace.elemInSelect << "\n";
+    if (_cursorPlace.elemInSelect + 1 > _allTextSelectable.size() - 1) {
         _cursorPlace.elemInSelect = 0;
     } else {
         _cursorPlace.elemInSelect += 1;
@@ -136,9 +140,9 @@ void Arc::Menu::selectNextChoice()
             continue;
         }
         if (textSelectable.first.text == _allTextSelectable[_cursorPlace.elemInSelect].first.text) {
-            this->gameData.textSet[indexText].text = "def";
+            this->gameData.textSet[indexText].color = Arc::Color::YELLOW;
         } else {
-            this->gameData.textSet[indexText].text = "abc";
+            this->gameData.textSet[indexText].color = Arc::Color::WHITE;
         }
         ++indexText;
     }
@@ -148,9 +152,9 @@ void Arc::Menu::selectPrevChoice()
 {
     std::size_t indexText = 0;
 
-    std::cout << "HERE:    " << _cursorPlace.elemInSelect << "\n";
+    std::cout << "CURSOR ->>>> " << _cursorPlace.elemInSelect << "\n";
     if (_cursorPlace.elemInSelect == 0) {
-        _cursorPlace.elemInSelect = _allTextSelectable.size();
+        _cursorPlace.elemInSelect = _allTextSelectable.size() - 1;
     } else {
         _cursorPlace.elemInSelect -= 1;
     }
@@ -160,9 +164,9 @@ void Arc::Menu::selectPrevChoice()
             continue;
         }
         if (textSelectable.first.text == _allTextSelectable[_cursorPlace.elemInSelect].first.text) {
-            this->gameData.textSet[indexText].text = "def";
+            this->gameData.textSet[indexText].color = Arc::Color::YELLOW;
         } else {
-            this->gameData.textSet[indexText].text = "abc";
+            this->gameData.textSet[indexText].color = Arc::Color::WHITE;
         }
         ++indexText;
     }
