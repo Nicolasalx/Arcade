@@ -35,21 +35,21 @@ void Arc::Ncurses::init()
     keypad(stdscr, TRUE);
 }
 
-std::vector<Arc::Event> Arc::Ncurses::getEvent()
+Arc::Event Arc::Ncurses::getEvent()
 {
-    std::vector<Arc::Event> event;
+    Arc::Event event;
     int c = getch();
     while (c != ERR) {
         if (c == 'e') {
-            event.push_back(Arc::Event::EXIT);
+            event.eventType.push_back(Arc::EventType::EXIT);
         } else if (c == KEY_UP) {
-            event.push_back(Arc::Event::UP);
+            event.eventType.push_back(Arc::EventType::UP);
         } else if (c == KEY_DOWN) {
-            event.push_back(Arc::Event::DOWN);
+            event.eventType.push_back(Arc::EventType::DOWN);
         } else if (c == KEY_RIGHT) {
-            event.push_back(Arc::Event::RIGHT);
+            event.eventType.push_back(Arc::EventType::RIGHT);
         } else if (c == KEY_LEFT) {
-            event.push_back(Arc::Event::LEFT);
+            event.eventType.push_back(Arc::EventType::LEFT);
         }
         c = getch();
     }

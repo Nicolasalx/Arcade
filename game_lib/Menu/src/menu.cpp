@@ -57,7 +57,9 @@ void Arc::Menu::createTextWithLib(const std::string &name, Pos pos, enum isSelec
     text.size = 20;
     this->gameData.textSet.push_back(text);
     if (isSelectable == SELECTABLE) {
-        _allTextSelectable.push_back(text);
+        _allTextSelectable.push_back(std::make_pair(text, isSelectable));
+    } else {
+        _allTextSelectable.push_back(std::make_pair(text, isSelectable));
     }
 }
 
@@ -107,11 +109,11 @@ void Arc::Menu::init()
     createTextWithLib("Username", (Arc::Pos) {400, 900}, isSelectable_e::SELECTABLE);
     createTextWithLib("Valider", (Arc::Pos) {1300, 900}, isSelectable_e::SELECTABLE);
 
-    //_cursorPlace = {
-    //    .gameLib = "arcade_menu.so",
-    //    .graphicalLib = _allTextSelectable[0].text, // To change
-    //    .elemInSelect = _allTextSelectable[0].text
-    //};
+    _cursorPlace = {
+        .elemInSelect = 0,
+        .gameLib = 3, // To change
+        .graphicalLib = 4 // To change
+    };
 }
 
 void Arc::Menu::stop()
@@ -119,33 +121,78 @@ void Arc::Menu::stop()
     std::cerr << "Menu is stopped.\n";
 }
 
-const Arc::GameData &Arc::Menu::update(const std::vector<Arc::Event> &event)
+void Arc::Menu::selectNextChoice()
 {
-    for (const auto &test: _allTextSelectable) {
-        std::cout << test.text << "\n";
+    std::size_t indexText = 0;
+
+    if (_cursorPlace.elemInSelect + 1 > _allTextSelectable.size()) {
+        _cursorPlace.elemInSelect = 0;
+    } else {
+        _cursorPlace.elemInSelect += 1;
     }
-
-    for ()
-        switch (event)
-        {
-            case Arc::Event::DOWN:
-            
-            break;
-        
-        default:
-            break;
+    for (const auto &textSelectable : _allTextSelectable) {
+        if (textSelectable.second == isSelectable_e::NOT_SELECTABLE) {
+            ++indexText;
+            continue;
         }
-
-
-        if (event == Arc::Event::DOWN) {
-
+        if (textSelectable.first.text == _allTextSelectable[_cursorPlace.elemInSelect].first.text) {
+            this->gameData.textSet[indexText].text = "def";
+        } else {
+            this->gameData.textSet[indexText].text = "abc";
         }
+        ++indexText;
+    }
+}
 
+void Arc::Menu::selectPrevChoice()
+{
+    std::size_t indexText = 0;
 
-    // ! If Down
-    // Change text at index in white
-    // _cursorPlace.indexInSelection += 1;
-    // Change text at index in yellow
+    std::cout << "HERE:    " << _cursorPlace.elemInSelect << "\n";
+    if (_cursorPlace.elemInSelect == 0) {
+        _cursorPlace.elemInSelect = _allTextSelectable.size();
+    } else {
+        _cursorPlace.elemInSelect -= 1;
+    }
+    for (const auto &textSelectable : _allTextSelectable) {
+        if (textSelectable.second == isSelectable_e::NOT_SELECTABLE) {
+            ++indexText;
+            continue;
+        }
+        if (textSelectable.first.text == _allTextSelectable[_cursorPlace.elemInSelect].first.text) {
+            this->gameData.textSet[indexText].text = "def";
+        } else {
+            this->gameData.textSet[indexText].text = "abc";
+        }
+        ++indexText;
+    }
+}
+
+void Arc::Menu::validateChoice()
+{
+
+}
+
+const Arc::GameData &Arc::Menu::update(const Arc::Event &event)
+{
+    for (const auto &event : event.eventType) {
+        switch (event) {
+            case Arc::EventType::DOWN:
+                selectNextChoice();
+            break;
+
+            case Arc::EventType::UP:
+                selectPrevChoice();
+            break;
+
+            case Arc::EventType::ENTER:
+                validateChoice();
+            break;
+
+            default:
+                break;
+        }
+    }
 
     // ! If Up
     // Change text at index in white

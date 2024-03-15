@@ -16,6 +16,9 @@ namespace Arc
     {
     public:
         virtual ~ADisplayModule() = default;
+
+    protected:
+        bool _ignoreKey;
     };
 }
 

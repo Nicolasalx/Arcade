@@ -46,7 +46,7 @@ void Arc::Pacman::stop()
     std::cout << "Pacman is stopped.\n";
 }
 
-const Arc::GameData &Arc::Pacman::update(const std::vector<Arc::Event> &)
+const Arc::GameData &Arc::Pacman::update(const Arc::Event &)
 {
     std::cout << "Update Pacman ...\n";
     return this->gameData;

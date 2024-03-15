@@ -37,10 +37,10 @@ void Arc::Arcade::launch()
     this->gameModule = this->gameLoader.getInstance("entryPoint");
 }
 
-static bool exitDetected(const std::vector<Arc::Event> &eventList)
+static bool exitDetected(const Arc::Event &eventList)
 {
-    for (std::size_t i = 0; i < eventList.size(); ++i) {
-        if (eventList[i] == Arc::Event::EXIT) {
+    for (size_t i = 0; i < eventList.eventType.size(); ++i) {
+        if (eventList.eventType[i] == Arc::EventType::EXIT) {
             return true;
         }
     }
@@ -56,7 +56,7 @@ void Arc::Arcade::loop()
     {
         Arc::FrameRate::start();
 
-        std::vector<Arc::Event> eventList = this->displayModule->getEvent();
+        Arc::Event eventList = this->displayModule->getEvent();
         if (exitDetected(eventList)) {
             break;
         }

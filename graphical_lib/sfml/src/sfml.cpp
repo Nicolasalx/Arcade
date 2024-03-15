@@ -32,18 +32,22 @@ void Arc::Sfml::init()
     this->_window.create(sf::VideoMode(1920, 1080), "SFML Arcade");
 }
 
-std::vector<Arc::Event> Arc::Sfml::getEvent()
+Arc::Event Arc::Sfml::getEvent()
 {
     std::cout << "Sfml get event.\n";
-    std::vector<Arc::Event> event;
+    Arc::Event event;
 
     while (this->_window.pollEvent(this->_event)) {
         if (this->_event.type == sf::Event::Closed) {
-            event.push_back(Arc::Event::EXIT);
+            event.eventType.push_back(Arc::EventType::EXIT);
         }
-        for (const auto &currentKey : this->_keybind) {
-            if (sf::Keyboard::isKeyPressed(currentKey.first)) {
-                event.push_back(currentKey.second);
+        if (_ignoreKey) {
+
+        } else {
+            for (const auto &currentKey : this->_keybind) {
+                if (sf::Keyboard::isKeyPressed(currentKey.first)) {
+                    event.eventType.push_back(currentKey.second);
+                }
             }
         }
     }
