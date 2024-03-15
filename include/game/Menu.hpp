@@ -9,20 +9,27 @@
     #define PACMAN_HPP_
 
     #include <filesystem>
+    #include <set>
     #include <vector>
     #include "AGameModule.hpp"
     #include "Pos.hpp"
     #include "DLLoader.hpp"
 
 struct cursorPlace_t {
-    std::string libInSelection;
-    std::string libSelectionned;
+    std::size_t elemInSelect;
+    std::size_t gameLib;
+    std::size_t graphicalLib;
 };
 
 namespace Arc
 {
     class Menu : public AGameModule
     {
+    enum isSelectable_e {
+        SELECTABLE,
+        NOT_SELECTABLE
+    };
+
     public:
         Menu();
         ~Menu();
@@ -31,16 +38,17 @@ namespace Arc
         const Arc::GameData &update(const Arc::Event &event);
         void stop();
         const std::string &getName() const;
-        void createTextWithLib(const std::string &libGame, Pos pos);
+        void createTextWithLib(const std::string &name, Pos pos, enum isSelectable_e isSelectable);
         void getLibFromDirectory();
         void selectTypeLib(const std::string &filename);
+        std::string defineNewName(const std::string &name);
 
     private:
         std::string _name = "arcade_D_menu";
         std::vector<std::string> _mapLibGame;
         std::vector<std::string> _mapLibGraphical;
         cursorPlace_t _cursorPlace;
-        std::vector<Arc::Text> _allText;
+        std::vector <Arc::Text> _allTextSelectable;
     };
 }
 

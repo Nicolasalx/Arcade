@@ -14,6 +14,7 @@
     #include "Player.hpp"
     #include "Item.hpp"
     #include "Enemy.hpp"
+    #include "Lib.hpp"
 
 namespace Arc
 {
@@ -24,6 +25,7 @@ namespace Arc
         Arc::Player player;
         std::vector<Arc::Enemy> enemy;
         std::vector<Arc::Item> item;
+        Arc::Lib lib;
     };
 }
 
