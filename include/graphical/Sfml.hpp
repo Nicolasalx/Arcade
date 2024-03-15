@@ -27,7 +27,7 @@ namespace Arc
 
         private:
             sf::RenderWindow _window;
-            std::string name = "Sfml";
+            std::string name = "arcade_G_sfml";
     };
 }
 

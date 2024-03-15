@@ -26,7 +26,7 @@ namespace Arc
 
         protected:
         private:
-            std::string name = "Ncurses";
+            std::string name = "arcade_G_ncurses";
     };
 }
 

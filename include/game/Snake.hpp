@@ -24,7 +24,7 @@ namespace Arc
             const std::string &getName() const;
 
         private:
-            std::string _name = "Snake";
+            std::string _name = "arcade_D_snake";
     };
 }
 

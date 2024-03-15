@@ -6,21 +6,20 @@
 */
 
 #ifndef EVENTTYPE_HPP_
-#define EVENTTYPE_HPP_
+    #define EVENTTYPE_HPP_
 
 namespace Arc
 {
     enum EventType {
         KEY_PRESSED,
         KEY_RELEASED,
-        MOUSE_BUTTON_PRESSED,
-        MOUSE_BUTTON_RELEASED,
         SPACE,
         UP,
         DOWN,
         LEFT,
         RIGHT,
-        ENTER
+        ENTER,
+        EXIT
     };
 }
 
