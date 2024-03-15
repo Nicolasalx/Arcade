@@ -9,6 +9,7 @@
     #define SFML_HPP_
 
     #include "ADisplayModule.hpp"
+    #include "ColorEnum.hpp"
     #include <SFML/Graphics.hpp>
 
 namespace Arc
@@ -44,6 +45,16 @@ namespace Arc
                 {sf::Keyboard::A, Arc::EventType::INTERACT_1},
                 {sf::Keyboard::Z, Arc::EventType::INTERACT_2},
                 {sf::Keyboard::Enter, Arc::EventType::ENTER}
+            };
+            std::map<Arc::Color, sf::Color> _colorbind = {
+                {Arc::Color::WHITE, sf::Color::White},
+                {Arc::Color::RED, sf::Color::Red},
+                {Arc::Color::GREEN, sf::Color::Green},
+                {Arc::Color::YELLOW, sf::Color::Yellow},
+                {Arc::Color::BLUE, sf::Color::Blue},
+                {Arc::Color::MAGENTA, sf::Color::Magenta},
+                {Arc::Color::CYAN, sf::Color::Cyan},
+                {Arc::Color::BLACK, sf::Color::Black}
             };
             std::string _name = "Sfml";
     };

@@ -18,7 +18,7 @@ namespace Arc
         virtual ~ADisplayModule() = default;
 
     protected:
-        bool _ignoreKey;
+        bool _ignoreKey = false;
     };
 }
 
