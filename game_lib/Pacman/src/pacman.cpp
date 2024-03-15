@@ -37,10 +37,9 @@ Arc::Pacman::~Pacman()
     std::cout << "Pacman is class destroyed.\n";
 }
 
-const Arc::GameData Arc::Pacman::init()
+void Arc::Pacman::init()
 {
     std::cout << "Pacman is init.\n";
-    return this->gameData;
 }
 
 void Arc::Pacman::stop()

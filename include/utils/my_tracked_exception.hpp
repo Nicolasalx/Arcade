@@ -20,9 +20,9 @@ namespace my
         std::string message_;
 
         [[nodiscard]]
-        std::string format_src_location(const std::source_location &info);
+        static std::string format_src_location(const std::source_location &info);
         [[nodiscard]]
-        std::string format_src_location(void);
+        static std::string format_src_location(void);
 
     public:
         explicit tracked_exception(const std::string &message,

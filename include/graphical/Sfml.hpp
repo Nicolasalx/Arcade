@@ -27,7 +27,11 @@ namespace Arc
 
         private:
             sf::RenderWindow _window;
-            std::string name = "arcade_G_sfml";
+            sf::Event _event;
+            std::vector<sf::Text> _textList;
+            std::map<std::string, sf::Font> _fontList;
+
+            std::string name = "Sfml";
     };
 }
 

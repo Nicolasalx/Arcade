@@ -26,11 +26,11 @@ namespace Arc
         Menu();
         ~Menu();
 
-        const Arc::GameData init();
+        void init();
         const Arc::GameData &update(const std::vector<Arc::Event> &event);
         void stop();
         const std::string &getName() const;
-        void createTextWithLib(const std::string &libGame, size_t &posY);
+        void createTextWithLib(const std::string &libGame, double &posY);
         void getLibFromDirectory();
 
     private:

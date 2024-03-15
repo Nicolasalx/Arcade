@@ -7,8 +7,10 @@
 
 SRC				:=	$(shell find src/ -name "*.cpp")
 
-CPPFLAGS		=	-std=c++20 -Wall -Wextra -fno-gnu-unique \
+CPPFLAGS		=	-std=c++20 -Wall -Wextra $(GNU_FLAGS) \
 					$(ADDITIONAL_FLAGS)
+
+GNU_FLAGS		=	-fno-gnu-unique
 
 INCLUDE_PATH	=	-I./include/ \
 					-I./include/utils/
@@ -107,7 +109,7 @@ profiling: clean all
 	gprof $(NAME) gmon.out
 
 compilation_database: clean
-	bear -- make
+	bear -- make core GNU_FLAGS=""
 
 code_analyse: compilation_database
 	clang-tidy -header-filter=.* --use-color $(SRC)

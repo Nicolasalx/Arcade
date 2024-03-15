@@ -19,7 +19,7 @@ namespace Arc
 {
     struct GameData
     {
-        std::vector<std::vector<Arc::Tile>> tileSet;
+        std::vector<Arc::Tile> tileSet;
         std::vector<Arc::Text> textSet;
         Arc::Player player;
         std::vector<Arc::Enemy> enemy;

@@ -7,6 +7,7 @@
 
 #include <iostream>
 #include "Sfml.hpp"
+#include "my_tracked_exception.hpp"
 
 __attribute__((constructor)) void init(void)
 {
@@ -35,7 +36,15 @@ void Arc::Sfml::init()
 std::vector<Arc::Event> Arc::Sfml::getEvent()
 {
     std::cout << "Sfml get event.\n";
-    return std::vector<Arc::Event>();
+    std::vector<Arc::Event> event;
+
+    while (this->_window.pollEvent(this->_event)) {
+        if (this->_event.type == sf::Event::Closed ||
+        sf::Keyboard::isKeyPressed(sf::Keyboard::E)) {
+            event.push_back(Arc::Event::KEY_E);
+        }
+    }
+    return event;
 }
 
 void Arc::Sfml::refresh(const Arc::GameData &gameData)
@@ -43,18 +52,27 @@ void Arc::Sfml::refresh(const Arc::GameData &gameData)
     if (_window.isOpen()) {
         _window.clear(sf::Color::Black);
 
-        for (size_t i = 0; i < gameData.textSet.size(); ++i) {
+        for (std::size_t i = 0; i < gameData.textSet.size(); ++i) {
 
-            sf::Font font;
-            if (!font.loadFromFile(gameData.textSet[i].fontPath)) {
-                return;
+            if (!this->_fontList.contains(gameData.textSet[i].fontPath)) {
+                sf::Font font;
+                if (!font.loadFromFile(gameData.textSet[i].fontPath)) {
+//                    throw my::tracked_exception("Failed to load: " + gameData.textSet[i].fontPath);
+                    return;
+                }
+                this->_fontList[gameData.textSet[i].fontPath] = font;
             }
 
-            sf::Text text(gameData.textSet[i].text, font, gameData.textSet[i].size);
-            text.setFillColor(sf::Color::White);
-            text.setStyle(sf::Text::Regular);
-            text.setPosition(sf::Vector2f(gameData.textSet[i].pos.x, gameData.textSet[i].pos.y));
-            _window.draw(text);
+            if (i >= this->_textList.size()) {
+                this->_textList.emplace_back();
+            }
+            
+            this->_textList[i].setString(gameData.textSet[i].text);
+            this->_textList[i].setFont(this->_fontList.at(gameData.textSet[i].fontPath));
+            this->_textList[i].setCharacterSize(gameData.textSet[i].size);
+            this->_textList[i].setFillColor(sf::Color::White);
+            this->_textList[i].setPosition(sf::Vector2f(gameData.textSet[i].pos.x, gameData.textSet[i].pos.y));
+            _window.draw(this->_textList[i]);
         }
 
         _window.display();

@@ -9,14 +9,15 @@
     #define TILE_HPP_
 
     #include <string>
+    #include "ColorEnum.hpp"
 
 namespace Arc
 {
     struct Tile
     {
         std::string imagePath;
-        char c;
-        std::string color;
+        char c = '_';
+        Arc::Color color = Arc::Color::BLACK;
     };
 }
 

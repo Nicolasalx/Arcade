@@ -8,14 +8,20 @@
 #ifndef EVENT_HPP_
     #define EVENT_HPP_
 
-    #include <string>
-    #include "EventType.hpp"
-
 namespace Arc
 {
-    struct Event
-    {
-        EventType type;
+    enum class Event {
+        KEY_PRESSED,
+        KEY_RELEASED,
+        MOUSE_BUTTON_PRESSED,
+        MOUSE_BUTTON_RELEASED,
+        SPACE,
+        UP,
+        DOWN,
+        LEFT,
+        RIGHT,
+        ENTER,
+        KEY_E
     };
 }
 

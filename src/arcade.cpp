@@ -33,16 +33,29 @@ void Arc::Arcade::launch()
     this->gameModule = this->gameLoader.getInstance("entryPoint");
 }
 
+static bool exitDetected(const std::vector<Arc::Event> &eventList)
+{
+    for (size_t i = 0; i < eventList.size(); ++i) {
+        if (eventList[i] == Arc::Event::KEY_E) {
+            return true;
+        }
+    }
+    return false;
+}
+
 void Arc::Arcade::loop()
 {
     this->displayModule->init();
     this->gameModule->init();
 
-    for (int i = 0; i < 100; ++i)
+    while (true)
     {
         Arc::FrameRate::start();
 
         std::vector<Arc::Event> eventList = this->displayModule->getEvent();
+        if (exitDetected(eventList)) {
+            break;
+        }
         const GameData &data = this->gameModule->update(eventList);
         this->displayModule->refresh(data);
 
