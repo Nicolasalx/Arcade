@@ -61,7 +61,6 @@ void Arc::Menu::createTextWithLib(const std::string &name, Pos pos, enum isSelec
     this->gameData.textSet.push_back(text);
     
     if (isSelectable == SELECTABLE) {
-        std::cout << "SELECTABLE -> " << text.text << "\n";
         _allTextSelectable.push_back(std::make_pair(text, isSelectable));
     }
 }
@@ -98,6 +97,7 @@ void Arc::Menu::getLibFromDirectory()
 void Arc::Menu::init()
 {
     double posY = 250;
+    std::size_t indexText;
 
     getLibFromDirectory();
     createTextWithLib("Games list:", (Arc::Pos) {500, 200}, isSelectable_e::NOT_SELECTABLE);
@@ -128,7 +128,7 @@ void Arc::Menu::selectNextChoice()
 {
     std::size_t indexText = 0;
 
-    std::cout << "CURSOR ->>>> " << _cursorPlace.elemInSelect << "\n";
+    //std::cout << "CURSOR ->>>> " << _cursorPlace.elemInSelect << "\n";
     if (_cursorPlace.elemInSelect + 1 > _allTextSelectable.size() - 1) {
         _cursorPlace.elemInSelect = 0;
     } else {
@@ -152,7 +152,7 @@ void Arc::Menu::selectPrevChoice()
 {
     std::size_t indexText = 0;
 
-    std::cout << "CURSOR ->>>> " << _cursorPlace.elemInSelect << "\n";
+    //std::cout << "CURSOR ->>>> " << _cursorPlace.elemInSelect << "\n";
     if (_cursorPlace.elemInSelect == 0) {
         _cursorPlace.elemInSelect = _allTextSelectable.size() - 1;
     } else {
