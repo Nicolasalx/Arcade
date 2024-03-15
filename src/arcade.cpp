@@ -29,15 +29,18 @@ void Arc::Arcade::launch()
     this->displayLoader.load(this->graphicalLib);
     this->displayModule = displayLoader.getInstance("entryPoint");
 
+    if (!this->displayLoader.getName().starts_with("arcade_D_")) {
+        throw my::tracked_exception("Invalid graphical lib.");
+    }
+
     this->gameLoader.load("./lib/arcade_menu.so");
-    const char *str = this->gameLoader.getName();
     this->gameModule = this->gameLoader.getInstance("entryPoint");
 }
 
 static bool exitDetected(const std::vector<Arc::Event> &eventList)
 {
     for (std::size_t i = 0; i < eventList.size(); ++i) {
-        if (eventList[i] == Arc::Event::KEY_E) {
+        if (eventList[i] == Arc::Event::EXIT) {
             return true;
         }
     }

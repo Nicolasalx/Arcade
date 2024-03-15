@@ -52,15 +52,14 @@ namespace Arc
             return func();
         }
 
-        const char *getName()
+        const std::string &getName()
         {
-            auto func = reinterpret_cast<const char *(*)(void)>(dlsym(this->_handle, "getName"));
+            auto func = reinterpret_cast<const std::string &(*)(void)>(dlsym(this->_handle, "getName"));
             if (!func) {
                 throw my::tracked_exception(dlerror());
             }
             return func();
         }
-
 
     private:
         void *_handle = nullptr;

@@ -17,7 +17,6 @@ extern "C"
 {
     Arc::IDisplayModule *entryPoint(void)
     {
-        std::cout << "entry point Ncurses !\n";
         return new Arc::Ncurses();
     }
 }
@@ -33,6 +32,7 @@ void Arc::Ncurses::init()
     noecho();
     curs_set(0);
     timeout(0);
+    keypad(stdscr, TRUE);
 }
 
 std::vector<Arc::Event> Arc::Ncurses::getEvent()
@@ -41,7 +41,15 @@ std::vector<Arc::Event> Arc::Ncurses::getEvent()
     int c = getch();
     while (c != ERR) {
         if (c == 'e') {
-            event.push_back(Arc::Event::KEY_E);
+            event.push_back(Arc::Event::EXIT);
+        } else if (c == KEY_UP) {
+            event.push_back(Arc::Event::UP);
+        } else if (c == KEY_DOWN) {
+            event.push_back(Arc::Event::DOWN);
+        } else if (c == KEY_RIGHT) {
+            event.push_back(Arc::Event::RIGHT);
+        } else if (c == KEY_LEFT) {
+            event.push_back(Arc::Event::LEFT);
         }
         c = getch();
     }
@@ -72,9 +80,9 @@ const std::string &Arc::Ncurses::getName() const
 
 extern "C"
 {
-    const char *getName()
+    const std::string &getName()
     {
-        static const char name[] = "arcade_D_ncurses";
+        static const std::string name = "arcade_D_ncurses";
         return name;
     }
 }

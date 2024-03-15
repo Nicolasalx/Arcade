@@ -31,6 +31,20 @@ namespace Arc
             std::vector<sf::Text> _textList;
             std::map<std::string, sf::Font> _fontList;
 
+            std::vector<std::pair<sf::Keyboard::Key, Arc::Event>> _keybind = {
+                {sf::Keyboard::E, Arc::Event::EXIT},
+                {sf::Keyboard::Up, Arc::Event::UP},
+                {sf::Keyboard::Down, Arc::Event::DOWN},
+                {sf::Keyboard::Left, Arc::Event::LEFT},
+                {sf::Keyboard::Right, Arc::Event::RIGHT},
+                {sf::Keyboard::N, Arc::Event::NEXT_DISPLAY},
+                {sf::Keyboard::G, Arc::Event::NEXT_GAME},
+                {sf::Keyboard::M, Arc::Event::BACK_MENU},
+                {sf::Keyboard::R, Arc::Event::RESTART},
+                {sf::Keyboard::A, Arc::Event::INTERACT_1},
+                {sf::Keyboard::Z, Arc::Event::INTERACT_2},
+                {sf::Keyboard::Enter, Arc::Event::ENTER}
+            };
             std::string _name = "Sfml";
     };
 }

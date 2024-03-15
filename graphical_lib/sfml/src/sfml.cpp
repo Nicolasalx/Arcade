@@ -18,7 +18,6 @@ extern "C"
 {
     Arc::IDisplayModule *entryPoint(void)
     {
-        std::cout << "entry point Sfml !\n";
         return new Arc::Sfml();
     }
 }
@@ -39,9 +38,13 @@ std::vector<Arc::Event> Arc::Sfml::getEvent()
     std::vector<Arc::Event> event;
 
     while (this->_window.pollEvent(this->_event)) {
-        if (this->_event.type == sf::Event::Closed ||
-        sf::Keyboard::isKeyPressed(sf::Keyboard::E)) {
-            event.push_back(Arc::Event::KEY_E);
+        if (this->_event.type == sf::Event::Closed) {
+            event.push_back(Arc::Event::EXIT);
+        }
+        for (const auto &currentKey : this->_keybind) {
+            if (sf::Keyboard::isKeyPressed(currentKey.first)) {
+                event.push_back(currentKey.second);
+            }
         }
     }
     return event;
@@ -57,8 +60,7 @@ void Arc::Sfml::refresh(const Arc::GameData &gameData)
             if (!this->_fontList.contains(gameData.textSet[i].fontPath)) {
                 sf::Font font;
                 if (!font.loadFromFile(gameData.textSet[i].fontPath)) {
-//                    throw my::tracked_exception("Failed to load: " + gameData.textSet[i].fontPath);
-                    return;
+                    throw my::tracked_exception("Failed to load: " + gameData.textSet[i].fontPath);
                 }
                 this->_fontList[gameData.textSet[i].fontPath] = font;
             }
@@ -93,9 +95,9 @@ const std::string &Arc::Sfml::getName() const
 
 extern "C"
 {
-    const char *getName()
+    const std::string &getName()
     {
-        static const char name[] = "arcade_D_sfml";
+        static const std::string name = "arcade_D_sfml";
         return name;
     }
 }
