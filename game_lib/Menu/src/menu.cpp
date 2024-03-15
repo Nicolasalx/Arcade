@@ -216,6 +216,10 @@ const Arc::GameData &Arc::Menu::update(const Arc::Event &event)
     // Check if it's valider
         // Launch le jeu et la lib graphique
 
+    // ! When the user have validated his choice set :
+    // this->gameData.lib.currentDisplay = INDEX_OF_THE_DISPLAY;
+    // this->gameData.lib.currentGame = INDEX_OF_THE_GAME;
+    // this->gameData.lib.libState = Arc::LibState::NEW_SELECTION;
     return this->gameData;
 }
 

@@ -13,11 +13,19 @@
 
 namespace Arc
 {
+    enum class LibState {
+        NOT_INIT,
+        ASK_CURRENT_GAME,
+        ASK_CURRENT_DISPLAY,
+        NEW_SELECTION
+    };
+
     struct Lib {
         std::vector<std::string> gamePath;
         std::vector<std::string> graphicalPath;
-        std::size_t currentGame;
-        std::size_t currentDisplay;
+        int currentGame = -1;
+        int currentDisplay = -1;
+        Arc::LibState libState = Arc::LibState::NOT_INIT;
     };
 }
 

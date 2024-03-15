@@ -24,7 +24,6 @@ namespace Arc
             Arc::Event getEvent();
             void refresh(const Arc::GameData &gameData);
             void stop();
-            const std::string &getName() const;
 
         private:
             sf::RenderWindow _window;
@@ -56,7 +55,6 @@ namespace Arc
                 {Arc::Color::CYAN, sf::Color::Cyan},
                 {Arc::Color::BLACK, sf::Color::Black}
             };
-            std::string _name = "Sfml";
     };
 }
 

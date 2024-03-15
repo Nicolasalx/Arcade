@@ -16,7 +16,7 @@ namespace Arc
 {
     struct Event
     {
-        std::vector<EventType> eventType;
+        std::vector<Arc::EventType> eventType;
         std::string buffer;
     };
 }
