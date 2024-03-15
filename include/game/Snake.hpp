@@ -14,17 +14,15 @@ namespace Arc
 {
     class Snake : public AGameModule
     {
-        public:
-            Snake();
-            ~Snake();
+    public:
+        Snake();
+        ~Snake();
 
-            void init();
-            const Arc::GameData &update(const Arc::Event &event);
-            void stop();
-            const std::string &getName() const;
+        void init();
+        const Arc::GameData &update(const Arc::Event &event);
+        void stop();
 
-        private:
-            std::string _name = "arcade_D_snake";
+    private:
     };
 }
 

@@ -37,14 +37,12 @@ namespace Arc
         void init();
         const Arc::GameData &update(const Arc::Event &event);
         void stop();
-        const std::string &getName() const;
         void createTextWithLib(const std::string &name, Pos pos, enum isSelectable_e isSelectable);
         void getLibFromDirectory();
         void selectTypeLib(const std::string &filename);
         std::string defineNewName(const std::string &name);
 
     private:
-        std::string _name = "arcade_D_menu";
         std::vector<std::string> _mapLibGame;
         std::vector<std::string> _mapLibGraphical;
         cursorPlace_t _cursorPlace;

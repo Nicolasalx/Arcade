@@ -23,11 +23,8 @@ namespace Arc
             Arc::Event getEvent();
             void refresh(const Arc::GameData &gameData);
             void stop();
-            const std::string &getName() const;
 
         private:
-            std::string _name = "Ncurses";
-
             std::vector<std::pair<int, Arc::EventType>> _keybind = {
                 {'e', Arc::EventType::EXIT},
                 {KEY_UP, Arc::EventType::UP},

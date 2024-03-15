@@ -21,9 +21,8 @@ namespace Arc
         void init();
         const Arc::GameData &update(const Arc::Event &event);
         void stop();
-        const std::string &getName() const;
+
     private:
-        std::string _name = "arcade_D_pacman";
     };
 }
 
