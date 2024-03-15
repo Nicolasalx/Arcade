@@ -20,7 +20,7 @@ namespace Arc
             ~Ncurses() = default;
 
             void init();
-            std::vector<Arc::Event> getEvent();
+            Arc::Event getEvent();
             void refresh(const Arc::GameData &gameData);
             void stop();
             const std::string &getName() const;

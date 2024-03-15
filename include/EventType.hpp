@@ -10,16 +10,20 @@
 
 namespace Arc
 {
-    enum EventType {
-        KEY_PRESSED,
-        KEY_RELEASED,
-        SPACE,
+    enum class EventType
+    {
+        EXIT,
         UP,
         DOWN,
         LEFT,
         RIGHT,
-        ENTER,
-        EXIT
+        NEXT_DISPLAY,
+        NEXT_GAME,
+        BACK_MENU,
+        RESTART,
+        INTERACT_1,
+        INTERACT_2,
+        ENTER
     };
 }
 

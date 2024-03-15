@@ -104,7 +104,7 @@ void Arc::Menu::stop()
     std::cerr << "Menu is stopped.\n";
 }
 
-const Arc::GameData &Arc::Menu::update(const std::vector<Arc::Event> &)
+const Arc::GameData &Arc::Menu::update(const Arc::Event &)
 {
     return this->gameData;
 }

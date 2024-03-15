@@ -8,21 +8,16 @@
 #ifndef EVENT_HPP_
     #define EVENT_HPP_
 
+    #include "EventType.hpp"
+    #include <string>
+    #include <vector>
+
 namespace Arc
 {
-    enum class Event {
-        EXIT,
-        UP,
-        DOWN,
-        LEFT,
-        RIGHT,
-        NEXT_DISPLAY,
-        NEXT_GAME,
-        BACK_MENU,
-        RESTART,
-        INTERACT_1,
-        INTERACT_2,
-        ENTER
+    struct Event
+    {
+        std::vector<EventType> eventType;
+        std::string buffer;
     };
 }
 
