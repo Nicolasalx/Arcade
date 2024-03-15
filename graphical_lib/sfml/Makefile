@@ -6,7 +6,7 @@
 ##
 
 SRC				:=	$(shell find src/ -name "*.cpp") \
-					$(shell find ../../src/utils/ -name "*.cpp")
+					$(shell find ../utils/ -name "*.cpp")
 
 CPPFLAGS		=	-std=c++20 -Wall -Wextra -fno-gnu-unique \
 					-shared -fpic -lsfml-graphics -lsfml-window -lsfml-system \
