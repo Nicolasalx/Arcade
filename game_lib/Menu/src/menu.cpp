@@ -39,29 +39,24 @@ Arc::Menu::~Menu()
 // ! WARNING -> The filepath can be different don't put ./lib/ in DUR
 // ../lib/arcade_valo.so
 
-std::string Arc::Menu::defineNewName(const std::string &name)
+std::string Arc::Menu::getFileName(const std::string &filepath)
 {
-    const std::string libPath = "./lib/";
-
-    if (name.find(libPath) == 0) {
-        return name.substr(libPath.length());
-    }
-    return name;
+    std::filesystem::path absoluteFilepath(filepath);
+    return absoluteFilepath.filename().string();
 }
 
 void Arc::Menu::createTextWithLib(const std::string &name, Pos pos, enum isSelectable_e isSelectable)
 {
     Arc::Text text;
 
-    text.text = defineNewName(name);
+    text.text = getFileName(name);
     text.color = Arc::Color::WHITE;
     text.fontPath = "fonts/DroidSansMono.ttf";
     text.pos = {pos.x, pos.y};
     text.size = 20;
     this->gameData.textSet.push_back(text);
-    
     if (isSelectable == SELECTABLE) {
-        _allTextSelectable.push_back(std::make_pair(text, isSelectable));
+        _allTextSelectable.push_back(text);
     }
 }
 
@@ -97,21 +92,22 @@ void Arc::Menu::getLibFromDirectory()
 void Arc::Menu::init()
 {
     double posY = 250;
-    std::size_t indexText;
 
     getLibFromDirectory();
-    createTextWithLib("Games list:", (Arc::Pos) {500, 200}, isSelectable_e::NOT_SELECTABLE);
+    createTextWithLib(GAME_LIST, (Arc::Pos) {500, 200}, isSelectable_e::NOT_SELECTABLE);
+    createTextWithLib(GRAPHICAL_LIST, (Arc::Pos) {1100, 200}, isSelectable_e::NOT_SELECTABLE);
     for (const auto &libGame : this->gameData.lib.gamePath) {
         createTextWithLib(libGame, (Arc::Pos) {500, posY += 50}, isSelectable_e::SELECTABLE);
     }
     posY = 250;
-    createTextWithLib("Graphicals list:", (Arc::Pos) {1100, 200}, isSelectable_e::NOT_SELECTABLE);
     for (const auto &libGraphical : this->gameData.lib.graphicalPath) {
         createTextWithLib(libGraphical, (Arc::Pos) {1100, posY += 50}, isSelectable_e::SELECTABLE);
     }
-    createTextWithLib("Username", (Arc::Pos) {400, 900}, isSelectable_e::SELECTABLE);
-    createTextWithLib("Valider", (Arc::Pos) {1300, 900}, isSelectable_e::SELECTABLE);
-
+    createTextWithLib(USERNAME, (Arc::Pos) {400, 900}, isSelectable_e::SELECTABLE);
+    createTextWithLib(VALIDATE, (Arc::Pos) {1300, 900}, isSelectable_e::SELECTABLE);
+    if (this->gameData.textSet.size() > 1) {
+        this->gameData.textSet[2].color = Arc::Color::YELLOW;
+    }
     _cursorPlace = {
         .elemInSelect = 0,
         .gameLib = 3, // To change
@@ -126,21 +122,24 @@ void Arc::Menu::stop()
 
 void Arc::Menu::selectNextChoice()
 {
-    std::size_t indexText = 0;
-
-    //std::cout << "CURSOR ->>>> " << _cursorPlace.elemInSelect << "\n";
     if (_cursorPlace.elemInSelect + 1 > _allTextSelectable.size() - 1) {
         _cursorPlace.elemInSelect = 0;
     } else {
         _cursorPlace.elemInSelect += 1;
     }
+}
+
+void Arc::Menu::modifyAllTextColor(void)
+{
+    size_t indexText = 2;
+
     for (const auto &textSelectable : _allTextSelectable) {
-        if (textSelectable.second == isSelectable_e::NOT_SELECTABLE) {
-            ++indexText;
-            continue;
-        }
-        if (textSelectable.first.text == _allTextSelectable[_cursorPlace.elemInSelect].first.text) {
+        if (textSelectable.text == _allTextSelectable[_cursorPlace.elemInSelect].text) {
             this->gameData.textSet[indexText].color = Arc::Color::YELLOW;
+        } else if (textSelectable.text == _allTextSelectable[_cursorPlace.gameLib].text) {
+            this->gameData.textSet[indexText].color = Arc::Color::BLUE;
+        } else if (textSelectable.text == _allTextSelectable[_cursorPlace.graphicalLib].text) {
+            this->gameData.textSet[indexText].color = Arc::Color::BLUE;
         } else {
             this->gameData.textSet[indexText].color = Arc::Color::WHITE;
         }
@@ -148,33 +147,36 @@ void Arc::Menu::selectNextChoice()
     }
 }
 
-void Arc::Menu::selectPrevChoice()
+void Arc::Menu::selectPrevChoice(void)
 {
-    std::size_t indexText = 0;
-
-    //std::cout << "CURSOR ->>>> " << _cursorPlace.elemInSelect << "\n";
     if (_cursorPlace.elemInSelect == 0) {
         _cursorPlace.elemInSelect = _allTextSelectable.size() - 1;
     } else {
         _cursorPlace.elemInSelect -= 1;
     }
-    for (const auto &textSelectable : _allTextSelectable) {
-        if (textSelectable.second == isSelectable_e::NOT_SELECTABLE) {
-            ++indexText;
-            continue;
-        }
-        if (textSelectable.first.text == _allTextSelectable[_cursorPlace.elemInSelect].first.text) {
-            this->gameData.textSet[indexText].color = Arc::Color::YELLOW;
-        } else {
-            this->gameData.textSet[indexText].color = Arc::Color::WHITE;
-        }
-        ++indexText;
-    }
 }
 
-void Arc::Menu::validateChoice()
+void Arc::Menu::validateChoice(const std::string &filename)
 {
+    for (const auto &gamePath : this->gameData.lib.gamePath) {
+        if (getFileName(gamePath) == filename) {
+            _cursorPlace.gameLib = _cursorPlace.elemInSelect;
+        }
+    }
+    for (const auto &graphicalPath : this->gameData.lib.graphicalPath) {
+        if (getFileName(graphicalPath) == filename) {
+            _cursorPlace.graphicalLib = _cursorPlace.elemInSelect;
+        }
+    }
+    if (filename == USERNAME) {
+    }
+    if (filename == VALIDATE) {
+    }
+    // Check if it's username
+        // Voir comment on va lire l'input user
 
+    // Check if it's valider
+        // Launch le jeu et la lib graphique
 }
 
 const Arc::GameData &Arc::Menu::update(const Arc::Event &event)
@@ -190,36 +192,14 @@ const Arc::GameData &Arc::Menu::update(const Arc::Event &event)
             break;
 
             case Arc::EventType::ENTER:
-                validateChoice();
+                validateChoice(_allTextSelectable[_cursorPlace.elemInSelect].text);
             break;
 
             default:
                 break;
         }
     }
-
-    // ! If Up
-    // Change text at index in white
-    //_cursorPlace.indexInSelection += 1;
-    // Change text at index in yellow
-
-    // ! If Enter
-    // Check if it's a game lib
-        // Le précédent texte est mis en white
-        // Le texte à l'index _cursorPlace.indexInSelection devient bleu
-
-    // Check if it's a graphical lib
-
-    // Check if it's username
-        // Voir comment on va lire l'input user
-
-    // Check if it's valider
-        // Launch le jeu et la lib graphique
-
-    // ! When the user have validated his choice set :
-    // this->gameData.lib.currentDisplay = INDEX_OF_THE_DISPLAY;
-    // this->gameData.lib.currentGame = INDEX_OF_THE_GAME;
-    // this->gameData.lib.libState = Arc::LibState::NEW_SELECTION;
+    modifyAllTextColor();
     return this->gameData;
 }
 

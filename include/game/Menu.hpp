@@ -5,8 +5,8 @@
 ** Menu
 */
 
-#ifndef PACMAN_HPP_
-    #define PACMAN_HPP_
+#ifndef MENU_HPP_
+    #define MENU_HPP_
 
     #include <filesystem>
     #include <set>
@@ -14,6 +14,12 @@
     #include "AGameModule.hpp"
     #include "Pos.hpp"
     #include "DLLoader.hpp"
+    #include <algorithm>
+
+    #define USERNAME "Username"
+    #define VALIDATE "Valider"
+    #define GAME_LIST "Games list:"
+    #define GRAPHICAL_LIST "Graphicals list:"
 
 struct cursorPlace_t {
     std::size_t elemInSelect;
@@ -40,18 +46,20 @@ namespace Arc
         void createTextWithLib(const std::string &name, Pos pos, enum isSelectable_e isSelectable);
         void getLibFromDirectory();
         void selectTypeLib(const std::string &filename);
-        std::string defineNewName(const std::string &name);
+        std::string getFileName(const std::string &name);
 
         void selectNextChoice();
         void selectPrevChoice();
-        void validateChoice();
+        void validateChoice(const std::string &filename);
+
+        void modifyAllTextColor();
 
         std::string _name = "arcade_D_menu";
         std::vector<std::string> _mapLibGame;
         std::vector<std::string> _mapLibGraphical;
         cursorPlace_t _cursorPlace;
-        std::vector<std::pair<Arc::Text, isSelectable_e>> _allTextSelectable;
+        std::vector<Arc::Text> _allTextSelectable;
     };
 }
 
-#endif /* !PACMAN_HPP_ */
+#endif /* !MENU_HPP_ */
