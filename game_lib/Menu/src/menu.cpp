@@ -116,7 +116,7 @@ void Arc::Menu::createAllText()
 
 void Arc::Menu::defineIdxCursor()
 {
-    size_t indexText = 0;
+    std::size_t indexText = 0;
 
     for (const auto &text : this->gameData.textSet) {
         if (getFileName(text.text) == "arcade_menu.so") {
@@ -154,7 +154,7 @@ void Arc::Menu::selectNextChoice()
 
 void Arc::Menu::modifyAllTextColor(void)
 {
-    size_t indexText = IDX_LIST_START;
+    std::size_t indexText = IDX_LIST_START;
 
     for (const auto &textSelectable : _allTextSelectable) {
         if (textSelectable.text == _allTextSelectable[_cursorPlace.elemInSelect].text) {

@@ -50,7 +50,7 @@ void Arc::Arcade::launch()
 
 static bool exitDetected(const Arc::Event &eventList)
 {
-    for (size_t i = 0; i < eventList.eventType.size(); ++i) {
+    for (std::size_t i = 0; i < eventList.eventType.size(); ++i) {
         if (eventList.eventType[i] == Arc::EventType::EXIT) {
             return true;
         }

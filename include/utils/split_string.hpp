@@ -26,9 +26,9 @@ namespace my
         && std::same_as<typename T::value_type, std::string>
     void split_string(const std::string &str, const std::string &delimiter, T &dest)
     {
-        size_t start = 0;
+        std::size_t start = 0;
 
-        for (size_t i = 0; i <= str.size(); ++i) {
+        for (std::size_t i = 0; i <= str.size(); ++i) {
             if (i == str.size() || delimiter.find(str[i]) != std::string::npos) {
                 if (i > start) {
                     dest.push_back(str.substr(start, i - start));

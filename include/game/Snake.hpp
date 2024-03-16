@@ -9,20 +9,46 @@
     #define SNAKE_HPP_
 
     #include "AGameModule.hpp"
+    #include "Pos.hpp"
+    #include <vector>
+    #include <cstdlib>
+    #include <ctime>
+
+    #define PATH_IMG "./game_src/snake/"
 
 namespace Arc
 {
     class Snake : public AGameModule
     {
-    public:
-        Snake();
-        ~Snake();
+        enum typeOfTile {
+            SNAKE,
+            MAP,
+            FOOD
+        };
+        public:
+            Snake();
+            ~Snake();
 
-        void init();
-        const Arc::GameData &update(const Arc::Event &event);
-        void stop();
+            void init();
+            const Arc::GameData &update(const Arc::Event &event);
+            void stop();
 
-    private:
+        private:
+            void createText(const std::string &name, Pos pos);
+            void createTile(Pos pos, std::size_t sizeTile, typeOfTile typeOfTile, char character);
+            void moveSnakeLeft();
+            void moveSnakeRight();
+            void endTheGame();
+            void displayScreenEnd();
+            void checkHighScore();
+            void isSnakeFillingAllTheMap();
+            void snakeEatAFood();
+
+            std::vector<Arc::Tile> _map;
+            std::vector<Arc::Tile> _snake;
+            Arc::Tile _food;
+            std::size_t _actualScore = 4;
+            std::size_t _highScore = 0;
     };
 }
 
