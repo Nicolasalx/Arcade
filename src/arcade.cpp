@@ -118,7 +118,7 @@ void Arc::Arcade::loop()
         if (eventContain(eventList, Arc::EventType::NEXT_DISPLAY)) {
             loadNextDisplay();
         }
-        if (eventContain(eventList, Arc::EventType::NEXT_GAME)) {
+        else if (eventContain(eventList, Arc::EventType::NEXT_GAME)) {
             loadNextGame();
         }
         const GameData &data = this->gameModule->update(eventList);
