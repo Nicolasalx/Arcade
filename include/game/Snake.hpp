@@ -35,7 +35,8 @@ namespace Arc
 
         private:
             void createText(const std::string &name, Pos pos);
-            void createTile(Pos pos, std::size_t sizeTile, typeOfTile typeOfTile, char character);
+            void createTile(Pos pos, std::size_t sizeTile, typeOfTile typeOfTile);
+            void createPlayer(Pos pos, std::size_t sizeTile, char character);
             void moveSnakeLeft();
             void moveSnakeRight();
             void endTheGame();
@@ -43,6 +44,7 @@ namespace Arc
             void checkHighScore();
             void isSnakeFillingAllTheMap();
             void snakeEatAFood();
+            void moveNextCase();
 
             std::vector<Arc::Tile> _map;
             std::vector<Arc::Tile> _snake;
