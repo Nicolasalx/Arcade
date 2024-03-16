@@ -42,7 +42,8 @@ std::string Arc::Menu::getFileName(const std::string &filepath)
     return absoluteFilepath.filename().string();
 }
 
-void Arc::Menu::createTextWithLib(const std::string &name, Pos pos, enum IsSelectable isSelectable)
+void Arc::Menu::createTextWithLib(const std::string &name, Pos pos,
+    IsSelectable isSelectable)
 {
     Arc::Text text;
 
@@ -92,11 +93,10 @@ void Arc::Menu::getLibFromDirectory()
     }
 }
 
-void Arc::Menu::init()
+void Arc::Menu::createAllText()
 {
     double posY = 250;
 
-    getLibFromDirectory();
     createTextWithLib(GAME_LIST, (Arc::Pos) {500, 200}, NOT_SELECTABLE);
     createTextWithLib(GRAPHICAL_LIST, (Arc::Pos) {1100, 200}, NOT_SELECTABLE);
     for (const auto &libGame : this->gameData.lib.game) {
@@ -112,20 +112,30 @@ void Arc::Menu::init()
         this->gameData.textSet[IDX_LIST_START].color = Arc::Color::YELLOW;
     }
     createTextWithLib("", (Arc::Pos) {550, 900}, NOT_SELECTABLE);
+}
 
+void Arc::Menu::defineIdxCursor()
+{
     size_t indexText = 0;
+
     for (const auto &text : this->gameData.textSet) {
         if (getFileName(text.text) == "arcade_menu.so") {
             break;
         }
         ++indexText;
     }
-
     _cursorPlace = {
         .elemInSelect = 0,
         .gameLib = indexText - IDX_LIST_START,
         .graphicalLib = 25
     };
+}
+
+void Arc::Menu::init()
+{
+    getLibFromDirectory();
+    createAllText();
+    defineIdxCursor();
 }
 
 void Arc::Menu::stop()
@@ -169,7 +179,7 @@ void Arc::Menu::selectPrevChoice(void)
     }
 }
 
-void Arc::Menu::validateChoice(const std::string &filename)
+void Arc::Menu::defineNewCursorGame(const std::string &filename)
 {
     for (const auto &gamePath : this->gameData.lib.game) {
         if (getFileName(gamePath.path) == filename) {
@@ -177,12 +187,29 @@ void Arc::Menu::validateChoice(const std::string &filename)
             this->gameData.lib.currentGame = _cursorPlace.gameLib;
         }
     }
+}
+
+void Arc::Menu::defineNewCursorGraphical(const std::string &filename)
+{
     for (const auto &graphicalPath : this->gameData.lib.graphical) {
         if (getFileName(graphicalPath.path) == filename) {
             _cursorPlace.graphicalLib = _cursorPlace.elemInSelect;
             this->gameData.lib.currentDisplay = _cursorPlace.graphicalLib - this->gameData.lib.game.size();
         }
     }
+}
+
+void Arc::Menu::handleValidation(const std::string &filename)
+{
+    if (filename == VALIDATE) {
+        if (this->gameData.lib.currentGame >= 0 && this->gameData.lib.currentDisplay >= 0) {
+            this->gameData.lib.libState = Arc::LibState::NEW_SELECTION;
+        }
+    }
+}
+
+void Arc::Menu::handleActionUsername(const std::string &filename)
+{
     if (filename == USERNAME) {
         if (this->gameData.player.userName.length() == 0) {
             this->gameData.player.ignoreKey = true;
@@ -191,10 +218,21 @@ void Arc::Menu::validateChoice(const std::string &filename)
         }
         return;
     }
-    if (filename == VALIDATE) {
-        if (this->gameData.lib.currentGame >= 0 && this->gameData.lib.currentDisplay >= 0) {
-            this->gameData.lib.libState = Arc::LibState::NEW_SELECTION;
-        }
+    handleValidation(filename);
+}
+
+void Arc::Menu::validateChoice(const std::string &filename)
+{
+    defineNewCursorGame(filename);
+    defineNewCursorGraphical(filename);
+    handleActionUsername(filename);
+}
+
+void Arc::Menu::fillUsername(const std::string bufferEvent)
+{
+    if (this->gameData.player.ignoreKey) {
+        this->gameData.player.userName += bufferEvent;
+        this->gameData.textSet.at(this->gameData.textSet.size() - 1).text = this->gameData.player.userName;
     }
 }
 
@@ -215,10 +253,7 @@ const Arc::GameData &Arc::Menu::update(const Arc::Event &event)
                 break;
         }
     }
-    if (this->gameData.player.ignoreKey) {
-        this->gameData.player.userName += event.buffer;
-        this->gameData.textSet.at(this->gameData.textSet.size() - 1).text = this->gameData.player.userName;
-    }
+    fillUsername(event.buffer);
     modifyAllTextColor();
     return this->gameData;
 }
