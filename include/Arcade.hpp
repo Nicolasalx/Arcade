@@ -31,6 +31,7 @@ namespace Arc
             void getCurrentLibLoaded();
             bool eventContain(const Arc::Event &eventList, const Arc::EventType &eventType);
             void loadNextDisplay();
+            void loadNextGame();
 
             std::string displayName;
             std::string gameName;

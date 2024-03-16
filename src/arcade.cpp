@@ -40,7 +40,7 @@ void Arc::Arcade::launch()
 {
     this->displayLoader.load(this->displayName);
     this->displayName = this->displayLoader.getName();
-    this->gameLoader.load("./lib/arcade_snake.so");
+    this->gameLoader.load("./lib/arcade_menu.so");
     this->gameName = this->gameLoader.getName();
 
     if (!this->displayName.starts_with("arcade_D_")) {
@@ -88,6 +88,20 @@ void Arc::Arcade::loadNextDisplay()
     this->displayModule->init();
 }
 
+void Arc::Arcade::loadNextGame()
+{
+    if (this->_lib.currentGame == -1) {
+        return;
+    }
+    this->gameModule->stop();
+    delete this->gameModule;
+    this->gameLoader.close();
+    this->_lib.currentGame = Arc::safeModulo<int>(this->_lib.currentGame + 1, this->_lib.game.size());
+    this->gameLoader.load(this->_lib.game.at(this->_lib.currentGame).path);
+    this->gameModule = this->gameLoader.getInstance("entryPoint");
+    this->gameModule->init();
+}
+
 void Arc::Arcade::loop()
 {
     this->displayModule->init();
@@ -104,7 +118,9 @@ void Arc::Arcade::loop()
         if (eventContain(eventList, Arc::EventType::NEXT_DISPLAY)) {
             loadNextDisplay();
         }
-
+        if (eventContain(eventList, Arc::EventType::NEXT_GAME)) {
+            loadNextGame();
+        }
         const GameData &data = this->gameModule->update(eventList);
         if (data.lib.libState == Arc::LibState::CURRENT_NOT_INIT
         && this->_lib.currentGame == -1 && this->_lib.currentDisplay) {
