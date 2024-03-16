@@ -24,6 +24,16 @@ Arc::Arcade::Arcade(int argc, const char **argv)
     this->graphicalLib = std::string(argv[1]);
 }
 
+Arc::Arcade::~Arcade()
+{
+    if (this->displayModule != nullptr) {
+        delete this->displayModule;
+    }
+    if (this->gameModule != nullptr) {
+        delete this->gameModule;
+    }
+}
+
 void Arc::Arcade::launch()
 {
     this->displayLoader.load(this->graphicalLib);
@@ -61,6 +71,14 @@ void Arc::Arcade::loop()
             break;
         }
         const GameData &data = this->gameModule->update(eventList);
+        if (data.lib.libState == Arc::LibState::CURRENT_NOT_INIT
+            && this->_lib.currentGame != -1) {
+//            this->_lib.gamePath = data.lib.gamePath;
+//            this->_lib.graphicalPath = data.lib.graphicalPath;
+        }
+//        if (data.lib.libState == Arc::LibState::NEW_SELECTION) {
+//            
+//        }
         this->displayModule->refresh(data);
 
         Arc::FrameRate::end();

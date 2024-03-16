@@ -19,9 +19,14 @@ namespace Arc
         NEW_SELECTION
     };
 
+    struct LibInfo {
+        std::string path;
+        std::string name;
+    };
+
     struct Lib {
-        std::vector<std::string> gamePath;
-        std::vector<std::string> graphicalPath;
+        std::vector<Arc::LibInfo> game;
+        std::vector<Arc::LibInfo> graphical;
         int currentGame = -1;
         int currentDisplay = -1;
         Arc::LibState libState = Arc::LibState::NOT_INIT;
