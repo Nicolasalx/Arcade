@@ -16,16 +16,27 @@
     #include <string>
 
     #define PATH_IMG "./game_src/snake/"
+    #define SIZE_MAP 20
+    #define SIZE_BORDER 40
+    #define X_POS_MAP 500
+    #define Y_POS_MAP 100
+    #define SIZE_SNAKE_START 4
 
 namespace Arc
 {
+    enum TypeOfTile {
+        SNAKE,
+        MAP,
+        FOOD,
+        FLOOR
+    };
+    struct BoxMap {
+        TypeOfTile type;
+        Pos pos;
+    };
+
     class Snake : public AGameModule
     {
-        enum typeOfTile {
-            SNAKE,
-            MAP,
-            FOOD
-        };
         public:
             Snake();
             ~Snake();
@@ -36,7 +47,7 @@ namespace Arc
 
         private:
             void createText(const std::string &name, Pos pos);
-            void createTile(Pos pos, Size sizeTile, typeOfTile typeOfTile);
+            void createTile(Pos pos, Size sizeTile, TypeOfTile typeOfTile);
             void createPlayer(Pos pos, Size sizeTile, char character);
             void moveSnakeLeft();
             void moveSnakeRight();
@@ -46,11 +57,12 @@ namespace Arc
             void isSnakeFillingAllTheMap();
             void snakeEatAFood();
             void moveNextCase();
+            void putNewBoxInMap(TypeOfTile type, Pos pos, std::vector<BoxMap> &tmpBox);
+            double getRandomPos(double min, double max);
 
-            std::vector<Arc::Tile> _map;
-            std::vector<Arc::Tile> _snake;
-            Arc::Tile _food;
-            std::size_t _actualScore = 4;
+            std::vector<std::vector<BoxMap>> _map;
+
+            std::size_t _actualScore = SIZE_SNAKE_START;
             std::size_t _highScore = 0;
     };
 }

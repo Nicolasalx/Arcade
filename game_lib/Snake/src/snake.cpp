@@ -48,30 +48,31 @@ void Arc::Snake::createText(const std::string &name, Pos pos)
     this->gameData.textSet.push_back(text);
 }
 
-void Arc::Snake::createTile(Pos pos, Size sizeTile, typeOfTile typeOfTile)
+void Arc::Snake::createTile(Pos pos, Size sizeTile, TypeOfTile type)
 {
     Arc::Tile tile;
 
-    switch (typeOfTile) {
+    switch (type) {
         case MAP:
             tile.imagePath = std::string(PATH_IMG) + "bush.png";
             tile.color = Arc::Color::GREEN;
             tile.c = '#';
-            tile.size = sizeTile;
-            pos = pos;
-            _map.push_back(tile);
+        break;
+        case FLOOR:
+            tile.imagePath = std::string(PATH_IMG) + "floor.png";
+            tile.color = Arc::Color::GREEN;
+            tile.c = '#';
         break;
         case FOOD:
             tile.imagePath = std::string(PATH_IMG) + "apple.png";
             tile.color = Arc::Color::RED;
             tile.c = '@';
-            tile.size = sizeTile;
-            pos = pos;
-            _food = tile;
         break;
         default:
             break;
     }
+    tile.size = sizeTile;
+    tile.pos = pos;
     this->gameData.tileSet.push_back(tile);
 }
 
@@ -84,43 +85,55 @@ void Arc::Snake::createPlayer(Pos pos, Size sizeTile, char character)
     tile.color = Arc::Color::CYAN;
     tile.c = character;
     tile.size = sizeTile;
-    pos = pos;
-    _snake.push_back(tile);
+    tile.pos = pos;
     this->gameData.player.tileSet.push_back(tile);
 }
 
-int getRandomPos(int min, int max)
+double Arc::Snake::getRandomPos(double min, double max)
 {
-    std::srand(static_cast<unsigned int>(std::time(nullptr)));
-    return min + (std::rand() % (max - min + 1));
+    return min + static_cast<double>(std::rand()) / (static_cast<double>(RAND_MAX / (max - min)));
+}
+
+void Arc::Snake::putNewBoxInMap(TypeOfTile type, Pos pos, std::vector<BoxMap> &tmpBox)
+{
+    BoxMap box;
+
+    box.type = type;
+    box.pos = pos;
+    createTile(Arc::Pos(pos.x, pos.y), Arc::Size(SIZE_BORDER, SIZE_BORDER), type);
+    tmpBox.push_back(box);
 }
 
 void Arc::Snake::init()
 {
     // TODO Create the 3 texts
-    createText("Username: " + this->gameData.player.userName, (Arc::Pos) {400, 100});
-    createText("Actual score: " + std::to_string(_actualScore), (Arc::Pos) {700, 200});
-    createText("High score: " + std::to_string(_highScore), (Arc::Pos) {1000, 200});
+    createText("Username: " + this->gameData.player.userName, Arc::Pos(400, 50));
+    createText("Actual score: " + std::to_string(_actualScore), Arc::Pos(700, 50));
+    createText("High score: " + std::to_string(_highScore), Arc::Pos(1000, 50));
 
     // TODO Create the map (10 x 10)
-    createTile((Arc::Pos) {100, 150}, (Arc::Size) {40, 40}, MAP);
-    createTile((Arc::Pos) {100, 200}, (Arc::Size) {40, 40}, MAP);
-    createTile((Arc::Pos) {1010, 250}, (Arc::Size) {40, 40}, MAP);
-    createTile((Arc::Pos) {100, 300}, (Arc::Size) {40, 40}, MAP);
-    createTile((Arc::Pos) {100, 350}, (Arc::Size) {40, 40}, MAP);
-    createTile((Arc::Pos) {100, 400}, (Arc::Size) {40, 40}, MAP);
+    double posX = X_POS_MAP;
+    double posY = Y_POS_MAP;
 
-    // TODO: Create the Snake (4)
-    createPlayer(Arc::Pos(500, 800), Arc::Size(40, 40), '~');
-    createPlayer(Arc::Pos(400, 800), Arc::Size(40, 40), '8');
-    createPlayer(Arc::Pos(300, 800), Arc::Size(40, 40), '=');
-    createPlayer(Arc::Pos(200, 800), Arc::Size(40, 40), '>');
+    for (int i = 0; i < SIZE_MAP; ++i) {
+        std::vector<BoxMap> tmpBox;
+        for (int j = 0; j < SIZE_MAP; ++j) {
+            if (i == 0 || j == 0 || j == SIZE_MAP - 1 || i == SIZE_MAP - 1) {
+                putNewBoxInMap(MAP, Arc::Pos(posX, posY), tmpBox);
+            } else {
+                putNewBoxInMap(FLOOR, Arc::Pos(posX, posY), tmpBox);
+            }
+            posX += SIZE_BORDER;
+        }
+        _map.push_back(tmpBox);
+        posX = X_POS_MAP;
+        posY += SIZE_BORDER;
+    }
 
-    // Randomize the position of the food
-    double randomizeSizeX = getRandomPos(200, 500); // The pos min and max need to be changed with the map values
-    double randomizeSizeY = getRandomPos(300, 600); // The pos min and max need to be changed with the map values
+    // Implement the snake
+    
 
-    createTile(Arc::Pos(randomizeSizeX, randomizeSizeY), (Arc::Size) {40, 40}, FOOD);
+    //createTile(Arc::Pos(randomizeSizeX, randomizeSizeY), (Arc::Size) {40, 40}, FOOD);
 
     /*
         ? Info of the snake
