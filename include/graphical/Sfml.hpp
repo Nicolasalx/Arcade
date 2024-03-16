@@ -14,6 +14,15 @@
 
 namespace Arc
 {
+    struct Pool
+    {
+        std::vector<sf::Text> text;
+        std::map<std::string, sf::Font> font;
+
+        std::vector<sf::Sprite> sprite;
+        std::map<std::string, sf::Texture> texture;
+    };
+
     class Sfml : public ADisplayModule
     {
         public:
@@ -29,10 +38,14 @@ namespace Arc
             void displayTileSet(const Arc::GameData &gameData);
             void displayText(const Arc::GameData &gameData);
 
+            void appendTextToPool(const std::size_t &i);
+            void appendFontToPool(const std::string &fontPath);
+            void appendSpriteToPool(const std::size_t &i);
+            void appendTextureToPool(const std::string &texturePath);
+
             sf::RenderWindow _window;
             sf::Event _event;
-            std::vector<sf::Text> _textList;
-            std::map<std::string, sf::Font> _fontList;
+            Pool _pool;
 
             std::vector<std::pair<sf::Keyboard::Key, Arc::EventType>> _keyBind = {
                 {sf::Keyboard::E, Arc::EventType::EXIT},
