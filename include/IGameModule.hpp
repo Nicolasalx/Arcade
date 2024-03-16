@@ -12,7 +12,6 @@
     #include <vector>
     #include "Event.hpp"
     #include "GameData.hpp"
-    #include "LibType.hpp"
 
 namespace Arc
 {

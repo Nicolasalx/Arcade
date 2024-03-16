@@ -13,7 +13,7 @@ static std::string get_func_name(const std::string &func)
 {
     std::string func_name;
 
-    for (int i = func.find_first_of('(') - 1; func[i] != ' ' && i >= 0; --i) {
+    for (int i = func.find_first_of('(') - 1; i >= 0 && func[i] != ' '; --i) {
         func_name.push_back(func[i]);
     }
     std::ranges::reverse(func_name.begin(), func_name.end());

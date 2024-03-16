@@ -21,17 +21,19 @@ namespace Arc
     {
         public:
             Arcade(int argc, const char **argv);
-            ~Arcade() = default;
+            ~Arcade();
 
             void launch();
             void loop();
 
         private:
             std::string graphicalLib;
-            Arc::IDisplayModule *displayModule;
-            Arc::IGameModule *gameModule;
+            Arc::IDisplayModule *displayModule = nullptr;
+            Arc::IGameModule *gameModule = nullptr;
             Arc::DLLoader<Arc::IDisplayModule> displayLoader;
             Arc::DLLoader<Arc::IGameModule> gameLoader;
+
+            Arc::Lib _lib;
     };
 }
 

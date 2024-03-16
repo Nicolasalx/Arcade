@@ -43,6 +43,15 @@ namespace Arc
             }
         }
 
+        void close()
+        {
+            if (this->_handle == nullptr) {
+                return;
+            }
+            dlclose(this->_handle);
+            this->_handle = nullptr;
+        }
+
         T *getInstance(const std::string &name)
         {
             auto func = reinterpret_cast<T *(*)(void)>(dlsym(this->_handle, name.c_str()));
