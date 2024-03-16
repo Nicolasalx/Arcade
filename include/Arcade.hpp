@@ -13,6 +13,7 @@
     #include "IDisplayModule.hpp"
     #include "IGameModule.hpp"
     #include "DLLoader.hpp"
+    #include "EventType.hpp"
     #include <set>
 
 namespace Arc
@@ -27,7 +28,12 @@ namespace Arc
             void loop();
 
         private:
-            std::string graphicalLib;
+            void getCurrentLibLoaded();
+            bool eventContain(const Arc::Event &eventList, const Arc::EventType &eventType);
+            void loadNextDisplay();
+
+            std::string displayName;
+            std::string gameName;
             Arc::IDisplayModule *displayModule = nullptr;
             Arc::IGameModule *gameModule = nullptr;
             Arc::DLLoader<Arc::IDisplayModule> displayLoader;

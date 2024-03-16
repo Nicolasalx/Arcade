@@ -22,7 +22,7 @@ Arc::Arcade::Arcade(int argc, const char **argv)
            "\tgraphical_lib.so is a dynamic library that"
            "implement all the method of IDisplayModule\n\n");
     }
-    this->graphicalLib = std::string(argv[1]);
+    this->displayName = std::string(argv[1]);
 }
 
 Arc::Arcade::~Arcade()
@@ -37,25 +37,54 @@ Arc::Arcade::~Arcade()
 
 void Arc::Arcade::launch()
 {
-    this->displayLoader.load(this->graphicalLib);
-    this->displayModule = displayLoader.getInstance("entryPoint");
+    this->displayLoader.load(this->displayName);
+    this->displayName = this->displayLoader.getName();
+    this->gameLoader.load("./lib/arcade_menu.so");
+    this->gameName = this->gameLoader.getName();
 
-    if (!this->displayLoader.getName().starts_with("arcade_D_")) {
+    if (!this->displayName.starts_with("arcade_D_")) {
         throw my::tracked_exception("Invalid graphical lib.");
     }
-
-    this->gameLoader.load("./lib/arcade_menu.so");
+    this->displayModule = this->displayLoader.getInstance("entryPoint");
     this->gameModule = this->gameLoader.getInstance("entryPoint");
 }
 
-static bool exitDetected(const Arc::Event &eventList)
+bool Arc::Arcade::eventContain(const Arc::Event &eventList, const Arc::EventType &eventType)
 {
-    for (size_t i = 0; i < eventList.eventType.size(); ++i) {
-        if (eventList.eventType[i] == Arc::EventType::EXIT) {
+    for (std::size_t i = 0; i < eventList.eventType.size(); ++i) {
+        if (eventList.eventType[i] == eventType) {
             return true;
         }
     }
     return false;
+}
+
+void Arc::Arcade::getCurrentLibLoaded()
+{
+    for (std::size_t i = 0; i < this->_lib.game.size(); ++i) {
+        if (this->_lib.game[i].name == this->gameName) {
+            this->_lib.currentGame = i;
+        }
+    }
+    for (std::size_t i = 0; i < this->_lib.graphical.size(); ++i) {
+        if (this->_lib.graphical[i].name == this->displayName) {
+            this->_lib.currentDisplay = i;
+        }
+    }
+}
+
+void Arc::Arcade::loadNextDisplay()
+{
+    if (this->_lib.currentDisplay == -1) {
+        return;
+    }
+    this->displayModule->stop();
+    delete this->displayModule;
+    this->displayLoader.close();
+    this->_lib.currentDisplay = (this->_lib.currentDisplay + 1) % this->_lib.graphical.size();
+    this->displayLoader.load(this->_lib.graphical.at(this->_lib.currentDisplay).path);
+    this->displayModule = this->displayLoader.getInstance("entryPoint");
+    this->displayModule->init();
 }
 
 void Arc::Arcade::loop()
@@ -68,18 +97,19 @@ void Arc::Arcade::loop()
         Arc::FrameRate::start();
 
         Arc::Event eventList = this->displayModule->getEvent();
-        if (exitDetected(eventList)) {
+        if (eventContain(eventList, Arc::EventType::EXIT)) {
             break;
         }
+        if (eventContain(eventList, Arc::EventType::NEXT_DISPLAY)) {
+            loadNextDisplay();
+        }
+
         const GameData &data = this->gameModule->update(eventList);
         if (data.lib.libState == Arc::LibState::CURRENT_NOT_INIT
-            && this->_lib.currentGame != -1) {
+        && this->_lib.currentGame == -1 && this->_lib.currentDisplay) {
             this->_lib.game = data.lib.game;
             this->_lib.graphical = data.lib.graphical;
-            this->_lib.currentGame = 0;
-            this->_lib.currentDisplay = 0;
-            my::printsl(this->_lib.game, [](const LibInfo &test) { std::cout << "[" << test.name << ", " << test.path<< "]";});
-            my::printsl(this->_lib.graphical, [](const LibInfo &test) { std::cout << "[" << test.name << ", " << test.path<< "]";});
+            this->getCurrentLibLoaded();
         }
 //        if (data.lib.libState == Arc::LibState::NEW_SELECTION) {
 //            
