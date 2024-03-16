@@ -15,8 +15,7 @@ namespace Arc
 {
     enum class LibState {
         NOT_INIT,
-        ASK_CURRENT_GAME,
-        ASK_CURRENT_DISPLAY,
+        CURRENT_NOT_INIT,
         NEW_SELECTION
     };
 

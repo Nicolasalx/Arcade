@@ -45,7 +45,7 @@ std::string Arc::Menu::getFileName(const std::string &filepath)
     return absoluteFilepath.filename().string();
 }
 
-void Arc::Menu::createTextWithLib(const std::string &name, Pos pos, enum isSelectable_e isSelectable)
+void Arc::Menu::createTextWithLib(const std::string &name, Pos pos, enum IsSelectable isSelectable)
 {
     Arc::Text text;
 
@@ -77,6 +77,7 @@ void Arc::Menu::selectTypeLib(const std::string &filename)
     if (nameLib.find("arcade_D") != std::string::npos) {
         this->gameData.lib.graphicalPath.push_back(filename);
     }
+    this->gameData.lib.libState = Arc::LibState::CURRENT_NOT_INIT;
 }
 
 void Arc::Menu::getLibFromDirectory()
@@ -94,24 +95,33 @@ void Arc::Menu::init()
     double posY = 250;
 
     getLibFromDirectory();
-    createTextWithLib(GAME_LIST, (Arc::Pos) {500, 200}, isSelectable_e::NOT_SELECTABLE);
-    createTextWithLib(GRAPHICAL_LIST, (Arc::Pos) {1100, 200}, isSelectable_e::NOT_SELECTABLE);
+    createTextWithLib(GAME_LIST, (Arc::Pos) {500, 200}, NOT_SELECTABLE);
+    createTextWithLib(GRAPHICAL_LIST, (Arc::Pos) {1100, 200}, NOT_SELECTABLE);
     for (const auto &libGame : this->gameData.lib.gamePath) {
-        createTextWithLib(libGame, (Arc::Pos) {500, posY += 50}, isSelectable_e::SELECTABLE);
+        createTextWithLib(libGame, (Arc::Pos) {500, posY += 50}, SELECTABLE);
     }
     posY = 250;
     for (const auto &libGraphical : this->gameData.lib.graphicalPath) {
-        createTextWithLib(libGraphical, (Arc::Pos) {1100, posY += 50}, isSelectable_e::SELECTABLE);
+        createTextWithLib(libGraphical, (Arc::Pos) {1100, posY += 50}, SELECTABLE);
     }
-    createTextWithLib(USERNAME, (Arc::Pos) {400, 900}, isSelectable_e::SELECTABLE);
-    createTextWithLib(VALIDATE, (Arc::Pos) {1300, 900}, isSelectable_e::SELECTABLE);
+    createTextWithLib(USERNAME, (Arc::Pos) {400, 900}, SELECTABLE);
+    createTextWithLib(VALIDATE, (Arc::Pos) {1300, 900}, SELECTABLE);
     if (this->gameData.textSet.size() > 1) {
-        this->gameData.textSet[2].color = Arc::Color::YELLOW;
+        this->gameData.textSet[IDX_LIST_START].color = Arc::Color::YELLOW;
     }
+
+    size_t indexText = 0;
+    for (const auto &text : this->gameData.textSet) {
+        if (getFileName(text.text) == "arcade_menu.so") {
+            break;
+        }
+        ++indexText;
+    }
+
     _cursorPlace = {
         .elemInSelect = 0,
-        .gameLib = 3, // To change
-        .graphicalLib = 4 // To change
+        .gameLib = indexText - IDX_LIST_START, // To change
+        .graphicalLib = 25 // To change
     };
 }
 
@@ -131,7 +141,7 @@ void Arc::Menu::selectNextChoice()
 
 void Arc::Menu::modifyAllTextColor(void)
 {
-    size_t indexText = 2;
+    size_t indexText = IDX_LIST_START;
 
     for (const auto &textSelectable : _allTextSelectable) {
         if (textSelectable.text == _allTextSelectable[_cursorPlace.elemInSelect].text) {
@@ -156,22 +166,36 @@ void Arc::Menu::selectPrevChoice(void)
     }
 }
 
-void Arc::Menu::validateChoice(const std::string &filename)
+void Arc::Menu::validateChoice(const std::string &filename, const std::string &bufferEvent)
 {
+    bool isEnterUsername = false;
+
     for (const auto &gamePath : this->gameData.lib.gamePath) {
         if (getFileName(gamePath) == filename) {
             _cursorPlace.gameLib = _cursorPlace.elemInSelect;
+            this->gameData.lib.currentGame = _cursorPlace.gameLib;
         }
     }
     for (const auto &graphicalPath : this->gameData.lib.graphicalPath) {
         if (getFileName(graphicalPath) == filename) {
             _cursorPlace.graphicalLib = _cursorPlace.elemInSelect;
+            this->gameData.lib.currentDisplay = _cursorPlace.graphicalLib - this->gameData.lib.gamePath.size();
         }
     }
-    if (filename == USERNAME) {
-    }
+    //if (filename == USERNAME) {
+    //    if (!isEnterUsername) {
+    //        this->gameData.player.ignoreKey = !this->gameData.player.ignoreKey;
+    //        
+    //    }
+    //    return;
+    //}
+
     if (filename == VALIDATE) {
+        if (this->gameData.lib.currentGame >= 0 && this->gameData.lib.currentDisplay >= 0) {
+            this->gameData.lib.libState = Arc::LibState::NEW_SELECTION;
+        }
     }
+
     // Check if it's username
         // Voir comment on va lire l'input user
 
@@ -181,23 +205,24 @@ void Arc::Menu::validateChoice(const std::string &filename)
 
 const Arc::GameData &Arc::Menu::update(const Arc::Event &event)
 {
-    for (const auto &event : event.eventType) {
-        switch (event) {
+    for (const auto &evt : event.eventType) {
+        switch (evt) {
             case Arc::EventType::DOWN:
                 selectNextChoice();
             break;
-
             case Arc::EventType::UP:
                 selectPrevChoice();
             break;
-
             case Arc::EventType::ENTER:
-                validateChoice(_allTextSelectable[_cursorPlace.elemInSelect].text);
+                validateChoice(_allTextSelectable[_cursorPlace.elemInSelect].text, event.buffer);
             break;
 
             default:
                 break;
         }
+    }
+    if (this->gameData.player.ignoreKey == true) {
+        std::cout << "BUFFER: " << event.buffer << "\n";
     }
     modifyAllTextColor();
     return this->gameData;

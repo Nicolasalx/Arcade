@@ -20,6 +20,7 @@
     #define VALIDATE "Valider"
     #define GAME_LIST "Games list:"
     #define GRAPHICAL_LIST "Graphicals list:"
+    #define IDX_LIST_START 2
 
 struct cursorPlace_t {
     std::size_t elemInSelect;
@@ -31,7 +32,7 @@ namespace Arc
 {
     class Menu : public AGameModule
     {
-    enum isSelectable_e {
+    enum IsSelectable {
         SELECTABLE,
         NOT_SELECTABLE
     };
@@ -43,18 +44,17 @@ namespace Arc
         void init();
         const Arc::GameData &update(const Arc::Event &event);
         void stop();
-        void createTextWithLib(const std::string &name, Pos pos, enum isSelectable_e isSelectable);
+        void createTextWithLib(const std::string &name, Pos pos, enum IsSelectable isSelectable);
         void getLibFromDirectory();
         void selectTypeLib(const std::string &filename);
         std::string getFileName(const std::string &name);
 
         void selectNextChoice();
         void selectPrevChoice();
-        void validateChoice(const std::string &filename);
+        void validateChoice(const std::string &filename, const std::string &bufferEvent);
 
         void modifyAllTextColor();
 
-        std::string _name = "arcade_D_menu";
         std::vector<std::string> _mapLibGame;
         std::vector<std::string> _mapLibGraphical;
         cursorPlace_t _cursorPlace;
