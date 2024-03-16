@@ -26,6 +26,9 @@ namespace Arc
             void stop();
 
         private:
+            void displayTileSet(const Arc::GameData &gameData);
+            void displayText(const Arc::GameData &gameData);
+
             sf::RenderWindow _window;
             sf::Event _event;
             std::vector<sf::Text> _textList;

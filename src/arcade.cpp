@@ -13,6 +13,7 @@
 #include "FrameRate.hpp"
 #include "my_print.hpp"
 #include <iostream>
+#include "SafeDiv.hpp"
 
 Arc::Arcade::Arcade(int argc, const char **argv)
 {
@@ -81,7 +82,7 @@ void Arc::Arcade::loadNextDisplay()
     this->displayModule->stop();
     delete this->displayModule;
     this->displayLoader.close();
-    this->_lib.currentDisplay = (this->_lib.currentDisplay + 1) % this->_lib.graphical.size();
+    this->_lib.currentDisplay = Arc::safeModulo<int>(this->_lib.currentDisplay + 1, this->_lib.graphical.size());
     this->displayLoader.load(this->_lib.graphical.at(this->_lib.currentDisplay).path);
     this->displayModule = this->displayLoader.getInstance("entryPoint");
     this->displayModule->init();

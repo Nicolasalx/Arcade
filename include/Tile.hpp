@@ -11,6 +11,7 @@
     #include <string>
     #include "ColorEnum.hpp"
     #include "Pos.hpp"
+    #include "Size.hpp"
 
 namespace Arc
 {
@@ -19,8 +20,8 @@ namespace Arc
         std::string imagePath;
         char c = '_';
         Arc::Color color = Arc::Color::BLACK;
-        std::size_t size;
-        Pos pos;
+        Arc::Size size;
+        Arc::Pos pos;
     };
 }
 
