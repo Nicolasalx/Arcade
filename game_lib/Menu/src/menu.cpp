@@ -109,6 +109,7 @@ void Arc::Menu::init()
     if (this->gameData.textSet.size() > 1) {
         this->gameData.textSet[IDX_LIST_START].color = Arc::Color::YELLOW;
     }
+    createTextWithLib("", (Arc::Pos) {550, 900}, NOT_SELECTABLE);
 
     size_t indexText = 0;
     for (const auto &text : this->gameData.textSet) {
@@ -120,8 +121,8 @@ void Arc::Menu::init()
 
     _cursorPlace = {
         .elemInSelect = 0,
-        .gameLib = indexText - IDX_LIST_START, // To change
-        .graphicalLib = 25 // To change
+        .gameLib = indexText - IDX_LIST_START,
+        .graphicalLib = 25
     };
 }
 
@@ -166,10 +167,8 @@ void Arc::Menu::selectPrevChoice(void)
     }
 }
 
-void Arc::Menu::validateChoice(const std::string &filename, const std::string &bufferEvent)
+void Arc::Menu::validateChoice(const std::string &filename)
 {
-    bool isEnterUsername = false;
-
     for (const auto &gamePath : this->gameData.lib.gamePath) {
         if (getFileName(gamePath) == filename) {
             _cursorPlace.gameLib = _cursorPlace.elemInSelect;
@@ -182,25 +181,19 @@ void Arc::Menu::validateChoice(const std::string &filename, const std::string &b
             this->gameData.lib.currentDisplay = _cursorPlace.graphicalLib - this->gameData.lib.gamePath.size();
         }
     }
-    //if (filename == USERNAME) {
-    //    if (!isEnterUsername) {
-    //        this->gameData.player.ignoreKey = !this->gameData.player.ignoreKey;
-    //        
-    //    }
-    //    return;
-    //}
-
+    if (filename == USERNAME) {
+        if (this->gameData.player.userName.length() == 0) {
+            this->gameData.player.ignoreKey = true;
+        } else {
+            this->gameData.player.ignoreKey = false;
+        }
+        return;
+    }
     if (filename == VALIDATE) {
         if (this->gameData.lib.currentGame >= 0 && this->gameData.lib.currentDisplay >= 0) {
             this->gameData.lib.libState = Arc::LibState::NEW_SELECTION;
         }
     }
-
-    // Check if it's username
-        // Voir comment on va lire l'input user
-
-    // Check if it's valider
-        // Launch le jeu et la lib graphique
 }
 
 const Arc::GameData &Arc::Menu::update(const Arc::Event &event)
@@ -214,15 +207,15 @@ const Arc::GameData &Arc::Menu::update(const Arc::Event &event)
                 selectPrevChoice();
             break;
             case Arc::EventType::ENTER:
-                validateChoice(_allTextSelectable[_cursorPlace.elemInSelect].text, event.buffer);
+                validateChoice(_allTextSelectable[_cursorPlace.elemInSelect].text);
             break;
-
             default:
                 break;
         }
     }
-    if (this->gameData.player.ignoreKey == true) {
-        std::cout << "BUFFER: " << event.buffer << "\n";
+    if (this->gameData.player.ignoreKey) {
+        this->gameData.player.userName += event.buffer;
+        this->gameData.textSet[this->gameData.textSet.size() - 1].text = this->gameData.player.userName;
     }
     modifyAllTextColor();
     return this->gameData;

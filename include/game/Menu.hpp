@@ -16,7 +16,7 @@
     #include "DLLoader.hpp"
     #include <algorithm>
 
-    #define USERNAME "Username"
+    #define USERNAME "Username:"
     #define VALIDATE "Valider"
     #define GAME_LIST "Games list:"
     #define GRAPHICAL_LIST "Graphicals list:"
@@ -51,7 +51,7 @@ namespace Arc
 
         void selectNextChoice();
         void selectPrevChoice();
-        void validateChoice(const std::string &filename, const std::string &bufferEvent);
+        void validateChoice(const std::string &filename);
 
         void modifyAllTextColor();
 
