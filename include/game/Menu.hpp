@@ -44,16 +44,23 @@ namespace Arc
         void init();
         const Arc::GameData &update(const Arc::Event &event);
         void stop();
-        void createTextWithLib(const std::string &name, Pos pos, enum IsSelectable isSelectable);
+
+    private:
+        void createAllText();
+        void createTextWithLib(const std::string &name, Pos pos, IsSelectable isSelectable);
         void getLibFromDirectory();
         void selectTypeLib(const std::string &filename);
         std::string getFileName(const std::string &name);
-
         void selectNextChoice();
         void selectPrevChoice();
         void validateChoice(const std::string &filename);
-
+        void defineIdxCursor();
         void modifyAllTextColor();
+        void defineNewCursorGame(const std::string &filename);
+        void defineNewCursorGraphical(const std::string &filename);
+        void handleValidation(const std::string &filename);
+        void handleActionUsername(const std::string &filename);
+        void fillUsername(const std::string bufferEvent);
 
         std::vector<std::string> _mapLibGame;
         std::vector<std::string> _mapLibGraphical;
