@@ -13,6 +13,7 @@
     #include <vector>
     #include <cstdlib>
     #include <ctime>
+    #include <string>
 
     #define PATH_IMG "./game_src/snake/"
 
@@ -35,8 +36,8 @@ namespace Arc
 
         private:
             void createText(const std::string &name, Pos pos);
-            void createTile(Pos pos, std::size_t sizeTile, typeOfTile typeOfTile);
-            void createPlayer(Pos pos, std::size_t sizeTile, char character);
+            void createTile(Pos pos, Size sizeTile, typeOfTile typeOfTile);
+            void createPlayer(Pos pos, Size sizeTile, char character);
             void moveSnakeLeft();
             void moveSnakeRight();
             void endTheGame();

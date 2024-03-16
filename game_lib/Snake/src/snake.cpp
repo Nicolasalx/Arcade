@@ -48,7 +48,7 @@ void Arc::Snake::createText(const std::string &name, Pos pos)
     this->gameData.textSet.push_back(text);
 }
 
-void Arc::Snake::createTile(Pos pos, std::size_t sizeTile, typeOfTile typeOfTile)
+void Arc::Snake::createTile(Pos pos, Size sizeTile, typeOfTile typeOfTile)
 {
     Arc::Tile tile;
 
@@ -75,7 +75,7 @@ void Arc::Snake::createTile(Pos pos, std::size_t sizeTile, typeOfTile typeOfTile
     this->gameData.tileSet.push_back(tile);
 }
 
-void Arc::Snake::createPlayer(Pos pos, std::size_t sizeTile, char character)
+void Arc::Snake::createPlayer(Pos pos, Size sizeTile, char character)
 {
     Tile tile;
 
@@ -98,29 +98,29 @@ int getRandomPos(int min, int max)
 void Arc::Snake::init()
 {
     // TODO Create the 3 texts
-    createText("Username: " + this->gameData.player.userName, (Arc::Pos) {300, 200});
-    createText("Actual score: " + _actualScore, (Arc::Pos) {450, 200});
-    createText("High score: " + _highScore, (Arc::Pos) {600, 200});
+    createText("Username: " + this->gameData.player.userName, (Arc::Pos) {400, 100});
+    createText("Actual score: " + std::to_string(_actualScore), (Arc::Pos) {700, 200});
+    createText("High score: " + std::to_string(_highScore), (Arc::Pos) {1000, 200});
 
     // TODO Create the map (10 x 10)
-    createTile((Arc::Pos) {100, 150}, 100, MAP);
-    createTile((Arc::Pos) {100, 200}, 100, MAP);
-    createTile((Arc::Pos) {100, 250}, 100, MAP);
-    createTile((Arc::Pos) {100, 300}, 100, MAP);
-    createTile((Arc::Pos) {100, 350}, 100, MAP);
-    createTile((Arc::Pos) {100, 400}, 100, MAP);
+    createTile((Arc::Pos) {100, 150}, (Arc::Size) {40, 40}, MAP);
+    createTile((Arc::Pos) {100, 200}, (Arc::Size) {40, 40}, MAP);
+    createTile((Arc::Pos) {1010, 250}, (Arc::Size) {40, 40}, MAP);
+    createTile((Arc::Pos) {100, 300}, (Arc::Size) {40, 40}, MAP);
+    createTile((Arc::Pos) {100, 350}, (Arc::Size) {40, 40}, MAP);
+    createTile((Arc::Pos) {100, 400}, (Arc::Size) {40, 40}, MAP);
 
     // TODO: Create the Snake (4)
-    createPlayer((Arc::Pos) {500, 800}, 100, '~');
-    createPlayer((Arc::Pos) {400, 800}, 100, '8');
-    createPlayer((Arc::Pos) {300, 800}, 100, '=');
-    createPlayer((Arc::Pos) {200, 800}, 100, '>');
+    createPlayer(Arc::Pos(500, 800), Arc::Size(40, 40), '~');
+    createPlayer(Arc::Pos(400, 800), Arc::Size(40, 40), '8');
+    createPlayer(Arc::Pos(300, 800), Arc::Size(40, 40), '=');
+    createPlayer(Arc::Pos(200, 800), Arc::Size(40, 40), '>');
 
     // Randomize the position of the food
-    int randomizeSizeX = getRandomPos(200, 500); // The pos min and max need to be changed with the map values
-    int randomizeSizeY = getRandomPos(300, 600); // The pos min and max need to be changed with the map values
+    double randomizeSizeX = getRandomPos(200, 500); // The pos min and max need to be changed with the map values
+    double randomizeSizeY = getRandomPos(300, 600); // The pos min and max need to be changed with the map values
 
-    createTile((Arc::Pos) {randomizeSizeX, randomizeSizeY}, 100, FOOD, '@');
+    createTile(Arc::Pos(randomizeSizeX, randomizeSizeY), (Arc::Size) {40, 40}, FOOD);
 
     /*
         ? Info of the snake
@@ -206,12 +206,12 @@ const Arc::GameData &Arc::Snake::update(const Arc::Event &event)
             break;
         }
     }
-    moveNextCase();
-    checkHighScore();
-    snakeEatAFood();
-    isSnakeFillingAllTheMap();
-    endTheGame();
-    displayScreenEnd();
+    //moveNextCase();
+    //checkHighScore();
+    //snakeEatAFood();
+    //isSnakeFillingAllTheMap();
+    //endTheGame();
+    //displayScreenEnd();
     return this->gameData;
 }
 

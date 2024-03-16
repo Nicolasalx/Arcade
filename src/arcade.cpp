@@ -40,7 +40,7 @@ void Arc::Arcade::launch()
 {
     this->displayLoader.load(this->displayName);
     this->displayName = this->displayLoader.getName();
-    this->gameLoader.load("./lib/arcade_menu.so");
+    this->gameLoader.load("./lib/arcade_snake.so");
     this->gameName = this->gameLoader.getName();
 
     if (!this->displayName.starts_with("arcade_D_")) {
