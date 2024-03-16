@@ -36,9 +36,6 @@ Arc::Menu::~Menu()
     std::cout << "Menu is class destroyed.\n";
 }
 
-// ! WARNING -> The filepath can be different don't put ./lib/ in DUR
-// ../lib/arcade_valo.so
-
 std::string Arc::Menu::getFileName(const std::string &filepath)
 {
     std::filesystem::path absoluteFilepath(filepath);
@@ -64,6 +61,7 @@ void Arc::Menu::selectTypeLib(const std::string &filename)
 {
     Arc::DLLoader<void> libLoader;
     std::string nameLib;
+    LibInfo libinfo;
 
     try {
         libLoader.load(filename);
@@ -72,10 +70,14 @@ void Arc::Menu::selectTypeLib(const std::string &filename)
         return;
     }
     if (nameLib.find("arcade_G") != std::string::npos) {
-        this->gameData.lib.gamePath.push_back(filename);
+        libinfo.name = nameLib;
+        libinfo.path = filename;
+        this->gameData.lib.game.push_back(libinfo);
     }
     if (nameLib.find("arcade_D") != std::string::npos) {
-        this->gameData.lib.graphicalPath.push_back(filename);
+        libinfo.name = nameLib;
+        libinfo.path = filename;
+        this->gameData.lib.graphical.push_back(libinfo);
     }
     this->gameData.lib.libState = Arc::LibState::CURRENT_NOT_INIT;
 }
@@ -97,12 +99,12 @@ void Arc::Menu::init()
     getLibFromDirectory();
     createTextWithLib(GAME_LIST, (Arc::Pos) {500, 200}, NOT_SELECTABLE);
     createTextWithLib(GRAPHICAL_LIST, (Arc::Pos) {1100, 200}, NOT_SELECTABLE);
-    for (const auto &libGame : this->gameData.lib.gamePath) {
-        createTextWithLib(libGame, (Arc::Pos) {500, posY += 50}, SELECTABLE);
+    for (const auto &libGame : this->gameData.lib.game) {
+        createTextWithLib(libGame.path, (Arc::Pos) {500, posY += 50}, SELECTABLE);
     }
     posY = 250;
-    for (const auto &libGraphical : this->gameData.lib.graphicalPath) {
-        createTextWithLib(libGraphical, (Arc::Pos) {1100, posY += 50}, SELECTABLE);
+    for (const auto &libGraphical : this->gameData.lib.graphical) {
+        createTextWithLib(libGraphical.path, (Arc::Pos) {1100, posY += 50}, SELECTABLE);
     }
     createTextWithLib(USERNAME, (Arc::Pos) {400, 900}, SELECTABLE);
     createTextWithLib(VALIDATE, (Arc::Pos) {1300, 900}, SELECTABLE);
@@ -169,16 +171,16 @@ void Arc::Menu::selectPrevChoice(void)
 
 void Arc::Menu::validateChoice(const std::string &filename)
 {
-    for (const auto &gamePath : this->gameData.lib.gamePath) {
-        if (getFileName(gamePath) == filename) {
+    for (const auto &gamePath : this->gameData.lib.game) {
+        if (getFileName(gamePath.path) == filename) {
             _cursorPlace.gameLib = _cursorPlace.elemInSelect;
             this->gameData.lib.currentGame = _cursorPlace.gameLib;
         }
     }
-    for (const auto &graphicalPath : this->gameData.lib.graphicalPath) {
-        if (getFileName(graphicalPath) == filename) {
+    for (const auto &graphicalPath : this->gameData.lib.graphical) {
+        if (getFileName(graphicalPath.path) == filename) {
             _cursorPlace.graphicalLib = _cursorPlace.elemInSelect;
-            this->gameData.lib.currentDisplay = _cursorPlace.graphicalLib - this->gameData.lib.gamePath.size();
+            this->gameData.lib.currentDisplay = _cursorPlace.graphicalLib - this->gameData.lib.game.size();
         }
     }
     if (filename == USERNAME) {
@@ -215,7 +217,7 @@ const Arc::GameData &Arc::Menu::update(const Arc::Event &event)
     }
     if (this->gameData.player.ignoreKey) {
         this->gameData.player.userName += event.buffer;
-        this->gameData.textSet[this->gameData.textSet.size() - 1].text = this->gameData.player.userName;
+        this->gameData.textSet.at(this->gameData.textSet.size() - 1).text = this->gameData.player.userName;
     }
     modifyAllTextColor();
     return this->gameData;
