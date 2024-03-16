@@ -11,6 +11,7 @@
 #include "IDisplayModule.hpp"
 #include "IGameModule.hpp"
 #include "FrameRate.hpp"
+#include "my_print.hpp"
 #include <iostream>
 
 Arc::Arcade::Arcade(int argc, const char **argv)
@@ -73,8 +74,12 @@ void Arc::Arcade::loop()
         const GameData &data = this->gameModule->update(eventList);
         if (data.lib.libState == Arc::LibState::CURRENT_NOT_INIT
             && this->_lib.currentGame != -1) {
-//            this->_lib.gamePath = data.lib.gamePath;
-//            this->_lib.graphicalPath = data.lib.graphicalPath;
+            this->_lib.game = data.lib.game;
+            this->_lib.graphical = data.lib.graphical;
+            this->_lib.currentGame = 0;
+            this->_lib.currentDisplay = 0;
+            my::printsl(this->_lib.game, [](const LibInfo &test) { std::cout << "[" << test.name << ", " << test.path<< "]";});
+            my::printsl(this->_lib.graphical, [](const LibInfo &test) { std::cout << "[" << test.name << ", " << test.path<< "]";});
         }
 //        if (data.lib.libState == Arc::LibState::NEW_SELECTION) {
 //            
