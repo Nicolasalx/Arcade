@@ -61,7 +61,7 @@ void Arc::Snake::createTile(Pos pos, Size sizeTile, TypeOfTile type)
         case FLOOR:
             tile.imagePath = std::string(PATH_IMG) + "floor.png";
             tile.color = Arc::Color::GREEN;
-            tile.c = '#';
+            tile.c = ' ';
         break;
         case FOOD:
             tile.imagePath = std::string(PATH_IMG) + "apple.png";
@@ -104,6 +104,21 @@ void Arc::Snake::putNewBoxInMap(TypeOfTile type, Pos pos, std::vector<BoxMap> &t
     tmpBox.push_back(box);
 }
 
+Arc::Pos Arc::Snake::findBoxPos(std::size_t idxSearch)
+{
+    Pos pos;
+
+    for (std::size_t i = 0; i < idxSearch; ++i) {
+        if (i == SIZE_MAP) {
+            pos.x += 1;
+            pos.y -= SIZE_MAP;
+        } else {
+            pos.y += 1;
+        }
+    }
+    return pos;
+}
+
 void Arc::Snake::init()
 {
     // TODO Create the 3 texts
@@ -130,8 +145,23 @@ void Arc::Snake::init()
         posY += SIZE_BORDER;
     }
 
+    //std::size_t middleMap = ((SIZE_MAP - 2) * 10) + (SIZE_MAP / 2) - 2;
+//
+    //for (std::size_t i = 0; i < 4; ++i) {
+    //    this->gameData.tileSet[middleMap + i].imagePath = std::string(PATH_IMG) + "snakehead.png";
+    //    Pos pos = findBoxPos(middleMap + i);
+    //    _map[pos.x][pos.y].type = SNAKE;
+    //}
+
+
+    // find the 4 char at the middle
+
+
+
+    //this->gameData.tileSet[10] = tile;
+    // this->gameData.player.tileSet represent the number of tileset -> Use this for Snake
+
     // Implement the snake
-    
 
     //createTile(Arc::Pos(randomizeSizeX, randomizeSizeY), (Arc::Size) {40, 40}, FOOD);
 

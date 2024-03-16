@@ -59,6 +59,7 @@ namespace Arc
             void moveNextCase();
             void putNewBoxInMap(TypeOfTile type, Pos pos, std::vector<BoxMap> &tmpBox);
             double getRandomPos(double min, double max);
+            Pos findBoxPos(std::size_t idxSearch);
 
             std::vector<std::vector<BoxMap>> _map;
 
