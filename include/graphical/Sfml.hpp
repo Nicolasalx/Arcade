@@ -35,9 +35,12 @@ namespace Arc
             void stop();
 
         private:
+            void displayTile(const Arc::Tile &tile);
             void displayTileSet(const std::vector<Arc::Tile> &tileSet);
             void displayText(const Arc::GameData &gameData);
             void displayPlayer(const Arc::GameData &gameData);
+            void displayEnemy(const Arc::GameData &gameData);
+            void displayItem(const Arc::GameData &gameData);
 
             void appendTextToPool();
             void appendFontToPool(const std::string &fontPath);
@@ -47,8 +50,8 @@ namespace Arc
             sf::RenderWindow _window;
             sf::Event _event;
             Pool _pool;
-            std::size_t spriteCout;
-            std::size_t textCout;
+            std::size_t _spriteI;
+            std::size_t _textI;
 
             std::vector<std::pair<sf::Keyboard::Key, Arc::EventType>> _keyBind = {
                 {sf::Keyboard::E, Arc::EventType::EXIT},

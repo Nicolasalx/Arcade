@@ -10,8 +10,10 @@
 
     #include <chrono>
 
-class Clock
+namespace Arc
 {
+    class Clock
+    {
     public:
         Clock() = default;
         Clock(std::chrono::milliseconds cooldown);
@@ -25,6 +27,7 @@ class Clock
     private:
         std::chrono::milliseconds _cooldown;
         std::chrono::steady_clock::time_point _start;
-};
+    };
+}
 
 #endif /* !CLOCK_HPP_ */

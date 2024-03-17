@@ -14,7 +14,7 @@
     #include "IGameModule.hpp"
     #include "DLLoader.hpp"
     #include "EventType.hpp"
-    #include <set>
+    #include "Clock.hpp"
 
 namespace Arc
 {
