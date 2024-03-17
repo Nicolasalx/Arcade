@@ -104,8 +104,8 @@ void Arc::Arcade::loadNextGame()
 
 void Arc::Arcade::loop()
 {
-    this->displayModule->init();
     this->gameModule->init();
+    this->displayModule->init();
 
     while (true)
     {
@@ -115,15 +115,15 @@ void Arc::Arcade::loop()
         if (eventContain(eventList, Arc::EventType::EXIT)) {
             break;
         }
+        if (eventContain(eventList, Arc::EventType::NEXT_GAME)) {
+            loadNextGame();
+        }
         if (eventContain(eventList, Arc::EventType::NEXT_DISPLAY)) {
             loadNextDisplay();
         }
-        else if (eventContain(eventList, Arc::EventType::NEXT_GAME)) {
-            loadNextGame();
-        }
         const GameData &data = this->gameModule->update(eventList);
         if (data.lib.libState == Arc::LibState::CURRENT_NOT_INIT
-        && this->_lib.currentGame == -1 && this->_lib.currentDisplay) {
+        && this->_lib.currentGame == -1 && this->_lib.currentDisplay == -1) {
             this->_lib.game = data.lib.game;
             this->_lib.graphical = data.lib.graphical;
             this->getCurrentLibLoaded();
@@ -135,6 +135,6 @@ void Arc::Arcade::loop()
 
         Arc::FrameRate::end();
     }
-    this->gameModule->stop();
     this->displayModule->stop();
+    this->gameModule->stop();
 }

@@ -10,9 +10,10 @@
 #include "SafeDiv.hpp"
 #include <iostream>
 
-void Arc::Sfml::appendTextToPool(const std::size_t &i)
+void Arc::Sfml::appendTextToPool()
 {
-    if (i >= this->_pool.text.size()) {
+    ++ this->textCout;
+    if (this->textCout >= this->_pool.text.size()) {
         this->_pool.text.emplace_back();
     }
 }
@@ -27,9 +28,11 @@ void Arc::Sfml::appendFontToPool(const std::string &fontPath)
         this->_pool.font[fontPath] = font;
     }
 }
-void Arc::Sfml::appendSpriteToPool(const std::size_t &i)
+
+void Arc::Sfml::appendSpriteToPool()
 {
-    if (i >= this->_pool.sprite.size()) {
+    ++ this->spriteCout;
+    if (this->spriteCout >= this->_pool.sprite.size()) {
         this->_pool.sprite.emplace_back();
     }
 }
@@ -45,19 +48,19 @@ void Arc::Sfml::appendTextureToPool(const std::string &texturePath)
     }
 }
 
-void Arc::Sfml::displayTileSet(const Arc::GameData &gameData)
+void Arc::Sfml::displayTileSet(const std::vector<Arc::Tile> &tileSet)
 {
-    for (size_t i = 0; i < gameData.tileSet.size(); ++i)
+    for (size_t i = 0; i < tileSet.size(); ++i)
     {
-        appendTextureToPool(gameData.tileSet[i].imagePath);
-        appendSpriteToPool(i);
-        sf::Vector2u texture_size = this->_pool.texture.at(gameData.tileSet[i].imagePath).getSize();
+        appendTextureToPool(tileSet[i].imagePath);
+        appendSpriteToPool();
+        sf::Vector2u texture_size = this->_pool.texture.at(tileSet[i].imagePath).getSize();
 
-        this->_pool.sprite[i].setTexture(this->_pool.texture.at(gameData.tileSet[i].imagePath));
-        this->_pool.sprite[i].setPosition(sf::Vector2f(gameData.tileSet[i].pos.x, gameData.tileSet[i].pos.y));
+        this->_pool.sprite[i].setTexture(this->_pool.texture.at(tileSet[i].imagePath));
+        this->_pool.sprite[i].setPosition(sf::Vector2f(tileSet[i].pos.x, tileSet[i].pos.y));
         this->_pool.sprite[i].setScale(sf::Vector2f(
-            Arc::safeDiv<double>(gameData.tileSet[i].size.x, texture_size.x),
-            Arc::safeDiv<double>(gameData.tileSet[i].size.x, texture_size.y)
+            Arc::safeDiv<double>(tileSet[i].size.x, texture_size.x),
+            Arc::safeDiv<double>(tileSet[i].size.x, texture_size.y)
         ));
         this->_window.draw(this->_pool.sprite[i]);
     }
@@ -68,7 +71,7 @@ void Arc::Sfml::displayText(const Arc::GameData &gameData)
     for (std::size_t i = 0; i < gameData.textSet.size(); ++i)
     {
         appendFontToPool(gameData.textSet[i].fontPath);
-        appendTextToPool(i);
+        appendTextToPool();
         this->_pool.text[i].setString(gameData.textSet[i].text);
         this->_pool.text[i].setFont(this->_pool.font.at(gameData.textSet[i].fontPath));
         this->_pool.text[i].setCharacterSize(gameData.textSet[i].size);
@@ -78,15 +81,23 @@ void Arc::Sfml::displayText(const Arc::GameData &gameData)
     }
 }
 
+void Arc::Sfml::displayPlayer(const Arc::GameData &gameData)
+{
+    this->displayTileSet(gameData.player.tileSet);
+}
+
 void Arc::Sfml::refresh(const Arc::GameData &gameData)
 {
     if (_window.isOpen()) {
         _window.clear(sf::Color::Black);
 
-        displayTileSet(gameData);
+        displayTileSet(gameData.tileSet);
         displayText(gameData);
+        displayPlayer(gameData);
 
         _window.display();
     }
+    this->spriteCout = 0;
+    this->textCout = 0;
     this->_ignoreKey = gameData.player.ignoreKey;
 }

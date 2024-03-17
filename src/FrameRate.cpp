@@ -31,7 +31,7 @@ void Arc::FrameRate::end()
 {
     auto deltaT = std::chrono::duration_cast<std::chrono::milliseconds>(
         std::chrono::steady_clock::now() - Arc::FrameRate::_lastClock).count();
-    if (deltaT < Arc::FrameRate::_frameTime) {
+    if (deltaT < Arc::FrameRate::_frameTime && (_frameTime - deltaT) > 0) {
         std::this_thread::sleep_for(std::chrono::milliseconds(_frameTime - deltaT));
     }
 }
