@@ -16,23 +16,27 @@ void Arc::Ncurses::safeMVPrintW(int x, int y, const std::string &str)
     }
 }
 
-void Arc::Ncurses::displayTileSet(const Arc::GameData &gameData)
+void Arc::Ncurses::displayTile(const Arc::Tile &tile)
 {
-    for (const auto &currentTile : gameData.tileSet) {
-        attron(COLOR_PAIR(this->_colorBind.at(currentTile.color).pair));
+    attron(COLOR_PAIR(this->_colorBind.at(tile.color).pair));
 
+    int rectEndX = std::round(((tile.size.x + 3.0) / 1920.0) * static_cast<double>(COLS));
+    int rectEndY = std::round(((tile.size.y + 3.0) / 1080.0) * static_cast<double>(LINES));
 
-        int rectEndX = std::round(((currentTile.size.x + 3.0) / 1920.0) * static_cast<double>(COLS));
-        int rectEndY = std::round(((currentTile.size.y + 3.0) / 1080.0) * static_cast<double>(LINES));
+    std::string str(rectEndX, tile.c);
 
-        std::string str(rectEndX, currentTile.c);
+    for (int i = 0; i < rectEndY; ++i) {
+        safeMVPrintW((tile.pos.x / 1920.0 * COLS),
+            (tile.pos.y / 1080.0 * LINES) + i, str);
+    }
+    attroff(COLOR_PAIR(this->_colorBind.at(tile.color).pair));
 
-        for (int i = 0; i < rectEndY; ++i)
-        {
-            safeMVPrintW((currentTile.pos.x / 1920.0 * COLS),
-                (currentTile.pos.y / 1080.0 * LINES) + i, str);
-        }
-        attroff(COLOR_PAIR(this->_colorBind.at(currentTile.color).pair));
+}
+
+void Arc::Ncurses::displayTileSet(const std::vector<Arc::Tile> &tileSet)
+{
+    for (const Arc::Tile &tileIt : tileSet) {
+        this->displayTile(tileIt);
     }
 }
 
@@ -46,12 +50,35 @@ void Arc::Ncurses::displayText(const Arc::GameData &gameData)
     }
 }
 
+void Arc::Ncurses::displayPlayer(const Arc::GameData &gameData)
+{
+    this->displayTileSet(gameData.player.tileSet);
+}
+
+void Arc::Ncurses::displayEnemy(const Arc::GameData &gameData)
+{
+    for (const Arc::Enemy &enemyIt : gameData.enemy) {
+        this->displayTileSet(enemyIt.tileSet);
+    }
+}
+
+void Arc::Ncurses::displayItem(const Arc::GameData &gameData)
+{
+    for (const Arc::Item &itemIt : gameData.item)
+    {
+        this->displayTile(itemIt.tile);
+    }
+}
+
 void Arc::Ncurses::refresh(const Arc::GameData &gameData)
 {
     wclear(stdscr);
 
-    displayTileSet(gameData);
+    displayTileSet(gameData.tileSet);
     displayText(gameData);
+    displayPlayer(gameData);
+    displayEnemy(gameData);
+    displayItem(gameData);
 
     wrefresh(stdscr);
     this->_ignoreKey = gameData.player.ignoreKey;

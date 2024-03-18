@@ -16,13 +16,26 @@ namespace Arc
     {
     public:
         Clock() = default;
-        Clock(std::chrono::milliseconds cooldown);
+        Clock(std::chrono::milliseconds cooldown) : _cooldown(cooldown) {}
         ~Clock() = default;
 
-        void setCooldown(std::chrono::milliseconds cooldown);
-        void start();
-        bool isElapsed() const;
-        void reset();
+        void setCooldown(std::chrono::milliseconds cooldown)
+        {
+            this->_cooldown = cooldown;
+        }
+        void start()
+        {
+            this->_start = std::chrono::steady_clock::now();
+        }
+        bool isElapsed() const
+        {
+            return (std::chrono::duration_cast<std::chrono::milliseconds>(
+                std::chrono::steady_clock::now() - this->_start) >= this->_cooldown);
+        }
+        void reset() 
+        {
+            this->_start = std::chrono::steady_clock::now();
+        }
 
     private:
         std::chrono::milliseconds _cooldown;
