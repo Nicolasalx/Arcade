@@ -25,7 +25,6 @@
 namespace Arc
 {
     enum TypeOfTile {
-        SNAKE,
         MAP,
         FOOD,
         FLOOR
@@ -34,7 +33,22 @@ namespace Arc
         TypeOfTile type;
         Pos pos;
     };
-
+    enum SnakeBody {
+        SNAKE_HEAD,
+        SNAKE_BODY,
+        SNAKE_TAIL
+    };
+    enum NextDirection {
+        UP,
+        DOWN,
+        LEFT,
+        RIGHT
+    };
+    struct SnakeMove {
+        SnakeBody snakeBody;
+        NextDirection nextDirection;
+        Pos pos;
+    };
     class Snake : public AGameModule
     {
         public:
@@ -48,7 +62,7 @@ namespace Arc
         private:
             void createText(const std::string &name, Pos pos);
             void createTile(Pos pos, Size sizeTile, TypeOfTile typeOfTile);
-            void createPlayer(Pos pos, Size sizeTile, char character);
+            void createPlayer(Pos pos, Size sizeTile, SnakeBody snakeBody);
             void moveSnakeLeft();
             void moveSnakeRight();
             void endTheGame();
@@ -60,11 +74,20 @@ namespace Arc
             void putNewBoxInMap(TypeOfTile type, Pos pos, std::vector<BoxMap> &tmpBox);
             double getRandomPos(double min, double max);
             Pos findBoxPos(std::size_t idxSearch);
+            void createSnake();
+            void createApple();
+            void moveSnakeUp();
+            void moveSnakeDown();
 
             std::vector<std::vector<BoxMap>> _map;
+            std::vector<SnakeMove> _snakeMove;
 
             std::size_t _actualScore = SIZE_SNAKE_START;
             std::size_t _highScore = 0;
+
+            bool _directionHasChanged = false;
+            Pos _stockPos;
+            std::size_t _idxSprite;
     };
 }
 
