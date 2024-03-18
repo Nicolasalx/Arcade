@@ -48,11 +48,11 @@ void Arc::Ncurses::displayText(const Arc::GameData &gameData)
 
 void Arc::Ncurses::refresh(const Arc::GameData &gameData)
 {
-    ::clear();
+    wclear(stdscr);
 
     displayTileSet(gameData);
     displayText(gameData);
 
-    ::refresh();
+    wrefresh(stdscr);
     this->_ignoreKey = gameData.player.ignoreKey;
 }

@@ -21,9 +21,10 @@ namespace Arc
     class Arcade
     {
         public:
-            Arcade(int argc, const char **argv);
+            Arcade() = default;
             ~Arcade();
 
+            void start(int argc, const char **argv);
             void launch();
             void loop();
 
@@ -39,6 +40,7 @@ namespace Arc
             Arc::IGameModule *gameModule = nullptr;
             Arc::DLLoader<Arc::IDisplayModule> displayLoader;
             Arc::DLLoader<Arc::IGameModule> gameLoader;
+            Arc::Clock _clock;
 
             Arc::Lib _lib;
     };

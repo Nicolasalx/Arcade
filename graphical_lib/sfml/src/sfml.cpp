@@ -7,9 +7,17 @@
 
 #include <iostream>
 #include "Sfml.hpp"
+#include "DisplayException.hpp"
+#include <csignal>
+
+static void abort_sfml(int)
+{
+    throw Arc::DisplayException("sfml fail to create window.");
+}
 
 __attribute__((constructor)) void init(void)
 {
+    std::signal(SIGABRT, abort_sfml);
     std::cout << "Sfml loaded !\n";
 }
 
