@@ -32,8 +32,13 @@ namespace Arc
         void stop();
 
     private:
-        void displayTileSet(const Arc::GameData &gameData);
+        void displayTile(const Arc::Tile &tile);
+        void displayTileSet(const std::vector<Arc::Tile> &tileSet);
         void displayText(const Arc::GameData &gameData);
+        void displayPlayer(const Arc::GameData &gameData);
+        void displayEnemy(const Arc::GameData &gameData);
+        void displayItem(const Arc::GameData &gameData);
+
         void safeMVPrintW(int x, int y, const std::string &str);
 
         std::vector<std::pair<int, Arc::EventType>> _keyBind = {

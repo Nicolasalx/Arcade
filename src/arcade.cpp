@@ -125,7 +125,7 @@ void Arc::Arcade::loop()
         if (eventContain(eventList, Arc::EventType::NEXT_DISPLAY)) {
             loadNextDisplay();
         }
-        GameData data = this->gameModule->update(eventList);
+        const GameData &data = this->gameModule->update(eventList);
 
         if (data.lib.libState == Arc::LibState::CURRENT_NOT_INIT
         && this->_lib.currentGame == -1 && this->_lib.currentDisplay == -1) {
