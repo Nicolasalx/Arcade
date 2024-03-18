@@ -10,9 +10,10 @@
 #include "SafeDiv.hpp"
 #include <iostream>
 
-void Arc::Sfml::appendTextToPool(const std::size_t &i)
+void Arc::Sfml::appendTextToPool()
 {
-    if (i >= this->_pool.text.size()) {
+    ++ this->_textI;
+    if (this->_textI >= this->_pool.text.size()) {
         this->_pool.text.emplace_back();
     }
 }
@@ -27,9 +28,11 @@ void Arc::Sfml::appendFontToPool(const std::string &fontPath)
         this->_pool.font[fontPath] = font;
     }
 }
-void Arc::Sfml::appendSpriteToPool(const std::size_t &i)
+
+void Arc::Sfml::appendSpriteToPool()
 {
-    if (i >= this->_pool.sprite.size()) {
+    ++ this->_spriteI;
+    if (this->_spriteI >= this->_pool.sprite.size()) {
         this->_pool.sprite.emplace_back();
     }
 }
@@ -45,36 +48,61 @@ void Arc::Sfml::appendTextureToPool(const std::string &texturePath)
     }
 }
 
-void Arc::Sfml::displayTileSet(const Arc::GameData &gameData)
+void Arc::Sfml::displayTile(const Arc::Tile &tile)
 {
-    for (size_t i = 0; i < gameData.tileSet.size(); ++i)
-    {
-        appendTextureToPool(gameData.tileSet[i].imagePath);
-        appendSpriteToPool(i);
-        sf::Vector2u texture_size = this->_pool.texture.at(gameData.tileSet[i].imagePath).getSize();
+    appendTextureToPool(tile.imagePath);
+    appendSpriteToPool();
+    sf::Vector2u texture_size = this->_pool.texture.at(tile.imagePath).getSize();
 
-        this->_pool.sprite[i].setTexture(this->_pool.texture.at(gameData.tileSet[i].imagePath));
-        this->_pool.sprite[i].setPosition(sf::Vector2f(gameData.tileSet[i].pos.x, gameData.tileSet[i].pos.y));
-        this->_pool.sprite[i].setScale(sf::Vector2f(
-            Arc::safeDiv<double>(gameData.tileSet[i].size.x, texture_size.x),
-            Arc::safeDiv<double>(gameData.tileSet[i].size.x, texture_size.y)
-        ));
-        this->_window.draw(this->_pool.sprite[i]);
+    this->_pool.sprite[_spriteI - 1].setTexture(this->_pool.texture.at(tile.imagePath));
+    this->_pool.sprite[_spriteI - 1].setPosition(sf::Vector2f(tile.pos.x, tile.pos.y));
+    this->_pool.sprite[_spriteI - 1].setScale(sf::Vector2f(
+        Arc::safeDiv<double>(tile.size.x, texture_size.x),
+        Arc::safeDiv<double>(tile.size.x, texture_size.y)
+    ));
+    this->_window.draw(this->_pool.sprite[_spriteI - 1]);
+}
+
+void Arc::Sfml::displayTileSet(const std::vector<Arc::Tile> &tileSet)
+{
+    for (const Arc::Tile &tileIt : tileSet)
+    {
+        displayTile(tileIt);
     }
 }
 
 void Arc::Sfml::displayText(const Arc::GameData &gameData)
 {
-    for (std::size_t i = 0; i < gameData.textSet.size(); ++i)
+    for (const Arc::Text &textIt : gameData.textSet)
     {
-        appendFontToPool(gameData.textSet[i].fontPath);
-        appendTextToPool(i);
-        this->_pool.text[i].setString(gameData.textSet[i].text);
-        this->_pool.text[i].setFont(this->_pool.font.at(gameData.textSet[i].fontPath));
-        this->_pool.text[i].setCharacterSize(gameData.textSet[i].size);
-        this->_pool.text[i].setFillColor(this->_colorBind.at(gameData.textSet[i].color));
-        this->_pool.text[i].setPosition(sf::Vector2f(gameData.textSet[i].pos.x, gameData.textSet[i].pos.y));
-        _window.draw(this->_pool.text[i]);
+        appendFontToPool(textIt.fontPath);
+        appendTextToPool();
+        this->_pool.text[_textI - 1].setString(textIt.text);
+        this->_pool.text[_textI - 1].setFont(this->_pool.font.at(textIt.fontPath));
+        this->_pool.text[_textI - 1].setCharacterSize(textIt.size);
+        this->_pool.text[_textI - 1].setFillColor(this->_colorBind.at(textIt.color));
+        this->_pool.text[_textI - 1].setPosition(sf::Vector2f(textIt.pos.x,textIt.pos.y));
+        _window.draw(this->_pool.text[_textI - 1]);
+    }
+}
+
+void Arc::Sfml::displayPlayer(const Arc::GameData &gameData)
+{
+    this->displayTileSet(gameData.player.tileSet);
+}
+
+void Arc::Sfml::displayEnemy(const Arc::GameData &gameData)
+{
+    for (const Arc::Enemy &enemyIt : gameData.enemy) {
+        this->displayTileSet(enemyIt.tileSet);
+    }
+}
+
+void Arc::Sfml::displayItem(const Arc::GameData &gameData)
+{
+    for (const auto &itemIt : gameData.item)
+    {
+        this->displayTile(itemIt.tile);
     }
 }
 
@@ -83,10 +111,15 @@ void Arc::Sfml::refresh(const Arc::GameData &gameData)
     if (_window.isOpen()) {
         _window.clear(sf::Color::Black);
 
-        displayTileSet(gameData);
+        displayTileSet(gameData.tileSet);
         displayText(gameData);
+        displayPlayer(gameData);
+        displayEnemy(gameData);
+        displayItem(gameData);
 
         _window.display();
     }
+    this->_spriteI = 0;
+    this->_textI = 0;
     this->_ignoreKey = gameData.player.ignoreKey;
 }

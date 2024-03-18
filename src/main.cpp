@@ -14,16 +14,17 @@
 #include "IGameModule.hpp"
 #include "Arcade.hpp"
 #include "FrameRate.hpp"
+#include "DisplayException.hpp"
 
 int main(int argc, const char *argv[])
 {
-    try {
-        Arc::FrameRate::setFrameRate(30);
+    Arc::Arcade arcade;
+    Arc::FrameRate::setFrameRate(30);
 
-        Arc::Arcade arcade(argc, argv);
+    try {
+        arcade.start(argc, argv);
         arcade.launch();
         arcade.loop();
-
     } catch (const std::exception &exception) {
         my::log::error(exception.what());
         return 84;

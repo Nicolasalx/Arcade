@@ -35,17 +35,23 @@ namespace Arc
             void stop();
 
         private:
-            void displayTileSet(const Arc::GameData &gameData);
+            void displayTile(const Arc::Tile &tile);
+            void displayTileSet(const std::vector<Arc::Tile> &tileSet);
             void displayText(const Arc::GameData &gameData);
+            void displayPlayer(const Arc::GameData &gameData);
+            void displayEnemy(const Arc::GameData &gameData);
+            void displayItem(const Arc::GameData &gameData);
 
-            void appendTextToPool(const std::size_t &i);
+            void appendTextToPool();
             void appendFontToPool(const std::string &fontPath);
-            void appendSpriteToPool(const std::size_t &i);
+            void appendSpriteToPool();
             void appendTextureToPool(const std::string &texturePath);
 
             sf::RenderWindow _window;
             sf::Event _event;
             Pool _pool;
+            std::size_t _spriteI;
+            std::size_t _textI;
 
             std::vector<std::pair<sf::Keyboard::Key, Arc::EventType>> _keyBind = {
                 {sf::Keyboard::E, Arc::EventType::EXIT},

@@ -6,10 +6,13 @@
 */
 
 #include "Ncurses.hpp"
+#include "DisplayException.hpp"
 
 void Arc::Ncurses::init()
 {
-    initscr();
+    if (!initscr()) {
+        throw Arc::DisplayException("ncurses fail to init the screen.");
+    }
     noecho();
     curs_set(0);
     timeout(0);
