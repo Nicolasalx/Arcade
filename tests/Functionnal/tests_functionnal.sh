@@ -32,8 +32,28 @@ test_name()
 
 make
 
-## test_name "no arg"
-## ./nanotekspice 2> /dev/null
-## check_return_failure
+test_name "Check arcade_pacman.so"
+ls ./lib/arcade_pacman.so &> /dev/null
+check_return_success
+
+test_name "Check arcade_snake.so"
+ls ./lib/arcade_snake.so &> /dev/null
+check_return_success
+
+test_name "Check arcade_sdl2.so"
+ls ./lib/arcade_sdl2.so &> /dev/null
+check_return_success
+
+test_name "Check arcade_sfml.so"
+ls ./lib/arcade_sfml.so &> /dev/null
+check_return_success
+
+test_name "Check arcade_ncurses.so"
+ls ./lib/arcade_ncurses.so &> /dev/null
+check_return_success
+
+test_name "Check arcade_menu.so"
+ls ./lib/arcade_menu.so &> /dev/null
+check_return_success
 
 exit $RETURN_VALUE
