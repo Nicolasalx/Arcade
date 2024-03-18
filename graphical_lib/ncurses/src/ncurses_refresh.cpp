@@ -76,9 +76,9 @@ void Arc::Ncurses::refresh(const Arc::GameData &gameData)
 
     displayTileSet(gameData.tileSet);
     displayText(gameData);
-    displayPlayer(gameData);
-    displayEnemy(gameData);
     displayItem(gameData);
+    displayEnemy(gameData);
+    displayPlayer(gameData);
 
     wrefresh(stdscr);
     this->_ignoreKey = gameData.player.ignoreKey;

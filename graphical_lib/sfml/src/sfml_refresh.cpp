@@ -113,9 +113,9 @@ void Arc::Sfml::refresh(const Arc::GameData &gameData)
 
         displayTileSet(gameData.tileSet);
         displayText(gameData);
-        displayPlayer(gameData);
-        displayEnemy(gameData);
         displayItem(gameData);
+        displayEnemy(gameData);
+        displayPlayer(gameData);
 
         _window.display();
     }
