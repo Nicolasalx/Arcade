@@ -14,6 +14,7 @@
     #include <cstdlib>
     #include <ctime>
     #include <string>
+    #include "Clock.hpp"
 
     #define PATH_IMG "./game_src/snake/"
     #define SIZE_MAP 20
@@ -87,9 +88,8 @@ namespace Arc
             std::size_t _actualScore = SIZE_SNAKE_START;
             std::size_t _highScore = 0;
 
+            Arc::Clock _clockMove;
             bool _directionHasChanged = false;
-            Pos _stockPos;
-            std::size_t _idxSprite;
     };
 }
 

@@ -198,6 +198,9 @@ void Arc::Snake::init()
 
             - Only handle key LEFT or key RIGHT
     */
+
+    _clockMove.setCooldown(std::chrono::milliseconds(1000));
+    _clockMove.start();
 }
 
 void Arc::Snake::stop()
@@ -238,32 +241,41 @@ void Arc::Snake::moveNextCase()
     /*
         for (all_part_of_snake) {
             if (nextDirection(i - 1) != nextDirection(i)) {
-                if (posExpected )
+                if (posExpected(i - 1) == pos (i - 1)) {
+                    nextDirection(i) = nextDirection.at(i -1)
+                }
             }
         }
-    
-    
     */
 
+    if (!_clockMove.isElapsed()) {
+        return;
+    }
+    _clockMove.reset();
+    _directionHasChanged = false;
+
     for (std::size_t i = 0; i < _snakeMove.size(); ++i) {
-        if (i != 0) {
+        if (i != 0 && _directionHasChanged == false) {
             _snakeMove.at(i).nextDirection = _snakeMove.at(i - 1).nextDirection;
+            _directionHasChanged = true;
         }
 
         switch (_snakeMove.at(i).nextDirection) {
-        case UP:
-            _snakeMove.at(i).pos.y -= SIZE_MAP;
-            break;
-        case DOWN:
-            _snakeMove.at(i).pos.y += SIZE_MAP;
-            break;
-        case LEFT:
-            _snakeMove.at(i).pos.x -= SIZE_MAP;
-            break;
-        case RIGHT:
-            _snakeMove.at(i).pos.x += SIZE_MAP;
-            break;
+            case UP:
+                _snakeMove.at(i).pos.y -= 10;
+                break;
+            case DOWN:
+                _snakeMove.at(i).pos.y += 10;
+                break;
+            case LEFT:
+                _snakeMove.at(i).pos.x -= 10;
+                break;
+            case RIGHT:
+                _snakeMove.at(i).pos.x += 10;
+                break;
         }
+        std::cout << "INDEX[" << i << "]: [" << _snakeMove.at(i).pos.x << "] / [" << _snakeMove.at(i).pos.y << "]\n";
+
         this->gameData.player.tileSet[i].pos = _snakeMove[i].pos;
     }
 }
