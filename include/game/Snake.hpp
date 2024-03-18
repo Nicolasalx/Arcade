@@ -48,6 +48,8 @@ namespace Arc
         SnakeBody snakeBody;
         NextDirection nextDirection;
         Pos pos;
+        Pos nextPos;
+        //bool has
     };
     class Snake : public AGameModule
     {

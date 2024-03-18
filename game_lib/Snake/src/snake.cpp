@@ -235,6 +235,16 @@ void Arc::Snake::moveSnakeRight()
 
 void Arc::Snake::moveNextCase()
 {
+    /*
+        for (all_part_of_snake) {
+            if (nextDirection(i - 1) != nextDirection(i)) {
+                if (posExpected )
+            }
+        }
+    
+    
+    */
+
     for (std::size_t i = 0; i < _snakeMove.size(); ++i) {
         if (i != 0) {
             _snakeMove.at(i).nextDirection = _snakeMove.at(i - 1).nextDirection;
@@ -266,7 +276,6 @@ void Arc::Snake::endTheGame()
                 this->gameData.textSet.clear();
                 this->gameData.tileSet.clear();
                 this->gameData.player.health = 0;
-                exit(0); // To remove
             }
     }
 }
