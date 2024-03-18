@@ -273,9 +273,9 @@ void Arc::Snake::endTheGame()
     for (const auto _snakeBody : _snakeMove) {
         if (_snakeBody.pos.x <= 500 || _snakeBody.pos.x >= 1260 ||
             _snakeBody.pos.y <= 100 || _snakeBody.pos.y >= 860) {
-                this->gameData.textSet.clear();
-                this->gameData.tileSet.clear();
-                this->gameData.player.health = 0;
+                //this->gameData.textSet.clear();
+                //this->gameData.tileSet.clear();
+                //this->gameData.player.health = 0;
             }
     }
 }
