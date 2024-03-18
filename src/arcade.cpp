@@ -108,7 +108,7 @@ void Arc::Arcade::loop()
 {
     this->gameModule->init();
     this->displayModule->init();
-    this->_clock.setCooldown(std::chrono::milliseconds(2000));
+    this->_clock.setCooldown(std::chrono::milliseconds(500));
     this->_clock.start();
 
     while (true)
