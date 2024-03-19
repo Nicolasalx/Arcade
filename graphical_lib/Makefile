@@ -6,7 +6,8 @@
 ##
 
 SRC		=	./ncurses/ \
-			./sfml/
+			./sfml/ \
+			./sdl2/
 
 all: $(SRC)
 	@for graphical_lib in $^ ; do \
@@ -28,4 +29,10 @@ fclean: $(SRC)
 
 re: fclean all
 
-.PHONY: all clean fclean re
+code_analyse: $(SRC)
+	@for graphical_lib in $^ ; do \
+		cd $${graphical_lib} && $(MAKE) code_analyse; \
+		cd - &> /dev/null; \
+	done
+
+.PHONY: all clean fclean re code_analyse

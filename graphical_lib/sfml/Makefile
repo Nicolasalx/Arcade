@@ -8,9 +8,11 @@
 SRC				:=	$(shell find src/ -name "*.cpp") \
 					$(shell find ../utils/ -name "*.cpp")
 
-CPPFLAGS		=	-std=c++20 -Wall -Wextra -fno-gnu-unique \
+CPPFLAGS		=	-std=c++20 -Wall -Wextra $(GNU_FLAGS) \
 					-shared -fpic -lsfml-graphics -lsfml-window -lsfml-system \
 					$(ADDITIONAL_FLAGS)
+
+GNU_FLAGS		=	-fno-gnu-unique
 
 INCLUDE_PATH	=	-I../../include/ \
 					-I../../include/utils/ \
@@ -49,7 +51,7 @@ fclean: clean
 re: fclean all
 
 compilation_database: clean
-	bear -- make
+	bear -- make GNU_FLAGS=""
 
 code_analyse: compilation_database
 	clang-tidy -header-filter=.* --use-color $(SRC)

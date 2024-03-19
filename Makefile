@@ -113,6 +113,8 @@ compilation_database: clean
 
 code_analyse: compilation_database
 	clang-tidy -header-filter=.* --use-color $(SRC)
+	cd $(GAME_LIB) && $(MAKE) code_analyse
+	cd $(GRAPHICAL_LIB) && $(MAKE) code_analyse
 
 .PHONY: all clean fclean re unit_tests tests_run gcovr \
 	debug profiling compilation_database code_analyse

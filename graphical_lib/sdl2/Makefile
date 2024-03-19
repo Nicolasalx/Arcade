@@ -9,16 +9,16 @@ SRC				:=	$(shell find src/ -name "*.cpp") \
 					$(shell find ../utils/ -name "*.cpp")
 
 CPPFLAGS		=	-std=c++20 -Wall -Wextra $(GNU_FLAGS) \
-					-shared -fpic \
+					-shared -fpic -lSDL2 -lSDL2_image -lSDL2_ttf \
 					$(ADDITIONAL_FLAGS)
 
 GNU_FLAGS		=	-fno-gnu-unique
 
 INCLUDE_PATH	=	-I../../include/ \
 					-I../../include/utils/ \
-					-I../../include/game
+					-I../../include/graphical/
 
-NAME			=	../../lib/arcade_menu.so
+NAME			=	../../lib/arcade_sdl2.so
 
 OBJ				=	$(SRC:.cpp=.o)
 
