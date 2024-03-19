@@ -68,7 +68,8 @@ void Arc::Sdl2::displayTile(const Arc::Tile &tile)
     int sizeY = 0;
     SDL_QueryTexture(this->_pool.texture.at(tile.imagePath), NULL, NULL, &sizeX, &sizeY);
 
-    SDL_Rect destRect = {tile.pos.x, tile.pos.y, tile.size.x, tile.size.y};
+    SDL_Rect destRect = {static_cast<int>(tile.pos.x), static_cast<int>(tile.pos.y),
+        static_cast<int>(tile.size.x), static_cast<int>(tile.size.y)};
     SDL_RenderCopy(this->_renderer, this->_pool.texture.at(tile.imagePath), NULL, &destRect);
 }
 
@@ -99,36 +100,9 @@ void Arc::Sdl2::displayText(const Arc::GameData &gameData)
         int sizeY = 0;
         SDL_QueryTexture(this->_pool.textTexture[_textTextureI - 1], NULL, NULL, &sizeX, &sizeY);
 
-        SDL_Rect destRect = (SDL_Rect) {.x = textIt.pos.x, .y = textIt.pos.y, .w = sizeX, .h = sizeY};
+        SDL_Rect destRect = {static_cast<int>(textIt.pos.x), static_cast<int>(textIt.pos.y),
+            sizeX, sizeY};
         SDL_RenderCopy(this->_renderer, this->_pool.textTexture[_textTextureI - 1], NULL, &destRect);
-    /*
-    // Render text to surface
-    SDL_Surface* textSurface = TTF_RenderText_Solid(font, "Hello, SDL!", color);
-    if (textSurface == nullptr) {
-        std::cerr << "TTF_RenderText_Solid Error: " << TTF_GetError() << std::endl;
-        TTF_CloseFont(font);
-        SDL_DestroyRenderer(renderer);
-        SDL_DestroyWindow(window);
-        TTF_Quit();
-        SDL_Quit();
-        return 1;
-    }
-
-    // Create texture from surface
-    SDL_Texture* textTexture = SDL_CreateTextureFromSurface(renderer, textSurface);
-    if (textTexture == nullptr) {
-        std::cerr << "SDL_CreateTextureFromSurface Error: " << SDL_GetError() << std::endl;
-        SDL_FreeSurface(textSurface);
-        TTF_CloseFont(font);
-        SDL_DestroyRenderer(renderer);
-        SDL_DestroyWindow(window);
-        TTF_Quit();
-        SDL_Quit();
-        return 1;
-    }
-    // Render text texture
-    SDL_RenderCopy(renderer, textTexture, NULL, NULL);
-    */
     }
 }
 
