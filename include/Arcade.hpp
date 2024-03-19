@@ -33,6 +33,11 @@ namespace Arc
             bool eventContain(const Arc::Event &eventList, const Arc::EventType &eventType);
             void loadNextDisplay();
             void loadNextGame();
+            void loadSelectedGame();
+            void loadSelectedDisplay();
+            void loadMenu();
+            void handleCoreEvent(const Arc::Event &eventList);
+            void manageLibData(const Arc::Lib &lib);
 
             std::string displayName;
             std::string gameName;

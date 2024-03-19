@@ -12,17 +12,11 @@
 #include "IGameModule.hpp"
 #include "FrameRate.hpp"
 #include "my_print.hpp"
-#include <iostream>
-#include "SafeDiv.hpp"
 
 Arc::Arcade::~Arcade()
 {
-    if (this->displayModule != nullptr) {
-        delete this->displayModule;
-    }
-    if (this->gameModule != nullptr) {
-        delete this->gameModule;
-    }
+    delete this->displayModule;
+    delete this->gameModule;
 }
 
 void Arc::Arcade::start(int argc, const char **argv)
@@ -34,6 +28,7 @@ void Arc::Arcade::start(int argc, const char **argv)
            "implement all the method of IDisplayModule\n\n");
     }
     this->displayName = std::string(argv[1]);
+    this->_clock.setCooldown(std::chrono::milliseconds(500));
 }
 
 void Arc::Arcade::launch()
@@ -52,94 +47,64 @@ void Arc::Arcade::launch()
 
 bool Arc::Arcade::eventContain(const Arc::Event &eventList, const Arc::EventType &eventType)
 {
-    for (std::size_t i = 0; i < eventList.eventType.size(); ++i) {
-        if (eventList.eventType[i] == eventType) {
+    for (const Arc::EventType &eventIt : eventList.eventType) {
+        if (eventIt == eventType) {
             return true;
         }
     }
     return false;
 }
 
-void Arc::Arcade::getCurrentLibLoaded()
+void Arc::Arcade::handleCoreEvent(const Arc::Event &eventList)
 {
-    for (std::size_t i = 0; i < this->_lib.game.size(); ++i) {
-        if (this->_lib.game[i].name == this->gameName) {
-            this->_lib.currentGame = i;
-        }
-    }
-    for (std::size_t i = 0; i < this->_lib.graphical.size(); ++i) {
-        if (this->_lib.graphical[i].name == this->displayName) {
-            this->_lib.currentDisplay = i;
-        }
+    if (eventContain(eventList, Arc::EventType::NEXT_GAME)) {
+        loadNextGame();
+    } else if (eventContain(eventList, Arc::EventType::NEXT_DISPLAY)) {
+        loadNextDisplay();
+    } else if (eventContain(eventList, Arc::EventType::BACK_MENU)) {
+        loadMenu();
+    } else if (eventContain(eventList, Arc::EventType::RESTART)) {
+        loadSelectedGame();
     }
 }
 
-void Arc::Arcade::loadNextDisplay()
+void Arc::Arcade::manageLibData(const Arc::Lib &libData)
 {
-    if (this->_lib.currentDisplay == -1 || this->_clock.isElapsed() == false) {
-        return;
+    if (libData.libState == Arc::LibState::CURRENT_NOT_INIT
+    && this->_lib.currentGame == -1 && this->_lib.currentDisplay == -1) {
+        this->_lib.game = libData.game;
+        this->_lib.graphical = libData.graphical;
+        this->getCurrentLibLoaded();
     }
-    this->displayModule->stop();
-    delete this->displayModule;
-    this->displayLoader.close();
-    this->_lib.currentDisplay = Arc::safeModulo<int>(this->_lib.currentDisplay + 1, this->_lib.graphical.size());
-    this->displayLoader.load(this->_lib.graphical.at(this->_lib.currentDisplay).path);
-    this->displayModule = this->displayLoader.getInstance("entryPoint");
-    this->displayModule->init();
-    this->_clock.reset();
-}
-
-void Arc::Arcade::loadNextGame()
-{
-    if (this->_lib.currentGame == -1 || this->_clock.isElapsed() == false) {
-        return;
+    if (libData.libState == Arc::LibState::NEW_SELECTION) {
+        this->_lib.currentDisplay = libData.currentDisplay;
+        this->_lib.currentGame = libData.currentGame;
+        loadSelectedDisplay();
+        loadSelectedGame();
     }
-    this->gameModule->stop();
-    delete this->gameModule;
-    this->gameLoader.close();
-    this->_lib.currentGame = Arc::safeModulo<int>(this->_lib.currentGame + 1, this->_lib.game.size());
-    this->gameLoader.load(this->_lib.game.at(this->_lib.currentGame).path);
-    this->gameModule = this->gameLoader.getInstance("entryPoint");
-    this->gameModule->init();
-    this->_clock.reset();
 }
 
 void Arc::Arcade::loop()
 {
-    this->gameModule->init();
     this->displayModule->init();
-    this->_clock.setCooldown(std::chrono::milliseconds(500));
+    this->gameModule->init();
     this->_clock.start();
 
     while (true)
     {
         Arc::FrameRate::start();
 
-        Arc::Event eventList = this->displayModule->getEvent();
+        const Arc::Event &eventList = this->displayModule->getEvent();
         if (eventContain(eventList, Arc::EventType::EXIT)) {
             break;
         }
-        if (eventContain(eventList, Arc::EventType::NEXT_GAME)) {
-            loadNextGame();
-        }
-        if (eventContain(eventList, Arc::EventType::NEXT_DISPLAY)) {
-            loadNextDisplay();
-        }
+        handleCoreEvent(eventList);
         const GameData &data = this->gameModule->update(eventList);
-
-        if (data.lib.libState == Arc::LibState::CURRENT_NOT_INIT
-        && this->_lib.currentGame == -1 && this->_lib.currentDisplay == -1) {
-            this->_lib.game = data.lib.game;
-            this->_lib.graphical = data.lib.graphical;
-            this->getCurrentLibLoaded();
-        }
-//        if (data.lib.libState == Arc::LibState::NEW_SELECTION) {
-//            
-//        }
         this->displayModule->refresh(data);
+        manageLibData(data.lib);
 
         Arc::FrameRate::end();
     }
-    this->displayModule->stop();
     this->gameModule->stop();
+    this->displayModule->stop();
 }
