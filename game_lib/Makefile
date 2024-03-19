@@ -29,4 +29,10 @@ fclean: $(SRC)
 
 re: fclean all
 
+code_analyse: $(SRC)
+	@for game_dir in $^ ; do \
+		cd $${game_dir} && $(MAKE) code_analyse; \
+		cd - &> /dev/null; \
+	done
+
 .PHONY: all clean fclean re
