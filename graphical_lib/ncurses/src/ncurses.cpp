@@ -13,6 +13,13 @@ __attribute__((constructor)) void init(void)
     std::cout << "Ncurses loaded !\n";
 }
 
+Arc::Ncurses::~Ncurses()
+{
+    if (!this->_stopped) {
+        this->stop();
+    }
+}
+
 extern "C"
 {
     Arc::IDisplayModule *entryPoint(void)

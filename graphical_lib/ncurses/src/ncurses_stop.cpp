@@ -11,4 +11,5 @@ void Arc::Ncurses::stop()
 {
     endwin();
     reset_shell_mode();
+    this->_stopped = true;
 }

@@ -15,9 +15,20 @@ static void abort_sfml(int)
     throw Arc::DisplayException("sfml fail to create window.");
 }
 
-__attribute__((constructor)) void init(void)
+Arc::Sfml::Sfml()
 {
     std::signal(SIGABRT, abort_sfml);
+}
+
+Arc::Sfml::~Sfml()
+{
+    if (!this->_stopped) {
+        this->stop();
+    }
+}
+
+__attribute__((constructor)) void init(void)
+{
     std::cout << "Sfml loaded !\n";
 }
 

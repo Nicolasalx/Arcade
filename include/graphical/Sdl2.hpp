@@ -31,12 +31,12 @@ namespace Arc
     {
     public:
         Sdl2() = default;
-        ~Sdl2() = default;
+        ~Sdl2();
 
-        void init();
-        Arc::Event getEvent();
-        void refresh(const Arc::GameData &gameData);
-        void stop();
+        void init() override;
+        Arc::Event getEvent() override;
+        void refresh(const Arc::GameData &gameData) override;
+        void stop() override;
 
     private:
         void displayTile(const Arc::Tile &tile);
@@ -58,6 +58,8 @@ namespace Arc
 
         std::size_t _surfaceI = 0;
         std::size_t _textTextureI = 0;
+
+        bool _stopped = false;
 
         std::vector<std::pair<SDL_KeyCode, Arc::EventType>> _keyBind = {
             {SDLK_e, Arc::EventType::EXIT},

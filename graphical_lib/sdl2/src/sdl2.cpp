@@ -13,6 +13,13 @@ __attribute__((constructor)) void init(void)
     std::cout << "Sdl2 loaded !\n";
 }
 
+Arc::Sdl2::~Sdl2()
+{
+    if (!this->_stopped) {
+        this->stop();
+    }
+}
+
 extern "C"
 {
     Arc::IDisplayModule *entryPoint(void)

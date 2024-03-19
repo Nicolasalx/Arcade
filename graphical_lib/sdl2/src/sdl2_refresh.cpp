@@ -36,13 +36,6 @@ void Arc::Sdl2::appendSurfaceToPool()
     if (this->_surfaceI >= this->_pool.surface.size()) {
         this->_pool.surface.emplace_back();
     }
-    // if (!this->_pool.surface.contains(fontPath)) {
-    //     SDL_Surface *surface = TTF_OpenFont(fontPath.c_str(), size);
-    //     if (!surface) {
-    //         throw Arc::DisplayException("Failed to load: " + fontPath);
-    //     }
-    //     this->_pool.font[fontPath] = surface;
-    // }
 }
 
 void Arc::Sdl2::appendTextTextureToPool()
@@ -51,13 +44,6 @@ void Arc::Sdl2::appendTextTextureToPool()
     if (this->_textTextureI >= this->_pool.textTexture.size()) {
         this->_pool.textTexture.emplace_back();
     }
-    // if (!this->_pool.surface.contains(fontPath)) {
-    //     SDL_Surface *surface = TTF_OpenFont(fontPath.c_str(), size);
-    //     if (!surface) {
-    //         throw Arc::DisplayException("Failed to load: " + fontPath);
-    //     }
-    //     this->_pool.font[fontPath] = surface;
-    // }
 }
 
 void Arc::Sdl2::displayTile(const Arc::Tile &tile)
@@ -83,6 +69,9 @@ void Arc::Sdl2::displayTileSet(const std::vector<Arc::Tile> &tileSet)
 void Arc::Sdl2::displayText(const Arc::GameData &gameData)
 {
     for (const auto &textIt : gameData.textSet) {
+        if (textIt.text.empty()) {
+            continue;
+        }
         appendFontToPool(textIt.fontPath);
         appendSurfaceToPool();
         appendTextTextureToPool();
@@ -90,11 +79,17 @@ void Arc::Sdl2::displayText(const Arc::GameData &gameData)
         TTF_SetFontSize(this->_pool.font.at(textIt.fontPath), textIt.size);
 
         this->_pool.surface[_surfaceI - 1] = TTF_RenderText_Solid(this->_pool.font.at(textIt.fontPath),
-            textIt.text.c_str(), this->_colorBind.at(textIt.color)); // ! check error
+            textIt.text.c_str(), this->_colorBind.at(textIt.color));
+        if (this->_pool.surface[_surfaceI - 1] == nullptr) {
+            throw Arc::DisplayException("Fail to render text on surface in SDL2: " + std::string(SDL_GetError()));
+        }
 
         SDL_DestroyTexture(this->_pool.textTexture[_textTextureI - 1]);
         this->_pool.textTexture[_textTextureI - 1] =
-            SDL_CreateTextureFromSurface(this->_renderer, this->_pool.surface[_surfaceI - 1]); // ! check error
+            SDL_CreateTextureFromSurface(this->_renderer, this->_pool.surface[_surfaceI - 1]);
+        if (this->_pool.textTexture[_textTextureI - 1] == nullptr) {
+            throw Arc::DisplayException("Fail to create a text texture in SDL2: " + std::string(SDL_GetError()));
+        }
 
         int sizeX = 0;
         int sizeY = 0;
@@ -138,5 +133,7 @@ void Arc::Sdl2::refresh(const Arc::GameData &gameData)
 
     SDL_RenderPresent(this->_renderer);
 
+    this->_surfaceI = 0;
+    this->_textTextureI = 0;
     this->_ignoreKey = gameData.player.ignoreKey;
 }

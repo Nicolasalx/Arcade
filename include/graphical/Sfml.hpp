@@ -26,13 +26,13 @@ namespace Arc
     class Sfml : public ADisplayModule
     {
         public:
-            Sfml() = default;
-            ~Sfml() = default;
+            Sfml();
+            ~Sfml();
  
-            void init();
-            Arc::Event getEvent();
-            void refresh(const Arc::GameData &gameData);
-            void stop();
+            void init() override;
+            Arc::Event getEvent() override;
+            void refresh(const Arc::GameData &gameData) override;
+            void stop() override;
 
         private:
             void displayTile(const Arc::Tile &tile);
@@ -50,8 +50,10 @@ namespace Arc
             sf::RenderWindow _window;
             sf::Event _event;
             Pool _pool;
-            std::size_t _spriteI;
-            std::size_t _textI;
+            std::size_t _spriteI = 0;
+            std::size_t _textI = 0;
+
+            bool _stopped = false;
 
             std::vector<std::pair<sf::Keyboard::Key, Arc::EventType>> _keyBind = {
                 {sf::Keyboard::E, Arc::EventType::EXIT},
