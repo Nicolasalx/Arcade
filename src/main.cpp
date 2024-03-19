@@ -5,16 +5,14 @@
 ** main
 */
 
-#include <iostream>
-#include <memory>
 #include <stdexcept>
 #include "my_log.hpp"
-#include "DLLoader.hpp"
 #include "IDisplayModule.hpp"
 #include "IGameModule.hpp"
 #include "Arcade.hpp"
 #include "FrameRate.hpp"
 #include "DisplayException.hpp"
+#include "GameException.hpp"
 
 int main(int argc, const char *argv[])
 {
@@ -25,6 +23,12 @@ int main(int argc, const char *argv[])
         arcade.start(argc, argv);
         arcade.launch();
         arcade.loop();
+    } catch (const Arc::DisplayException &e) {
+        my::log::error(e.what());
+        return 84;
+    } catch (const Arc::GameException &e) {
+        my::log::error(e.what());
+        return 84;
     } catch (const std::exception &exception) {
         my::log::error(exception.what());
         return 84;

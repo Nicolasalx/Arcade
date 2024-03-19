@@ -38,4 +38,5 @@ void Arc::Sdl2::stop()
     TTF_Quit();
     IMG_Quit();
     SDL_Quit();
+    this->_stopped = true;
 }

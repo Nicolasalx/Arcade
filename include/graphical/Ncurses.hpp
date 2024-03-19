@@ -24,12 +24,12 @@ namespace Arc
     {
     public:
         Ncurses() = default;
-        ~Ncurses() = default;
+        ~Ncurses();
 
-        void init();
-        Arc::Event getEvent();
-        void refresh(const Arc::GameData &gameData);
-        void stop();
+        void init() override;
+        Arc::Event getEvent() override;
+        void refresh(const Arc::GameData &gameData) override;
+        void stop() override;
 
     private:
         void displayTile(const Arc::Tile &tile);
@@ -40,6 +40,8 @@ namespace Arc
         void displayItem(const Arc::GameData &gameData);
 
         void safeMVPrintW(int x, int y, const std::string &str);
+
+        bool _stopped = false;
 
         std::vector<std::pair<int, Arc::EventType>> _keyBind = {
             {'e', Arc::EventType::EXIT},

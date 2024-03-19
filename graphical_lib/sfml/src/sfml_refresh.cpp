@@ -54,7 +54,7 @@ void Arc::Sfml::displayTile(const Arc::Tile &tile)
     appendSpriteToPool();
     sf::Vector2u texture_size = this->_pool.texture.at(tile.imagePath).getSize();
 
-    this->_pool.sprite[_spriteI - 1].setTexture(this->_pool.texture.at(tile.imagePath));
+    this->_pool.sprite[_spriteI - 1].setTexture(this->_pool.texture.at(tile.imagePath), true);
     this->_pool.sprite[_spriteI - 1].setPosition(sf::Vector2f(tile.pos.x, tile.pos.y));
     this->_pool.sprite[_spriteI - 1].setScale(sf::Vector2f(
         Arc::safeDiv<double>(tile.size.x, texture_size.x),
@@ -75,13 +75,16 @@ void Arc::Sfml::displayText(const Arc::GameData &gameData)
 {
     for (const Arc::Text &textIt : gameData.textSet)
     {
+        if (textIt.text.empty()) {
+            continue;
+        }
         appendFontToPool(textIt.fontPath);
         appendTextToPool();
         this->_pool.text[_textI - 1].setString(textIt.text);
         this->_pool.text[_textI - 1].setFont(this->_pool.font.at(textIt.fontPath));
         this->_pool.text[_textI - 1].setCharacterSize(textIt.size);
         this->_pool.text[_textI - 1].setFillColor(this->_colorBind.at(textIt.color));
-        this->_pool.text[_textI - 1].setPosition(sf::Vector2f(textIt.pos.x,textIt.pos.y));
+        this->_pool.text[_textI - 1].setPosition(sf::Vector2f(textIt.pos.x, textIt.pos.y));
         _window.draw(this->_pool.text[_textI - 1]);
     }
 }

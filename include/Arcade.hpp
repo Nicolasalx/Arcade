@@ -36,8 +36,8 @@ namespace Arc
             void loadSelectedGame();
             void loadSelectedDisplay();
             void loadMenu();
-            void handleCoreEvent(const Arc::Event &eventList);
-            void manageLibData(const Arc::Lib &lib);
+            void handleCoreEvent(Arc::Event eventList);
+            void manageLibData(Arc::Lib lib);
 
             std::string displayName;
             std::string gameName;

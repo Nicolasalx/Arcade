@@ -11,7 +11,7 @@
 void Arc::Ncurses::safeMVPrintW(int x, int y, const std::string &str)
 {
     if (COLS > (x + static_cast<int>(str.size())) && LINES > y
-        && x >= 0 && y >= 0) {
+        && x >= 0 && y >= 0 && !str.empty()) {
         mvprintw(y, x, str.c_str());
     }
 }
