@@ -98,6 +98,7 @@ void Arc::Snake::isSnakeEatHimself()
             snakePartRect = calculateRect(this->gameData.player.tileSet.at(i).pos, 30);
             if (areaRectsInContact(snakeHeadRect, snakePartRect)) {
                 initEndGame();
+                return;
             }
         }
     }
@@ -142,7 +143,7 @@ Rect Arc::Snake::calculateRect(const Pos &pos, double size)
 void Arc::Snake::snakeEatAFood()
 {
     Pos tail;
-    Rect snakeHeadRect = calculateRect(_snake.at(0), 39);
+    Rect snakeHeadRect = calculateRect(this->gameData.player.tileSet.at(0).pos, 39);
     Rect itemRect = calculateRect(this->gameData.item.at(0).pos, 39);
 
     if (areaRectsInContact(snakeHeadRect, itemRect)) {
@@ -182,8 +183,8 @@ const Arc::GameData &Arc::Snake::update(const Arc::Event &event)
     }
     moveNextCase();
     checkHighScore();
-    isSnakeEatHimself();
     snakeEatAFood();
+    isSnakeEatHimself();
     return this->gameData;
 }
 
