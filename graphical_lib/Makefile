@@ -6,7 +6,8 @@
 ##
 
 SRC		=	./ncurses/ \
-			./sfml/
+			./sfml/ \
+			./sdl2/
 
 all: $(SRC)
 	@for graphical_lib in $^ ; do \
