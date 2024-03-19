@@ -35,8 +35,8 @@ jobs:
             fi
           }
 
-#    - name: check functional_tests
-#      run: ./tests/Functionnal/tests_functionnal.sh
+    - name: check functional_tests
+      run: ./tests/Functionnal/tests_functionnal.sh
 
     - name: check unit_tests
       run: |
