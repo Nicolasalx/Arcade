@@ -35,11 +35,13 @@ namespace Arc
 {
     enum TypeOfTile {
         WALL,
-        FLOOR
+        FLOOR,
+        SNAKE
     };
     struct BoxMap {
         TypeOfTile type;
-        Pos pos;
+        Pos posScreen;
+        Pos posArray;
     };
     enum SnakeBody {
         SNAKE_HEAD,
@@ -88,7 +90,6 @@ namespace Arc
             void snakeEatAFood();
             void moveNextCase();
             double getRandomPos(double min, double max);
-            void createSnake();
             void createApple();
 
             void changeDirection(NextDirection nextDir);
@@ -105,7 +106,7 @@ namespace Arc
 
             void initUsername();
 
-            void createNewBoxMap(TypeOfTile type, double posX, double posY);
+            void createNewBoxMap(TypeOfTile type, Pos posScreen);
             void initEndGame();
 
             int getRandomPosToInt(int min, int max);
@@ -117,8 +118,9 @@ namespace Arc
             std::vector<std::string> _highScoreFromFile;
             NextDirection _direction;
             std::vector<SnakeMove> _snake;
-
             std::vector<std::vector<char>> _mapArray;
+            Pos _headSnake;
+            bool _hasMoved;
     };
 }
 

@@ -30,7 +30,6 @@ void Arc::Nibbler::initUsername()
 
 void Arc::Nibbler::init()
 {
-
     this->gameData.player.health = 100;
     std::srand(static_cast<unsigned int>(std::time(nullptr)));
 
@@ -38,7 +37,6 @@ void Arc::Nibbler::init()
     initUsername();
     createAllTexts();
     createMap();
-    createSnake();
     createApple();
 
     _clockMove.setCooldown(std::chrono::milliseconds(100));

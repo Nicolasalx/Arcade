@@ -35,18 +35,3 @@ void Arc::Nibbler::createPlayer(Pos pos, Size sizeTile, SnakeBody snakeBody)
     _snake.push_back(snakeMove);
     this->gameData.player.tileSet.push_back(tile);
 }
-
-void Arc::Nibbler::createSnake()
-{
-    std::size_t middleMap = ((SIZE_MAP - 2) * 10) + (SIZE_MAP / 2) - 2;
-
-    for (std::size_t i = 0; i < 4; ++i) {
-        if (i == 0) {
-            createPlayer(this->gameData.tileSet[middleMap + i].pos, Arc::Size(40, 40), SNAKE_HEAD);
-        } else if (i == 3) {
-           createPlayer(this->gameData.tileSet[middleMap + i].pos, Arc::Size(40, 40), SNAKE_TAIL);
-        } else {
-            createPlayer(this->gameData.tileSet[middleMap + i].pos, Arc::Size(40, 40), SNAKE_BODY);
-        }
-    }
-}

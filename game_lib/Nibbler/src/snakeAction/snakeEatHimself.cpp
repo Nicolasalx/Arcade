@@ -12,6 +12,9 @@ void Arc::Nibbler::isSnakeEatHimself()
     Rect snakeHeadRect;
     Rect snakePartRect;
 
+    if (this->gameData.player.health == 0) {
+        return;
+    }
     if (_actualScore < 5) {
         return;
     }

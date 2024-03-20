@@ -164,7 +164,7 @@ void Arc::Nibbler::animateSnakeBody()
 
 const Arc::GameData &Arc::Nibbler::update(const Arc::Event &event)
 {
-    endTheGame();
+    isSnakeEatHimself();
     if (this->gameData.player.health == 0) {
         return this->gameData;
     }
@@ -190,6 +190,5 @@ const Arc::GameData &Arc::Nibbler::update(const Arc::Event &event)
     animateSnakeBody();
     checkHighScore();
     snakeEatAFood();
-    isSnakeEatHimself();
     return this->gameData;
 }

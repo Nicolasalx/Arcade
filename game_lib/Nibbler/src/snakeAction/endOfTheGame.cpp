@@ -19,15 +19,14 @@ void Arc::Nibbler::initEndGame()
     createText("You score: " + std::to_string(_actualScore), Arc::Pos(860, 300), Arc::Color::CYAN);
     createText("The highscore is: " + std::to_string(_highScore), Arc::Pos(820, 400), Arc::Color::YELLOW);
 
-    createText("\\       SSSS  N   N  AAAAA K  K  EEEE       /", Arc::Pos(680, 600), Arc::Color::MAGENTA);
-    createText(" \\     S      NN  N  A   A K K   E         / ", Arc::Pos(680, 620), Arc::Color::MAGENTA);
-    createText("  \\     SSSS  N N N  AAAAA KK    EEEE     /  ", Arc::Pos(680, 640), Arc::Color::MAGENTA);
-    createText("   \\        S N  NN  A   A K K   E       /   ", Arc::Pos(680, 660), Arc::Color::MAGENTA);
-    createText("    \\   SSSS  N   N  A   A K  K  EEEE   /    ", Arc::Pos(680, 680), Arc::Color::MAGENTA);
+    createText("\\       N   N  IIIII  BBBBB  BBBBB  LL     EEEE  RRRR       /", Arc::Pos(620, 600), Arc::Color::MAGENTA);
+    createText(" \\      NN  N    I    B   B  B   B  LL     E     R   R     / ", Arc::Pos(620, 620), Arc::Color::MAGENTA);
+    createText("  \\     N N N    I    BBBB   BBBB   LL     EEEE  RRRR     /  ", Arc::Pos(620, 640), Arc::Color::MAGENTA);
+    createText("   \\    N  NN    I    B   B  B   B  LL     E     R R     /   ", Arc::Pos(620, 660), Arc::Color::MAGENTA);
+    createText("    \\   N   N  IIIII  BBBBB  BBBBB  LLLLLL EEEE  R  R   /    ", Arc::Pos(620, 680), Arc::Color::MAGENTA);
 
     createText("PRESS 'R' FOR RESTART", Arc::Pos(840, 840), Arc::Color::WHITE);
     createText("PRESS 'M' TO GO BACK ON MENU", Arc::Pos(800, 900), Arc::Color::WHITE);
-
 }
 
 void Arc::Nibbler::endTheGame()

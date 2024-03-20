@@ -54,6 +54,11 @@ void Arc::Nibbler::createTile(Pos pos, Size sizeTile, TypeOfTile type)
             tile.color = Arc::Color::GREEN;
             tile.c = ' ';
         break;
+        case SNAKE:
+            tile.imagePath = "./game_src/nibbler/floor.png";
+            tile.color = Arc::Color::GREEN;
+            tile.c = ' ';
+            break;
     }
     tile.size = sizeTile;
     tile.pos = pos;
