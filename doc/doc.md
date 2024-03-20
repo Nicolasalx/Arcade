@@ -3,7 +3,7 @@
 
 ## Project Architecture
 
-https://lucid.app/lucidchart/6680fd71-2d91-41ca-bd80-dfa4c7227fbd/edit?invitationId=inv_59fe9b67-f6d2-46ce-896b-5d7a95774716&page=L.BeP2~polPs#
+https://lucid.app/lucidchart/6680fd71-2d91-41ca-bd80-dfa4c7227fbd/edit?viewport_loc=839%2C-53%2C2219%2C1059%2CL.BeP2~polPs&invitationId=inv_59fe9b67-f6d2-46ce-896b-5d7a95774716
 
 ##  How to implement a new graphic library
 
@@ -67,11 +67,11 @@ The ```getEvent``` function will be the first function called every frame of the
 ```c++
 void refresh(const Arc::GameData &gameData);
 ```
-
+The `refresh` function will be called every frame after the `getEnvent` function, `refresh` take as argument `gameData` this structure represent all the data that need to be displayed to the user on the screen. In refresh you need to display all the tile of all the sub structure of `GameData` (see the UML diagram). You also need to display the text in the `Text` structure.
 
 ```c++
 void stop();
 ```
-
+The ```stop``` function will be call by arcade to shutdown your graphical environement, for example it's here that you destroy your window and all your object, or free your internal data of your class.
 
 ## How to implement a new game
