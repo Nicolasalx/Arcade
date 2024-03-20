@@ -50,6 +50,11 @@ namespace Arc
         void appendFontToPool(const std::string &fontPath);
         void appendSurfaceToPool();
         void appendTextTextureToPool();
+        void createTextTexture(const Arc::Text &textIt);
+
+        void getKeyEvent(Arc::Event &event);
+        void putEventInBuffer(Arc::Event &event);
+        void putEventInEventList(Arc::Event &event);
 
         SDL_Window *_window = nullptr;
         SDL_Renderer *_renderer = nullptr;
