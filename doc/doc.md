@@ -27,10 +27,10 @@ Here is a code example where you just have to replace ```YOUR_GRAPHICAL_LIB``` w
 ```c++
 extern "C"
 {
-Arc::IDisplayModule *entryPoint(void)
-{
-return new YOUR_GRAPHICAL_LIB();
-}
+    Arc::IDisplayModule *entryPoint(void)
+    {
+        return new YOUR_GRAPHICAL_LIB();
+    }
 }
 ```
 
