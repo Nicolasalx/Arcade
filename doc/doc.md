@@ -52,6 +52,8 @@ For example if you create a vulkan implementation for arcade the name returned w
 
 For your graphical library you will need to create a class that will derivate from ADisplayModule that also derive from IDisplayModule:
 
+![image](https://github.com/EpitechPromo2027/B-OOP-400-PAR-4-1-arcade-thibaud.cathala/assets/114906947/2db9c873-2799-4b17-ac40-b08021df8fd8)
+
 In your class you will need to implement those 4 function:
 
 ```c++
@@ -63,6 +65,11 @@ The ```init``` function will be the first function call by arcade to init your g
 Arc::Event getEvent();
 ```
 The ```getEvent``` function will be the first function called every frame of the game, this function return the structure Event wich containt a `buffer` field and a `eventType` field, when you received event in your library you need to add it to the `eventType` list or if the field in the player structure `ignoreKey` is true all the input are put in the `buffer` field. The `event` returned by this function will be given to the game that the player actually playing.
+
+Here is the mandatory keyEvent that you need to implement:
+
+![image](https://github.com/EpitechPromo2027/B-OOP-400-PAR-4-1-arcade-thibaud.cathala/assets/114906947/558043c6-0e4f-40dd-b40e-9a1ceaba12ad)
+
 
 ```c++
 void refresh(const Arc::GameData &gameData);
