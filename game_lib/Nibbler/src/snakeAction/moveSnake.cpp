@@ -5,9 +5,9 @@
 ** moveSnake
 */
 
-#include "Snake.hpp"
+#include "Nibbler.hpp"
 
-void Arc::Snake::changeDirection(NextDirection nextDir)
+void Arc::Nibbler::changeDirection(NextDirection nextDir)
 {
     if (!_clockEvent.isElapsed()) {
         return;
@@ -28,7 +28,7 @@ void Arc::Snake::changeDirection(NextDirection nextDir)
     }
 }
 
-void Arc::Snake::moveNextCase()
+void Arc::Nibbler::moveNextCase()
 {
     SnakeMove snakeMove;
 
@@ -62,7 +62,7 @@ void Arc::Snake::moveNextCase()
     }
 }
 
-void Arc::Snake::addElemBackSnake()
+void Arc::Nibbler::addElemBackSnake()
 {
     this->gameData.player.tileSet.back().imagePath = std::string(PATH_IMG) + "/body/horizontal.png";
     this->gameData.player.tileSet.back().c = '=';

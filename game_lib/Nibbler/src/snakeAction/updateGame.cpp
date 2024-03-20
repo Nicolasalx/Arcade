@@ -5,10 +5,10 @@
 ** updateGame
 */
 
-#include "Snake.hpp"
+#include "Nibbler.hpp"
 #include "getFileContent.hpp"
 
-void Arc::Snake::checkHighScore()
+void Arc::Nibbler::checkHighScore()
 {
     std::string content;
 
@@ -20,7 +20,7 @@ void Arc::Snake::checkHighScore()
     }
 }
 
-void Arc::Snake::animateHead(std::size_t index)
+void Arc::Nibbler::animateHead(std::size_t index)
 {
     this->gameData.player.tileSet.at(index).c = '1';
     switch (_snake.at(index).nextDirection) {
@@ -39,7 +39,7 @@ void Arc::Snake::animateHead(std::size_t index)
     }
 }
 
-void Arc::Snake::animateTail(std::size_t index)
+void Arc::Nibbler::animateTail(std::size_t index)
 {
     this->gameData.player.tileSet.at(index).c = '2';
     switch (_snake.at(index).nextDirection) {
@@ -58,7 +58,7 @@ void Arc::Snake::animateTail(std::size_t index)
     }
 }
 
-void Arc::Snake::animateBodyUp(std::size_t index)
+void Arc::Nibbler::animateBodyUp(std::size_t index)
 {
     switch (_snake.at(index - 1).nextDirection) {
         case UP:
@@ -76,7 +76,7 @@ void Arc::Snake::animateBodyUp(std::size_t index)
     }
 }
 
-void Arc::Snake::animateBodyDown(std::size_t index)
+void Arc::Nibbler::animateBodyDown(std::size_t index)
 {
     switch (_snake.at(index - 1).nextDirection) {
         case UP:
@@ -94,7 +94,7 @@ void Arc::Snake::animateBodyDown(std::size_t index)
     }
 }
 
-void Arc::Snake::animateBodyLeft(std::size_t index)
+void Arc::Nibbler::animateBodyLeft(std::size_t index)
 {
     switch (_snake.at(index - 1).nextDirection) {
         case RIGHT:
@@ -112,7 +112,7 @@ void Arc::Snake::animateBodyLeft(std::size_t index)
     }
 }
 
-void Arc::Snake::animateBodyRight(std::size_t index)
+void Arc::Nibbler::animateBodyRight(std::size_t index)
 {
     switch (_snake.at(index - 1).nextDirection) {
         case LEFT:
@@ -130,7 +130,7 @@ void Arc::Snake::animateBodyRight(std::size_t index)
     }
 }
 
-void Arc::Snake::animatePartBody(std::size_t index)
+void Arc::Nibbler::animatePartBody(std::size_t index)
 {
     this->gameData.player.tileSet.at(index).c = '=';
     switch (_snake.at(index).nextDirection) {
@@ -149,7 +149,7 @@ void Arc::Snake::animatePartBody(std::size_t index)
     }
 }
 
-void Arc::Snake::animateSnakeBody()
+void Arc::Nibbler::animateSnakeBody()
 {
     for (std::size_t i = 0; i < this->gameData.player.tileSet.size(); ++i) {
         if (i == 0) {
@@ -162,7 +162,7 @@ void Arc::Snake::animateSnakeBody()
     }
 }
 
-const Arc::GameData &Arc::Snake::update(const Arc::Event &event)
+const Arc::GameData &Arc::Nibbler::update(const Arc::Event &event)
 {
     endTheGame();
     if (this->gameData.player.health == 0) {

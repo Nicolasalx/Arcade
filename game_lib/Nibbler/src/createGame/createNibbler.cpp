@@ -5,9 +5,9 @@
 ** createSnake
 */
 
-#include "Snake.hpp"
+#include "Nibbler.hpp"
 
-void Arc::Snake::createPlayer(Pos pos, Size sizeTile, SnakeBody snakeBody)
+void Arc::Nibbler::createPlayer(Pos pos, Size sizeTile, SnakeBody snakeBody)
 {
     Tile tile;
     SnakeMove snakeMove;
@@ -36,7 +36,7 @@ void Arc::Snake::createPlayer(Pos pos, Size sizeTile, SnakeBody snakeBody)
     this->gameData.player.tileSet.push_back(tile);
 }
 
-void Arc::Snake::createSnake()
+void Arc::Nibbler::createSnake()
 {
     std::size_t middleMap = ((SIZE_MAP - 2) * 10) + (SIZE_MAP / 2) - 2;
 

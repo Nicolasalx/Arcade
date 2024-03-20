@@ -34,7 +34,7 @@ struct Rect {
 namespace Arc
 {
     enum TypeOfTile {
-        MAP,
+        WALL,
         FLOOR
     };
     struct BoxMap {
@@ -58,11 +58,11 @@ namespace Arc
         NextDirection nextDirection;
     };
 
-    class Snake : public AGameModule
+    class Nibbler : public AGameModule
     {
         public:
-            Snake();
-            ~Snake();
+            Nibbler();
+            ~Nibbler();
 
             void init();
             const Arc::GameData &update(const Arc::Event &event);
@@ -80,7 +80,6 @@ namespace Arc
             void addElemBackSnake();
             void initHighScore();
             bool appleIsOnSnake(Pos pos);
-            void createNewBoxMap(std::size_t i, size_t j, double posX, double posY);
             void putNewBoxInMap(TypeOfTile type, Pos pos);
             void isSnakeEatHimself();
 
@@ -106,6 +105,11 @@ namespace Arc
 
             void initUsername();
 
+            void createNewBoxMap(TypeOfTile type, double posX, double posY);
+            void initEndGame();
+
+            int getRandomPosToInt(int min, int max);
+
             std::size_t _actualScore = SIZE_SNAKE_START;
             std::size_t _highScore = 0;
             Arc::Clock _clockMove;
@@ -113,7 +117,8 @@ namespace Arc
             std::vector<std::string> _highScoreFromFile;
             NextDirection _direction;
             std::vector<SnakeMove> _snake;
-            void initEndGame();
+
+            std::vector<std::vector<char>> _mapArray;
     };
 }
 

@@ -5,9 +5,9 @@
 ** endOfTheGame
 */
 
-#include "Snake.hpp"
+#include "Nibbler.hpp"
 
-void Arc::Snake::initEndGame()
+void Arc::Nibbler::initEndGame()
 {
     this->gameData.textSet.clear();
     this->gameData.tileSet.clear();
@@ -30,7 +30,7 @@ void Arc::Snake::initEndGame()
 
 }
 
-void Arc::Snake::endTheGame()
+void Arc::Nibbler::endTheGame()
 {
     if (this->gameData.player.health == 0) {
         return;

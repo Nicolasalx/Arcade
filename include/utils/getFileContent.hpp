@@ -20,6 +20,7 @@ namespace Arc
         public:
             static std::vector<std::string> getContent(const std::string &filename);
             static void printContentToFile(const std::string &filename, const std::string &content);
+            static std::vector<std::vector<char>> getArrayFromContent(const std::string &filename);
         private:
     };
 }

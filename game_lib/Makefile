@@ -7,6 +7,7 @@
 
 SRC		=	./Pacman/ \
 			./Snake/ \
+			./Nibbler/ \
 			./Menu/
 
 all: $(SRC)

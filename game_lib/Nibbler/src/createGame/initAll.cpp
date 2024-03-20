@@ -5,11 +5,11 @@
 ** initAll
 */
 
-#include "Snake.hpp"
+#include "Nibbler.hpp"
 #include "GameException.hpp"
 #include "getFileContent.hpp"
 
-void Arc::Snake::initHighScore()
+void Arc::Nibbler::initHighScore()
 {
     std::vector<std::string> tokensByLine = Arc::FileContent::getContent("./game_src/snake/snakeScore.txt");
 
@@ -19,7 +19,7 @@ void Arc::Snake::initHighScore()
     _highScore = std::stoi(tokensByLine[1]);
 }
 
-void Arc::Snake::initUsername()
+void Arc::Nibbler::initUsername()
 {
     std::vector<std::string> tokensByLine = Arc::FileContent::getContent("./game_src/username.txt");
 
@@ -28,8 +28,9 @@ void Arc::Snake::initUsername()
     }
 }
 
-void Arc::Snake::init()
+void Arc::Nibbler::init()
 {
+
     this->gameData.player.health = 100;
     std::srand(static_cast<unsigned int>(std::time(nullptr)));
 

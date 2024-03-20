@@ -28,6 +28,31 @@ std::vector<std::string> Arc::FileContent::getContent(const std::string &filenam
     return tokensByLine;
 }
 
+std::vector<std::vector<char>> Arc::FileContent::getArrayFromContent(const std::string &filename)
+{
+    std::ifstream inFile;
+    std::string line;
+    std::vector<std::vector<char>> tokensByLine;
+    std::vector<char> elemLines;
+
+    if (std::filesystem::is_directory(filename)) {
+        throw my::tracked_exception("The provided file is a directory.");
+    }
+    inFile.open(filename);
+    if (!inFile) {
+        throw my::tracked_exception("Invalid file name");
+    }
+    while (std::getline(inFile, line)) {
+        elemLines.clear();
+        for (const auto &info : line) {
+            elemLines.push_back(info);
+        }
+        tokensByLine.push_back(elemLines);
+    }
+    inFile.close();
+    return tokensByLine;
+}
+
 void Arc::FileContent::printContentToFile(const std::string &filename, const std::string &content)
 {
     std::ofstream myFile(filename);

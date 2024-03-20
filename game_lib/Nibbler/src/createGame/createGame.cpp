@@ -5,9 +5,9 @@
 ** createGame
 */
 
-#include "Snake.hpp"
+#include "Nibbler.hpp"
 
-void Arc::Snake::createApple()
+void Arc::Nibbler::createApple()
 {
     Item item;
 
@@ -20,7 +20,7 @@ void Arc::Snake::createApple()
     this->gameData.item.push_back(item);
 }
 
-void Arc::Snake::createText(const std::string &name, Pos pos, Color color)
+void Arc::Nibbler::createText(const std::string &name, Pos pos, Color color)
 {
     Arc::Text text;
 
@@ -32,25 +32,25 @@ void Arc::Snake::createText(const std::string &name, Pos pos, Color color)
     this->gameData.textSet.push_back(text);
 }
 
-void Arc::Snake::createAllTexts()
+void Arc::Nibbler::createAllTexts()
 {
     createText("Username: " + this->gameData.player.userName, Arc::Pos(400, 50), Arc::Color::WHITE);
     createText("Actual score: " + std::to_string(_actualScore), Arc::Pos(700, 50), Arc::Color::WHITE);
     createText("High score: " + std::to_string(_highScore), Arc::Pos(1000, 50), Arc::Color::WHITE);
 }
 
-void Arc::Snake::createTile(Pos pos, Size sizeTile, TypeOfTile type)
+void Arc::Nibbler::createTile(Pos pos, Size sizeTile, TypeOfTile type)
 {
     Arc::Tile tile;
 
     switch (type) {
-        case MAP:
-            tile.imagePath = std::string(PATH_IMG) + "bush.png";
+        case WALL:
+            tile.imagePath = "./game_src/nibbler/wall.png";
             tile.color = Arc::Color::GREEN;
             tile.c = '#';
         break;
         case FLOOR:
-            tile.imagePath = std::string(PATH_IMG) + "floor.png";
+            tile.imagePath = "./game_src/nibbler/floor.png";
             tile.color = Arc::Color::GREEN;
             tile.c = ' ';
         break;

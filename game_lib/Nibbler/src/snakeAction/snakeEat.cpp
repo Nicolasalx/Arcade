@@ -5,9 +5,9 @@
 ** snakeEat
 */
 
-#include "Snake.hpp"
+#include "Nibbler.hpp"
 
-void Arc::Snake::snakeEatAFood()
+void Arc::Nibbler::snakeEatAFood()
 {
     Pos tail;
     Rect snakeHeadRect = calculateRect(this->gameData.player.tileSet.at(0).pos, 39);
