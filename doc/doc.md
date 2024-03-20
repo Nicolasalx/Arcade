@@ -3,7 +3,7 @@
 
 ## Project Architecture
 
-https://lucid.app/lucidchart/6680fd71-2d91-41ca-bd80-dfa4c7227fbd/edit?viewport_loc=839%2C-53%2C2219%2C1059%2CL.BeP2~polPs&invitationId=inv_59fe9b67-f6d2-46ce-896b-5d7a95774716
+[UML Diagram](#https://lucid.app/lucidchart/6680fd71-2d91-41ca-bd80-dfa4c7227fbd/edit?viewport_loc=839%2C-53%2C2219%2C1059%2CL.BeP2~polPs&invitationId=inv_59fe9b67-f6d2-46ce-896b-5d7a95774716)
 
 ##  How to implement a new graphic library
 
@@ -68,6 +68,10 @@ The ```getEvent``` function will be the first function called every frame of the
 void refresh(const Arc::GameData &gameData);
 ```
 The `refresh` function will be called every frame after the `getEnvent` function, `refresh` take as argument `gameData` this structure represent all the data that need to be displayed to the user on the screen. In refresh you need to display all the tile of all the sub structure of `GameData` (see the UML diagram). You also need to display the text in the `Text` structure.
+
+You also need to respect the display pipeline in order to display the game in it's intended way:
+
+![image](https://github.com/EpitechPromo2027/B-OOP-400-PAR-4-1-arcade-thibaud.cathala/assets/114906947/7b902c3f-ff60-4f45-8938-5065ac07e324)
 
 ```c++
 void stop();
