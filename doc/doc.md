@@ -3,7 +3,7 @@
 
 ## Project Architecture
 
-[UML Diagram](#https://lucid.app/lucidchart/6680fd71-2d91-41ca-bd80-dfa4c7227fbd/edit?viewport_loc=839%2C-53%2C2219%2C1059%2CL.BeP2~polPs&invitationId=inv_59fe9b67-f6d2-46ce-896b-5d7a95774716)
+[UML Diagram](https://lucid.app/lucidchart/6680fd71-2d91-41ca-bd80-dfa4c7227fbd/edit?viewport_loc=839%2C-53%2C2219%2C1059%2CL.BeP2~polPs&invitationId=inv_59fe9b67-f6d2-46ce-896b-5d7a95774716)
 
 ##  How to implement a new graphic library
 
