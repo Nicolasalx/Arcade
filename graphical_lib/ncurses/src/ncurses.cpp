@@ -8,29 +8,12 @@
 #include <iostream>
 #include "Ncurses.hpp"
 
-__attribute__((constructor)) void init(void)
-{
-    std::cout << "Ncurses loaded !\n";
-}
-
-Arc::Ncurses::~Ncurses()
-{
-    if (!this->_stopped) {
-        this->stop();
-    }
-}
-
 extern "C"
 {
     Arc::IDisplayModule *entryPoint(void)
     {
         return new Arc::Ncurses();
     }
-}
-
-__attribute__((destructor)) void destroy(void)
-{
-    std::cout << "Ncurses unloaded !\n";
 }
 
 extern "C"

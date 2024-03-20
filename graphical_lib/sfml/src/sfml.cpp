@@ -20,29 +20,12 @@ Arc::Sfml::Sfml()
     std::signal(SIGABRT, abort_sfml);
 }
 
-Arc::Sfml::~Sfml()
-{
-    if (!this->_stopped) {
-        this->stop();
-    }
-}
-
-__attribute__((constructor)) void init(void)
-{
-    std::cout << "Sfml loaded !\n";
-}
-
 extern "C"
 {
     Arc::IDisplayModule *entryPoint(void)
     {
         return new Arc::Sfml();
     }
-}
-
-__attribute__((destructor)) void destroy(void)
-{
-    std::cout << "Sfml unloaded !\n";
 }
 
 extern "C"

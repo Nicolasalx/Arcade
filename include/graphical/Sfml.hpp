@@ -27,7 +27,7 @@ namespace Arc
     {
         public:
             Sfml();
-            ~Sfml();
+            ~Sfml() = default;
  
             void init() override;
             Arc::Event getEvent() override;
@@ -47,13 +47,14 @@ namespace Arc
             void appendSpriteToPool();
             void appendTextureToPool(const std::string &texturePath);
 
+            void putEventInBuffer(Arc::Event &event);
+            void putEventInEventList(Arc::Event &event);
+
             sf::RenderWindow _window;
             sf::Event _event;
             Pool _pool;
             std::size_t _spriteI = 0;
             std::size_t _textI = 0;
-
-            bool _stopped = false;
 
             std::vector<std::pair<sf::Keyboard::Key, Arc::EventType>> _keyBind = {
                 {sf::Keyboard::E, Arc::EventType::EXIT},

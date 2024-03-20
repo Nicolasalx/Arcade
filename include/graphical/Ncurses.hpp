@@ -24,7 +24,7 @@ namespace Arc
     {
     public:
         Ncurses() = default;
-        ~Ncurses();
+        ~Ncurses() = default;
 
         void init() override;
         Arc::Event getEvent() override;
@@ -39,9 +39,10 @@ namespace Arc
         void displayEnemy(const Arc::GameData &gameData);
         void displayItem(const Arc::GameData &gameData);
 
-        void safeMVPrintW(int x, int y, const std::string &str);
+        static void safeMVPrintW(int x, int y, const std::string &str);
 
-        bool _stopped = false;
+        void putEventInBuffer(int c, Arc::Event &event);
+        void putEventInEventList(int c, Arc::Event &event);
 
         std::vector<std::pair<int, Arc::EventType>> _keyBind = {
             {'e', Arc::EventType::EXIT},

@@ -30,14 +30,14 @@ namespace Arc
 
         private:
             void getCurrentLibLoaded();
-            bool eventContain(const Arc::Event &eventList, const Arc::EventType &eventType);
+            static bool eventContain(const Arc::Event &eventList, const Arc::EventType &eventType);
             void loadNextDisplay();
             void loadNextGame();
             void loadSelectedGame();
             void loadSelectedDisplay();
             void loadMenu();
-            void handleCoreEvent(Arc::Event eventList);
-            void manageLibData(Arc::Lib lib);
+            void handleCoreEvent(const Arc::Event &eventList);
+            void manageLibData(const Arc::Lib &lib);
 
             std::string displayName;
             std::string gameName;

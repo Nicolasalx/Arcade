@@ -13,6 +13,7 @@ void Arc::Sdl2::appendTextureToPool(const std::string &texturePath)
     if (!this->_pool.texture.contains(texturePath)) {
         SDL_Texture *texture = IMG_LoadTexture(this->_renderer, texturePath.c_str());
         if (!texture) {
+            this->stop();
             throw Arc::DisplayException("Failed to load: " + texturePath);
         }
         this->_pool.texture[texturePath] = texture;
@@ -25,11 +26,11 @@ void Arc::Sdl2::displayTile(const Arc::Tile &tile)
 
     int sizeX = 0;
     int sizeY = 0;
-    SDL_QueryTexture(this->_pool.texture.at(tile.imagePath), NULL, NULL, &sizeX, &sizeY);
+    SDL_QueryTexture(this->_pool.texture.at(tile.imagePath), nullptr, nullptr, &sizeX, &sizeY);
 
     SDL_Rect destRect = {static_cast<int>(tile.pos.x), static_cast<int>(tile.pos.y),
         static_cast<int>(tile.size.x), static_cast<int>(tile.size.y)};
-    SDL_RenderCopy(this->_renderer, this->_pool.texture.at(tile.imagePath), NULL, &destRect);
+    SDL_RenderCopy(this->_renderer, this->_pool.texture.at(tile.imagePath), nullptr, &destRect);
 }
 
 void Arc::Sdl2::displayTileSet(const std::vector<Arc::Tile> &tileSet)

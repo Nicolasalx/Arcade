@@ -7,6 +7,26 @@
 
 #include "Sfml.hpp"
 
+void Arc::Sfml::putEventInBuffer(Arc::Event &event)
+{
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)) {
+        event.eventType.push_back(Arc::EventType::ENTER);
+    }
+    else if (this->_event.type == sf::Event::TextEntered
+    && this->_event.text.unicode < 128) {
+        event.buffer += this->_event.text.unicode;
+    }
+}
+
+void Arc::Sfml::putEventInEventList(Arc::Event &event)
+{
+    for (const auto &currentKey : this->_keyBind) {
+        if (sf::Keyboard::isKeyPressed(currentKey.first)) {
+            event.eventType.push_back(currentKey.second);
+        }
+    }
+}
+
 Arc::Event Arc::Sfml::getEvent()
 {
     Arc::Event event;
@@ -16,19 +36,9 @@ Arc::Event Arc::Sfml::getEvent()
             event.eventType.push_back(Arc::EventType::EXIT);
         }
         if (this->_ignoreKey) {
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)) {
-                event.eventType.push_back(Arc::EventType::ENTER);
-            }
-            else if (this->_event.type == sf::Event::TextEntered
-            && this->_event.text.unicode < 128) {
-                event.buffer += this->_event.text.unicode;
-            }
+            this->putEventInBuffer(event);
         } else {
-            for (const auto &currentKey : this->_keyBind) {
-                if (sf::Keyboard::isKeyPressed(currentKey.first)) {
-                    event.eventType.push_back(currentKey.second);
-                }
-            }
+            this->putEventInEventList(event);
         }
     }
     return event;

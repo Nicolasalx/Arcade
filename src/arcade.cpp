@@ -55,7 +55,7 @@ bool Arc::Arcade::eventContain(const Arc::Event &eventList, const Arc::EventType
     return false;
 }
 
-void Arc::Arcade::handleCoreEvent(Arc::Event eventList)
+void Arc::Arcade::handleCoreEvent(const Arc::Event &eventList)
 {
     if (eventContain(eventList, Arc::EventType::NEXT_GAME)) {
         loadNextGame();
@@ -68,7 +68,7 @@ void Arc::Arcade::handleCoreEvent(Arc::Event eventList)
     }
 }
 
-void Arc::Arcade::manageLibData(Arc::Lib libData)
+void Arc::Arcade::manageLibData(const Arc::Lib &libData)
 {
     if (libData.libState == Arc::LibState::CURRENT_NOT_INIT
     && this->_lib.currentGame == -1 && this->_lib.currentDisplay == -1) {
@@ -94,12 +94,12 @@ void Arc::Arcade::loop()
     {
         Arc::FrameRate::start();
 
-        Arc::Event eventList = this->displayModule->getEvent();
+        const Arc::Event &eventList = this->displayModule->getEvent();
         if (eventContain(eventList, Arc::EventType::EXIT)) {
             break;
         }
         handleCoreEvent(eventList);
-        GameData data = this->gameModule->update(eventList);
+        const GameData &data = this->gameModule->update(eventList);
         this->displayModule->refresh(data);
         manageLibData(data.lib);
 
