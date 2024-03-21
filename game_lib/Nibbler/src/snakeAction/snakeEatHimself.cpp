@@ -15,6 +15,10 @@ void Arc::Nibbler::isSnakeEatHimself()
     if (this->gameData.player.health == 0) {
         return;
     }
+    if (_nbApple == 10) {
+        initEndGame();
+        return;
+    }
     if (_actualScore < 5) {
         return;
     }

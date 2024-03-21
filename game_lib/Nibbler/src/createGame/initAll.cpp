@@ -11,7 +11,7 @@
 
 void Arc::Nibbler::initHighScore()
 {
-    std::vector<std::string> tokensByLine = Arc::FileContent::getContent("./game_src/snake/snakeScore.txt");
+    std::vector<std::string> tokensByLine = Arc::FileContent::getContent("./game_src/nibbler/nibblerScore.txt");
 
     if (tokensByLine.size() != 2) {
         throw Arc::GameException("Invalid file high score !");
@@ -37,11 +37,15 @@ void Arc::Nibbler::init()
     initUsername();
     createAllTexts();
     createMap();
-    createApple();
+    for (int i = 0; i < NB_ITEM; ++i)
+        createApple();
 
     _clockMove.setCooldown(std::chrono::milliseconds(100));
     _clockMove.start();
 
     _clockEvent.setCooldown(std::chrono::milliseconds(50));
     _clockEvent.start();
+
+    _clockGame.setCooldown(std::chrono::milliseconds(60000));
+    _clockGame.start();
 }

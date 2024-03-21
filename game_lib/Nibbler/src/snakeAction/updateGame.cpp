@@ -16,7 +16,7 @@ void Arc::Nibbler::checkHighScore()
         ++_highScore;
         this->gameData.textSet.at(2).text = "High score: " + std::to_string(_highScore);
         content = this->gameData.player.userName + "\n" + std::to_string(_highScore);
-        Arc::FileContent::printContentToFile("./game_src/snake/snakeScore.txt", content);
+        Arc::FileContent::printContentToFile("./game_src/nibbler/nibblerScore.txt", content);
     }
 }
 

@@ -15,7 +15,12 @@ void Arc::Nibbler::initEndGame()
     this->gameData.item.clear();
     this->gameData.player.health = 0;
 
-    createText("You loose !" + this->gameData.player.userName, Arc::Pos(860, 200), Arc::Color::RED);
+    if (_nbApple == 10) {
+        createText("You WIN !\n" + this->gameData.player.userName, Arc::Pos(860, 200), Arc::Color::GREEN);
+    } else {
+        createText("You LOOSE !\n" + this->gameData.player.userName, Arc::Pos(860, 200), Arc::Color::RED);
+    }
+
     createText("You score: " + std::to_string(_actualScore), Arc::Pos(860, 300), Arc::Color::CYAN);
     createText("The highscore is: " + std::to_string(_highScore), Arc::Pos(820, 400), Arc::Color::YELLOW);
 

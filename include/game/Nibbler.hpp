@@ -23,6 +23,7 @@
     #define X_POS_MAP 500
     #define Y_POS_MAP 100
     #define SIZE_SNAKE_START 4
+    #define NB_ITEM 10
 
 struct Rect {
     double x = 0;
@@ -115,12 +116,14 @@ namespace Arc
             std::size_t _highScore = 0;
             Arc::Clock _clockMove;
             Arc::Clock _clockEvent;
+            Arc::Clock _clockGame;
             std::vector<std::string> _highScoreFromFile;
             NextDirection _direction;
             std::vector<SnakeMove> _snake;
             std::vector<std::vector<char>> _mapArray;
             Pos _headSnake;
             bool _hasMoved;
+            std::size_t _nbApple = 0;
     };
 }
 

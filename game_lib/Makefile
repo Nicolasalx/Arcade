@@ -5,8 +5,7 @@
 ## Makefile
 ##
 
-SRC		=	./Pacman/ \
-			./Snake/ \
+SRC		=	./Snake/ \
 			./Nibbler/ \
 			./Menu/
 
