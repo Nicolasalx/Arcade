@@ -58,7 +58,7 @@ void Arc::Sfml::displayTile(const Arc::Tile &tile)
     this->_pool.sprite[_spriteI - 1].setPosition(sf::Vector2f(tile.pos.x, tile.pos.y));
     this->_pool.sprite[_spriteI - 1].setScale(sf::Vector2f(
         Arc::safeDiv<double>(tile.size.x, texture_size.x),
-        Arc::safeDiv<double>(tile.size.x, texture_size.y)
+        Arc::safeDiv<double>(tile.size.y, texture_size.y)
     ));
     this->_window.draw(this->_pool.sprite[_spriteI - 1]);
 }
