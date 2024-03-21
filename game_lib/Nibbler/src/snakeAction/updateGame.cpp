@@ -169,6 +169,9 @@ void Arc::Nibbler::updateTimeBar()
     std::size_t newWidth = (getPercent * 800) / 100;
 
     this->gameData.tileSet.at(0).size.x = newWidth;
+    if (this->gameData.tileSet.at(0).size.x <= 0) {
+        initEndGame();
+    }
 }
 
 const Arc::GameData &Arc::Nibbler::update(const Arc::Event &event)
@@ -195,10 +198,10 @@ const Arc::GameData &Arc::Nibbler::update(const Arc::Event &event)
             break;
         }
     }
-    updateTimeBar();
     moveNextCase();
     animateSnakeBody();
     checkHighScore();
     snakeEatAFood();
+    updateTimeBar();
     return this->gameData;
 }

@@ -24,7 +24,7 @@
     #define Y_POS_MAP 170
     #define SIZE_SNAKE_START 4
     #define NB_ITEM 10
-    #define TIME_IN_MILI 60000
+    #define TIME_IN_MILI 20000
 
 struct Rect {
     double x = 0;
