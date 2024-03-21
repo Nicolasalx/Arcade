@@ -7,18 +7,6 @@
 
 #include <iostream>
 #include "Sfml.hpp"
-#include "DisplayException.hpp"
-#include <csignal>
-
-static void abort_sfml(int)
-{
-    throw Arc::DisplayException("sfml fail to create window.");
-}
-
-Arc::Sfml::Sfml()
-{
-    std::signal(SIGABRT, abort_sfml);
-}
 
 extern "C"
 {

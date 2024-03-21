@@ -23,7 +23,6 @@ void Arc::Sfml::appendFontToPool(const std::string &fontPath)
     if (!this->_pool.font.contains(fontPath)) {
         sf::Font font;
         if (!font.loadFromFile(fontPath)) {
-            this->stop();
             throw Arc::DisplayException("Failed to load: " + fontPath);
         }
         this->_pool.font[fontPath] = font;
@@ -43,7 +42,6 @@ void Arc::Sfml::appendTextureToPool(const std::string &texturePath)
     if (!this->_pool.texture.contains(texturePath)) {
         sf::Texture texture;
         if (!texture.loadFromFile(texturePath)) {
-            this->stop();
             throw Arc::DisplayException("Failed to load: " + texturePath);
         }
         this->_pool.texture[texturePath] = texture;
@@ -60,7 +58,7 @@ void Arc::Sfml::displayTile(const Arc::Tile &tile)
     this->_pool.sprite[_spriteI - 1].setPosition(sf::Vector2f(tile.pos.x, tile.pos.y));
     this->_pool.sprite[_spriteI - 1].setScale(sf::Vector2f(
         Arc::safeDiv<double>(tile.size.x, texture_size.x),
-        Arc::safeDiv<double>(tile.size.x, texture_size.y)
+        Arc::safeDiv<double>(tile.size.y, texture_size.y)
     ));
     this->_window.draw(this->_pool.sprite[_spriteI - 1]);
 }

@@ -37,6 +37,9 @@ namespace Arc
 
         void load(const std::string &libName)
         {
+            if (this->_handle) {
+                this->close();
+            }
             this->_handle = dlopen(libName.c_str(), RTLD_LAZY);
             if (!this->_handle) {
                 throw my::tracked_exception(dlerror());
@@ -61,9 +64,10 @@ namespace Arc
             return func();
         }
 
-        const std::string &getName()
+        template<typename T2>
+        T2 getSymbol(const std::string name)
         {
-            auto func = reinterpret_cast<const std::string &(*)(void)>(dlsym(this->_handle, "getName"));
+            auto func = reinterpret_cast<T2 (*)(void)>(dlsym(this->_handle, name.c_str()));
             if (!func) {
                 throw my::tracked_exception(dlerror());
             }

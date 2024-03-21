@@ -13,7 +13,6 @@ void Arc::Sdl2::appendTextureToPool(const std::string &texturePath)
     if (!this->_pool.texture.contains(texturePath)) {
         SDL_Texture *texture = IMG_LoadTexture(this->_renderer, texturePath.c_str());
         if (!texture) {
-            this->stop();
             throw Arc::DisplayException("Failed to load: " + texturePath);
         }
         this->_pool.texture[texturePath] = texture;

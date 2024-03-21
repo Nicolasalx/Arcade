@@ -14,8 +14,10 @@
 
 Arc::Arcade::~Arcade()
 {
-    delete this->displayModule;
-    delete this->gameModule;
+    this->displayModule.reset();
+    this->gameModule.reset();
+    this->gameLoader.close();
+    this->displayLoader.close();
 }
 
 void Arc::Arcade::start(int argc, const char **argv)
@@ -33,15 +35,15 @@ void Arc::Arcade::start(int argc, const char **argv)
 void Arc::Arcade::launch()
 {
     this->displayLoader.load(this->displayName);
-    this->displayName = this->displayLoader.getName();
+    this->displayName = this->displayLoader.getSymbol<const std::string &>("getName");
     this->gameLoader.load("./lib/arcade_menu.so");
-    this->gameName = this->gameLoader.getName();
+    this->gameName = this->gameLoader.getSymbol<const std::string &>("getName");
 
     if (!this->displayName.starts_with("arcade_D_")) {
         throw my::tracked_exception("Invalid graphical lib.");
     }
-    this->displayModule = this->displayLoader.getInstance("entryPoint");
-    this->gameModule = this->gameLoader.getInstance("entryPoint");
+    this->displayModule = std::unique_ptr<Arc::IDisplayModule>(this->displayLoader.getInstance("entryPoint"));
+    this->gameModule = std::unique_ptr<Arc::IGameModule>(this->gameLoader.getInstance("entryPoint"));
 }
 
 bool Arc::Arcade::eventContain(const Arc::Event &eventList, const Arc::EventType &eventType)
@@ -85,7 +87,6 @@ void Arc::Arcade::manageLibData(const Arc::Lib &libData)
 
 void Arc::Arcade::loop()
 {
-    this->displayModule->init();
     this->gameModule->init();
     this->_clock.start();
 
@@ -105,5 +106,4 @@ void Arc::Arcade::loop()
         Arc::FrameRate::end();
     }
     this->gameModule->stop();
-    this->displayModule->stop();
 }

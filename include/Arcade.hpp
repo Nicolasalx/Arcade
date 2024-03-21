@@ -41,8 +41,8 @@ namespace Arc
 
             std::string displayName;
             std::string gameName;
-            Arc::IDisplayModule *displayModule = nullptr;
-            Arc::IGameModule *gameModule = nullptr;
+            std::unique_ptr<Arc::IDisplayModule> displayModule;
+            std::unique_ptr<Arc::IGameModule> gameModule;
             Arc::DLLoader<Arc::IDisplayModule> displayLoader;
             Arc::DLLoader<Arc::IGameModule> gameLoader;
             Arc::Clock _clock;

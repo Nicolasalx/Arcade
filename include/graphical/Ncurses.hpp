@@ -23,13 +23,11 @@ namespace Arc
     class Ncurses: public ADisplayModule
     {
     public:
-        Ncurses() = default;
-        ~Ncurses() override = default;
+        Ncurses();
+        ~Ncurses() override;
 
-        void init() override;
         Arc::Event getEvent() override;
         void refresh(const Arc::GameData &gameData) override;
-        void stop() override;
 
     private:
         void displayTile(const Arc::Tile &tile);

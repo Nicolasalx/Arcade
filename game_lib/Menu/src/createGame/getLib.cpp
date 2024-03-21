@@ -37,7 +37,7 @@ void Arc::Menu::selectTypeLib(const std::string &filename)
 
     try {
         libLoader.load(filename);
-        nameLib = libLoader.getName();
+        nameLib = libLoader.getSymbol<const std::string &>("getName");
     } catch (const std::exception &e) {
         return;
     }

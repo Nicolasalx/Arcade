@@ -7,7 +7,7 @@
 
 #include "Sfml.hpp"
 
-void Arc::Sfml::stop()
+Arc::Sfml::~Sfml()
 {
     this->_window.close();
 }

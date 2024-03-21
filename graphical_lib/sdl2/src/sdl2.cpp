@@ -5,7 +5,6 @@
 ** Sdl2
 */
 
-#include <iostream>
 #include "Sdl2.hpp"
 
 extern "C"
