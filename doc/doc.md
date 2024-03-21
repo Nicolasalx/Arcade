@@ -52,14 +52,14 @@ For example, if you create a vulkan implementation for Arcade the name returned 
 
 For your graphical library you will need to create a class that will be derived from ADisplayModule that also derives from IDisplayModule:
 
-![image](https://github.com/EpitechPromo2027/B-OOP-400-PAR-4-1-arcade-thibaud.cathala/assets/114906947/2db9c873-2799-4b17-ac40-b08021df8fd8)
+![image](https://github.com/EpitechPromo2027/B-OOP-400-PAR-4-1-arcade-thibaud.cathala/assets/114906947/33fc11a6-f98e-403c-a5b4-c2c421e8add2)
 
 In your class you will need to implement those 4 functions:
 
 ```c++
-void init();
+YOUR_CLASS_CONSTRUCTOR();
 ```
-The ```init``` function will be the first function call by Arcade to init your graphical environment, for example, it's here that you create your window if you need one, or init or your intern data to your class.
+The ```constructor``` will be the first function call by Arcade to init your graphical environment, for example, it's here that you create your window if you need one, or init or your intern data to your class.
 
 ```c++
 Arc::Event getEvent();
@@ -81,8 +81,8 @@ You also need to respect the display pipeline to display the game in its intende
 ![image](https://github.com/EpitechPromo2027/B-OOP-400-PAR-4-1-arcade-thibaud.cathala/assets/114906947/7b902c3f-ff60-4f45-8938-5065ac07e324)
 
 ```c++
-void stop();
+~YOUR_CLASS_DESTRUCTOR();
 ```
-The ```stop``` function will be called by Arcade to shutdown your graphical environment, for example, it's here that you destroy your window and all your objects, or free the internal data of your class.
+The ```destructor``` will be called by Arcade to shutdown your graphical environment, for example, it's here that you destroy your window and all your objects, or free the internal data of your class.
 
 ## How to implement a new game
