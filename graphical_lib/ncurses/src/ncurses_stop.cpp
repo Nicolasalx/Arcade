@@ -7,7 +7,7 @@
 
 #include "Ncurses.hpp"
 
-void Arc::Ncurses::stop()
+Arc::Ncurses::~Ncurses()
 {
     endwin();
     reset_shell_mode();

@@ -20,10 +20,8 @@ namespace Arc
     public:
         virtual ~IDisplayModule() = default;
 
-        virtual void init() = 0;
         virtual Arc::Event getEvent() = 0;
         virtual void refresh(const Arc::GameData &gameData) = 0;
-        virtual void stop() = 0;
     };
 }
 

@@ -38,6 +38,9 @@ void Arc::Arcade::loadNextGame()
         return;
     }
     this->_lib.currentGame = Arc::safeModulo<int>(this->_lib.currentGame + 1, this->_lib.game.size());
+    if (this->_lib.game.at(this->_lib.currentGame).name == "arcade_G_menu") {
+        this->_lib.currentGame = Arc::safeModulo<int>(this->_lib.currentGame + 1, this->_lib.game.size());
+    }
     this->loadSelectedGame();
 }
 
@@ -47,10 +50,10 @@ void Arc::Arcade::loadSelectedGame()
         return;
     }
     this->gameModule->stop();
-    delete this->gameModule;
+    this->gameModule.reset();
     this->gameLoader.close();
     this->gameLoader.load(this->_lib.game.at(this->_lib.currentGame).path);
-    this->gameModule = this->gameLoader.getInstance("entryPoint");
+    this->gameModule = std::unique_ptr<IGameModule>(this->gameLoader.getInstance("entryPoint"));
     this->gameModule->init();
 }
 
@@ -59,12 +62,10 @@ void Arc::Arcade::loadSelectedDisplay()
     if (this->_lib.currentDisplay == -1) {
         return;
     }
-    this->displayModule->stop();
-    delete this->displayModule;
+    this->displayModule.reset();
     this->displayLoader.close();
     this->displayLoader.load(this->_lib.graphical.at(this->_lib.currentDisplay).path);
-    this->displayModule = this->displayLoader.getInstance("entryPoint");
-    this->displayModule->init();
+    this->displayModule = std::unique_ptr<IDisplayModule>(this->displayLoader.getInstance("entryPoint"));
 }
 
 void Arc::Arcade::loadMenu()

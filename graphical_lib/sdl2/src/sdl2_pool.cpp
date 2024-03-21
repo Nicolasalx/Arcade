@@ -13,7 +13,6 @@ void Arc::Sdl2::appendFontToPool(const std::string &fontPath)
     if (!this->_pool.font.contains(fontPath)) {
         TTF_Font *font = TTF_OpenFont(fontPath.c_str(), 10);
         if (!font) {
-            this->stop();
             throw Arc::DisplayException("Failed to load: " + fontPath);
         }
         this->_pool.font[fontPath] = font;

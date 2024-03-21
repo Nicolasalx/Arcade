@@ -26,7 +26,7 @@ void Arc::Sdl2::destroyFont()
     }
 }
 
-void Arc::Sdl2::stop()
+Arc::Sdl2::~Sdl2()
 {
     for (auto &textureIt : this->_pool.texture) {
         if (textureIt.second) {

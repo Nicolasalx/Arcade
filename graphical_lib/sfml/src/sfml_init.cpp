@@ -6,8 +6,16 @@
 */
 
 #include "Sfml.hpp"
+#include "DisplayException.hpp"
+#include <csignal>
 
-void Arc::Sfml::init()
+static void abort_sfml(int)
 {
+    throw Arc::DisplayException("sfml fail to create window.");
+}
+
+Arc::Sfml::Sfml()
+{
+    std::signal(SIGABRT, abort_sfml);
     this->_window.create(sf::VideoMode(1920, 1080), "SFML Arcade");
 }

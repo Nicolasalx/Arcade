@@ -8,7 +8,7 @@
 #include "Ncurses.hpp"
 #include "DisplayException.hpp"
 
-void Arc::Ncurses::init()
+Arc::Ncurses::Ncurses()
 {
     if (!initscr()) {
         throw Arc::DisplayException("ncurses fail to init the screen.");

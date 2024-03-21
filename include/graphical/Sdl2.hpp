@@ -30,13 +30,11 @@ namespace Arc
     class Sdl2: public ADisplayModule
     {
     public:
-        Sdl2() = default;
-        ~Sdl2() override = default;
+        Sdl2();
+        ~Sdl2() override;
 
-        void init() override;
         Arc::Event getEvent() override;
         void refresh(const Arc::GameData &gameData) override;
-        void stop() override;
 
     private:
         void displayTile(const Arc::Tile &tile);
