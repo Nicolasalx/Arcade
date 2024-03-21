@@ -45,7 +45,7 @@ Arc::Pos Arc::Nibbler::computeNewSizeItem()
     Pos pos;
 
     pos.x = getRandomPos(0, 720) + 500;
-    pos.y = getRandomPos(0, 680) + 100;
+    pos.y = getRandomPos(0, 680) + Y_POS_MAP;
     while (appleIsOnSnake(pos)) {
         pos.x = getRandomPos(0, 720) + 500;
         pos.y = getRandomPos(0, 680) + 100;

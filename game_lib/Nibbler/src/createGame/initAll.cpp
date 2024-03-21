@@ -33,7 +33,7 @@ void Arc::Nibbler::init()
     this->gameData.player.health = 100;
     std::srand(static_cast<unsigned int>(std::time(nullptr)));
 
-    createTile(Arc::Pos(100, 100), Arc::Size(40, 1000), TIME_BAR);
+    createTile(Arc::Pos(500, 100), Arc::Size(800, SIZE_BORDER), TIME_BAR);
 
     initHighScore();
     initUsername();
@@ -48,6 +48,6 @@ void Arc::Nibbler::init()
     _clockEvent.setCooldown(std::chrono::milliseconds(50));
     _clockEvent.start();
 
-    _clockGame.setCooldown(std::chrono::milliseconds(60000));
+    _clockGame.setCooldown(std::chrono::milliseconds(TIME_IN_MILI));
     _clockGame.start();
 }

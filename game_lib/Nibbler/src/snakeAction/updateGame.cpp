@@ -162,6 +162,15 @@ void Arc::Nibbler::animateSnakeBody()
     }
 }
 
+void Arc::Nibbler::updateTimeBar()
+{
+    std::size_t getTime = TIME_IN_MILI - std::chrono::milliseconds(_clockGame.getCurrentTime()).count();
+    std::size_t getPercent = (100 * getTime) / TIME_IN_MILI;
+    std::size_t newWidth = (getPercent * 800) / 100;
+
+    this->gameData.tileSet.at(0).size.x = newWidth;
+}
+
 const Arc::GameData &Arc::Nibbler::update(const Arc::Event &event)
 {
     isSnakeEatHimself();
@@ -186,7 +195,7 @@ const Arc::GameData &Arc::Nibbler::update(const Arc::Event &event)
             break;
         }
     }
-
+    updateTimeBar();
     moveNextCase();
     animateSnakeBody();
     checkHighScore();

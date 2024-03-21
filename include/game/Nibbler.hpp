@@ -21,9 +21,10 @@
     #define SIZE_MAP 20
     #define SIZE_BORDER 40
     #define X_POS_MAP 500
-    #define Y_POS_MAP 100
+    #define Y_POS_MAP 170
     #define SIZE_SNAKE_START 4
     #define NB_ITEM 10
+    #define TIME_IN_MILI 60000
 
 struct Rect {
     double x = 0;
@@ -86,6 +87,8 @@ namespace Arc
             bool appleIsOnSnake(Pos pos);
             void putNewBoxInMap(TypeOfTile type, Pos pos);
             void isSnakeEatHimself();
+
+            void updateTimeBar();
 
             void endTheGame();
             void checkHighScore();
