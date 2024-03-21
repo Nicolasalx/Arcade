@@ -186,6 +186,7 @@ const Arc::GameData &Arc::Nibbler::update(const Arc::Event &event)
             break;
         }
     }
+
     moveNextCase();
     animateSnakeBody();
     checkHighScore();

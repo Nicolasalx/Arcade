@@ -37,7 +37,8 @@ namespace Arc
     enum TypeOfTile {
         WALL,
         FLOOR,
-        SNAKE
+        SNAKE,
+        TIME_BAR
     };
     struct BoxMap {
         TypeOfTile type;

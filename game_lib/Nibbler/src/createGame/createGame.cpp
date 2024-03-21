@@ -59,6 +59,10 @@ void Arc::Nibbler::createTile(Pos pos, Size sizeTile, TypeOfTile type)
             tile.color = Arc::Color::GREEN;
             tile.c = ' ';
             break;
+        case TIME_BAR:
+            tile.imagePath = "./game_src/nibbler/time_bar.png";
+            tile.color = Arc::Color::GREEN;
+            tile.c = '-';
     }
     tile.size = sizeTile;
     tile.pos = pos;

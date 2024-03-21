@@ -25,6 +25,8 @@ void Arc::Nibbler::snakeEatAFood()
 
             tail = this->gameData.player.tileSet.back().pos;
             createPlayer(tail, Arc::Size(40, 40), SNAKE_TAIL);
+
+            _clockGame.addTime(std::chrono::milliseconds(3000));
         }
     }
 }

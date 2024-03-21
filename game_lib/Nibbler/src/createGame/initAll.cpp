@@ -33,6 +33,8 @@ void Arc::Nibbler::init()
     this->gameData.player.health = 100;
     std::srand(static_cast<unsigned int>(std::time(nullptr)));
 
+    createTile(Arc::Pos(100, 100), Arc::Size(40, 1000), TIME_BAR);
+
     initHighScore();
     initUsername();
     createAllTexts();
