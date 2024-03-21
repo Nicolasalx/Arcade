@@ -27,7 +27,7 @@ namespace Arc
     {
         public:
             Sfml();
-            ~Sfml() = default;
+            ~Sfml() override = default;
  
             void init() override;
             Arc::Event getEvent() override;
@@ -47,7 +47,7 @@ namespace Arc
             void appendSpriteToPool();
             void appendTextureToPool(const std::string &texturePath);
 
-            void putEventInBuffer(Arc::Event &event);
+            void putEventInBuffer(Arc::Event &event) const;
             void putEventInEventList(Arc::Event &event);
 
             sf::RenderWindow _window;

@@ -11,7 +11,6 @@
 #include "IDisplayModule.hpp"
 #include "IGameModule.hpp"
 #include "FrameRate.hpp"
-#include "my_print.hpp"
 
 Arc::Arcade::~Arcade()
 {

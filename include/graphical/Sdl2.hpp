@@ -31,7 +31,7 @@ namespace Arc
     {
     public:
         Sdl2() = default;
-        ~Sdl2() = default;
+        ~Sdl2() override = default;
 
         void init() override;
         Arc::Event getEvent() override;
@@ -53,7 +53,7 @@ namespace Arc
         void createTextTexture(const Arc::Text &textIt);
 
         void getKeyEvent(Arc::Event &event);
-        void putEventInBuffer(Arc::Event &event);
+        void putEventInBuffer(Arc::Event &event) const;
         void putEventInEventList(Arc::Event &event);
 
         void destroyFont();

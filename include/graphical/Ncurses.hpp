@@ -24,7 +24,7 @@ namespace Arc
     {
     public:
         Ncurses() = default;
-        ~Ncurses() = default;
+        ~Ncurses() override = default;
 
         void init() override;
         Arc::Event getEvent() override;
@@ -41,7 +41,7 @@ namespace Arc
 
         static void safeMVPrintW(int x, int y, const std::string &str);
 
-        void putEventInBuffer(int c, Arc::Event &event);
+        static void putEventInBuffer(int c, Arc::Event &event);
         void putEventInEventList(int c, Arc::Event &event);
 
         std::vector<std::pair<int, Arc::EventType>> _keyBind = {

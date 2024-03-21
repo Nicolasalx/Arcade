@@ -7,7 +7,7 @@
 
 #include "Sfml.hpp"
 
-void Arc::Sfml::putEventInBuffer(Arc::Event &event)
+void Arc::Sfml::putEventInBuffer(Arc::Event &event) const
 {
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)) {
         event.eventType.push_back(Arc::EventType::ENTER);
