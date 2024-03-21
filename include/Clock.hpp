@@ -37,6 +37,18 @@ namespace Arc
             this->_start = std::chrono::steady_clock::now();
         }
 
+        std::chrono::milliseconds getCurrentTime() const
+        {
+            return std::chrono::duration_cast<std::chrono::milliseconds>(
+                std::chrono::steady_clock::now() - this->_start);
+        }
+
+        void removeTime(std::chrono::milliseconds time)
+        {
+            if (std::chrono::steady_clock::now() - this->_start >= time)
+                this->_start += time;
+        }
+
     private:
         std::chrono::milliseconds _cooldown;
         std::chrono::steady_clock::time_point _start;
