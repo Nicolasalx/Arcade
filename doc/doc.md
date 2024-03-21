@@ -52,7 +52,7 @@ For example, if you create a vulkan implementation for Arcade the name returned 
 
 For your graphical library you will need to create a class that will be derived from ADisplayModule that also derives from IDisplayModule:
 
-![image](https://github.com/EpitechPromo2027/B-OOP-400-PAR-4-1-arcade-thibaud.cathala/assets/114906947/2db9c873-2799-4b17-ac40-b08021df8fd8)
+![image](https://github.com/EpitechPromo2027/B-OOP-400-PAR-4-1-arcade-thibaud.cathala/assets/114906947/33fc11a6-f98e-403c-a5b4-c2c421e8add2)
 
 In your class you will need to implement those 4 functions:
 
