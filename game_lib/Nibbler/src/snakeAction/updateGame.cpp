@@ -13,8 +13,8 @@ void Arc::Nibbler::checkHighScore()
     std::string content;
 
     if (_actualScore > _highScore) {
-        ++_highScore;
-        this->gameData.textSet.at(2).text = "High score: " + std::to_string(_highScore);
+        _highScore = _actualScore;
+        this->gameData.textSet.at(2).text = "High score: " + std::to_string(_highScore) + " seconds !";
         content = this->gameData.player.userName + "\n" + std::to_string(_highScore);
         Arc::FileContent::printContentToFile("./game_src/nibbler/nibblerScore.txt", content);
     }
@@ -200,7 +200,6 @@ const Arc::GameData &Arc::Nibbler::update(const Arc::Event &event)
     }
     moveNextCase();
     animateSnakeBody();
-    checkHighScore();
     snakeEatAFood();
     updateTimeBar();
     return this->gameData;

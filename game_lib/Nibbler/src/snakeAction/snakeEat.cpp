@@ -18,17 +18,17 @@ void Arc::Nibbler::snakeEatAFood()
 
         if (areaRectsInContact(snakeHeadRect, itemRect)) {
             _nbApple += 1;
-            _actualScore += 1;
-            this->gameData.textSet.at(1).text = "Actual score: " + std::to_string(_actualScore);
             this->gameData.item.at(i).pos = Arc::Pos(10000, 10000);
             this->gameData.item.at(i).tile.pos = Arc::Pos(10000, 10000);
-
             tail = this->gameData.player.tileSet.back().pos;
             createPlayer(tail, Arc::Size(40, 40), SNAKE_TAIL);
-
             if (std::chrono::milliseconds(_clockGame.getCurrentTime()).count() < TIME_IN_MILI) {
-                _clockGame.addTime(std::chrono::milliseconds(3000));
+                _clockGame.addTime(std::chrono::milliseconds(1000));
             }
         }
+    }
+    if (this->gameData.textSet.size() > 2) {
+        _actualScore = TIME_IN_MILI - std::chrono::milliseconds(_clockGame.getCurrentTime()).count();
+        this->gameData.textSet.at(1).text = "Actual score: " + std::to_string(_actualScore);
     }
 }

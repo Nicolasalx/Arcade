@@ -109,6 +109,9 @@ namespace Arc
             void animateBodyRight(std::size_t index);
             void animatePartBody(std::size_t index);
 
+            void createTextEnd();
+            void highScoreAtEnd();
+
             void initUsername();
 
             void createNewBoxMap(TypeOfTile type, Pos posScreen);

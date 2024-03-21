@@ -36,7 +36,7 @@ void Arc::Nibbler::createAllTexts()
 {
     createText("Username: " + this->gameData.player.userName, Arc::Pos(400, 50), Arc::Color::WHITE);
     createText("Actual score: " + std::to_string(_actualScore), Arc::Pos(700, 50), Arc::Color::WHITE);
-    createText("High score: " + std::to_string(_highScore), Arc::Pos(1000, 50), Arc::Color::WHITE);
+    createText("High score: " + std::to_string(_highScore) + " seconds !", Arc::Pos(1000, 50), Arc::Color::WHITE);
 }
 
 void Arc::Nibbler::createTile(Pos pos, Size sizeTile, TypeOfTile type)
