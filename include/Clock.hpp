@@ -45,7 +45,10 @@ namespace Arc
 
         void addTime(std::chrono::milliseconds time)
         {
-            this->_start -= time;
+            this->_start += time;
+            if (this->getCurrentTime() <= std::chrono::milliseconds(0)) {
+                this->reset();
+            }
         }
 
     private:
