@@ -45,8 +45,9 @@ namespace Arc
 
         void removeTime(std::chrono::milliseconds time)
         {
-            if (std::chrono::steady_clock::now() - this->_start >= time)
+            if (std::chrono::steady_clock::now() - this->_start >= time) {
                 this->_start += time;
+            }
         }
 
     private:
