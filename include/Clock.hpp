@@ -32,7 +32,7 @@ namespace Arc
             return (std::chrono::duration_cast<std::chrono::milliseconds>(
                 std::chrono::steady_clock::now() - this->_start) >= this->_cooldown);
         }
-        void reset() 
+        void reset()
         {
             this->_start = std::chrono::steady_clock::now();
         }
@@ -43,11 +43,9 @@ namespace Arc
                 std::chrono::steady_clock::now() - this->_start);
         }
 
-        void removeTime(std::chrono::milliseconds time)
+        void addTime(std::chrono::milliseconds time)
         {
-            if (std::chrono::steady_clock::now() - this->_start >= time) {
-                this->_start += time;
-            }
+            this->_start -= time;
         }
 
     private:
