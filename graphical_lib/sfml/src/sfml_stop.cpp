@@ -10,5 +10,4 @@
 void Arc::Sfml::stop()
 {
     this->_window.close();
-    this->_stopped = true;
 }

@@ -7,13 +7,8 @@
 
 #include "Sdl2.hpp"
 
-void Arc::Sdl2::stop()
+void Arc::Sdl2::destroyFont()
 {
-    for (auto &textureIt : this->_pool.texture) {
-        if (textureIt.second) {
-            SDL_DestroyTexture(textureIt.second);
-        }
-    }
     for (auto &fontIt : this->_pool.font) {
         if (fontIt.second) {
             TTF_CloseFont(fontIt.second);
@@ -29,6 +24,16 @@ void Arc::Sdl2::stop()
             SDL_DestroyTexture(textTextureIt);
         }
     }
+}
+
+void Arc::Sdl2::stop()
+{
+    for (auto &textureIt : this->_pool.texture) {
+        if (textureIt.second) {
+            SDL_DestroyTexture(textureIt.second);
+        }
+    }
+    this->destroyFont();
     if (this->_renderer) {
         SDL_DestroyRenderer(this->_renderer);
     }
@@ -38,5 +43,4 @@ void Arc::Sdl2::stop()
     TTF_Quit();
     IMG_Quit();
     SDL_Quit();
-    this->_stopped = true;
 }

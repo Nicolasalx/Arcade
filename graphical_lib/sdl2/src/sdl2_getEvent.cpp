@@ -7,7 +7,7 @@
 
 #include "Sdl2.hpp"
 
-void Arc::Sdl2::putEventInBuffer(Arc::Event &event)
+void Arc::Sdl2::putEventInBuffer(Arc::Event &event) const
 {
     if (this->_event.key.keysym.sym == SDLK_RETURN) {
         event.eventType.push_back(Arc::EventType::ENTER);

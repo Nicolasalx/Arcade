@@ -21,11 +21,13 @@ void Arc::Sdl2::init()
         SDL_WINDOWPOS_CENTERED,
         1920, 1080, SDL_WINDOW_SHOWN);
     if (this->_window == nullptr) {
+        this->stop();
         throw Arc::DisplayException(SDL_GetError());
     }
 
     this->_renderer = SDL_CreateRenderer(this->_window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
     if (this->_renderer == nullptr) {
+        this->stop();
         throw Arc::DisplayException(SDL_GetError());
     }
 }

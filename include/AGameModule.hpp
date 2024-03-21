@@ -15,7 +15,7 @@ namespace Arc
     class AGameModule : public Arc::IGameModule
     {
     public:
-        virtual ~AGameModule() = default;
+        ~AGameModule() override = default;
 
     protected:
         Arc::GameData gameData;

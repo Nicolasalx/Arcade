@@ -7,6 +7,24 @@
 
 #include "Ncurses.hpp"
 
+void Arc::Ncurses::putEventInBuffer(int c, Arc::Event &event)
+{
+    if (c == '\n') {
+        event.eventType.push_back(Arc::EventType::ENTER);
+    } else if (c < 128) {
+        event.buffer += c;
+    }
+}
+
+void Arc::Ncurses::putEventInEventList(int c, Arc::Event &event)
+{
+    for (const auto &currentKey : this->_keyBind) {
+        if (c == currentKey.first) {
+            event.eventType.push_back(currentKey.second);
+        }
+    }
+}
+
 Arc::Event Arc::Ncurses::getEvent()
 {
     Arc::Event event;
@@ -14,17 +32,9 @@ Arc::Event Arc::Ncurses::getEvent()
 
     while (c != ERR) {
         if (this->_ignoreKey) {
-            if (c == '\n') {
-                event.eventType.push_back(Arc::EventType::ENTER);
-            } else if (c < 128) {
-                event.buffer += c;
-            }
+            this->putEventInBuffer(c, event);
         } else {
-            for (const auto &currentKey : this->_keyBind) {
-                if (c == currentKey.first) {
-                    event.eventType.push_back(currentKey.second);
-                }
-            }
+            this->putEventInEventList(c, event);
         }
         c = getch();
     }

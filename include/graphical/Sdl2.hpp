@@ -31,7 +31,7 @@ namespace Arc
     {
     public:
         Sdl2() = default;
-        ~Sdl2();
+        ~Sdl2() override = default;
 
         void init() override;
         Arc::Event getEvent() override;
@@ -53,8 +53,10 @@ namespace Arc
         void createTextTexture(const Arc::Text &textIt);
 
         void getKeyEvent(Arc::Event &event);
-        void putEventInBuffer(Arc::Event &event);
+        void putEventInBuffer(Arc::Event &event) const;
         void putEventInEventList(Arc::Event &event);
+
+        void destroyFont();
 
         SDL_Window *_window = nullptr;
         SDL_Renderer *_renderer = nullptr;
@@ -63,8 +65,6 @@ namespace Arc
 
         std::size_t _surfaceI = 0;
         std::size_t _textTextureI = 0;
-
-        bool _stopped = false;
 
         std::vector<std::pair<SDL_KeyCode, Arc::EventType>> _keyBind = {
             {SDLK_e, Arc::EventType::EXIT},

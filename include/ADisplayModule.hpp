@@ -15,7 +15,7 @@ namespace Arc
     class ADisplayModule : public Arc::IDisplayModule
     {
     public:
-        virtual ~ADisplayModule() = default;
+        ~ADisplayModule() override = default;
 
     protected:
         bool _ignoreKey = false;
