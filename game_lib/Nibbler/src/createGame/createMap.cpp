@@ -22,7 +22,6 @@ void Arc::Nibbler::createNewBoxMap(TypeOfTile type, Pos posScreen)
     if (type == SNAKE) {
         if (this->gameData.player.tileSet.size() == 0) {
             createPlayer(posScreen, Arc::Size(40, 40), SNAKE_HEAD);
-            putNewBoxInMap(SNAKE, Arc::Pos(posScreen.x, posScreen.y));
             _headSnake = Arc::Pos(18, 8);
             _mapArray.at(_headSnake.x).at(_headSnake.y) = 'S';
         } else if (this->gameData.player.tileSet.size() == 3) {
@@ -30,9 +29,8 @@ void Arc::Nibbler::createNewBoxMap(TypeOfTile type, Pos posScreen)
         } else {
             createPlayer(posScreen, Arc::Size(40, 40), SNAKE_BODY);
         }
-    } else {
-        putNewBoxInMap(type, Arc::Pos(posScreen.x, posScreen.y));
     }
+    putNewBoxInMap(type, Arc::Pos(posScreen.x, posScreen.y));
 }
 
 int Arc::Nibbler::getRandomPosToInt(int min, int max)
