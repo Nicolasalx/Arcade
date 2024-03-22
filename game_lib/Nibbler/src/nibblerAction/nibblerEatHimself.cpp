@@ -19,7 +19,7 @@ void Arc::Nibbler::isSnakeEatHimself()
         initEndGame();
         return;
     }
-    if (_actualScore < 5) {
+    if (_nbApple < 1) {
         return;
     }
     snakeHeadRect = calculateRect(this->gameData.player.tileSet.at(0).pos, 30);

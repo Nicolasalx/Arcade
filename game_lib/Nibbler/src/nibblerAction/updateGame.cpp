@@ -8,15 +8,21 @@
 #include "Nibbler.hpp"
 #include "getFileContent.hpp"
 
-void Arc::Nibbler::checkHighScore()
+void Arc::Nibbler::appendScore()
 {
     std::string content;
 
-    if (_actualScore > _highScore) {
-        _highScore = _actualScore;
-        this->gameData.textSet.at(2).text = "High score: " + std::to_string(_highScore) + " seconds !";
-        content = this->gameData.player.userName + "\n" + std::to_string(_highScore);
+    if (_nbApple == 10) {
+        content = this->gameData.player.userName + ":" + std::to_string(_actualScore) + "\n";
         Arc::FileContent::appendContentToFile("./game_src/nibbler/nibblerScore.txt", content);
+    }
+}
+
+void Arc::Nibbler::checkHighScore()
+{
+    if (_actualScore > _highScore) {
+        ++_highScore;
+        this->gameData.textSet.at(2).text = "High score: " + std::to_string(_highScore);
     }
 }
 

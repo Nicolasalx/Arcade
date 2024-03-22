@@ -116,6 +116,11 @@ namespace Arc
             void initEndGame();
 
             int getRandomPosToInt(int min, int max);
+            void createLeaderBoard();
+            void printLeaderBoard(std::vector<std::pair<std::string, int>> &linesLexing);
+            void fillLeaderBoard(std::vector<std::pair<std::string, int>> &linesLexing, std::vector<std::string> &allGame);
+
+            void appendScore();
 
             std::size_t _actualScore = SIZE_SNAKE_START;
             std::size_t _highScore = 0;

@@ -6,17 +6,24 @@
 */
 
 #include "Nibbler.hpp"
-#include "GameException.hpp"
 #include "getFileContent.hpp"
+#include "split_string.hpp"
 
 void Arc::Nibbler::initHighScore()
 {
     std::vector<std::string> tokensByLine = Arc::FileContent::getContent("./game_src/nibbler/nibblerScore.txt");
+    std::vector<std::string> stockLines;
 
-    if (tokensByLine.size() != 2) {
-        throw Arc::GameException("Invalid file high score !");
+    for (const auto &line : tokensByLine) {
+        stockLines.clear();
+        my::split_string(line, ":", stockLines);
+        if (stockLines.size() == 2) {
+            std::size_t newScore = std::stoi(stockLines[1]);
+            if (newScore > _highScore) {
+                _highScore = newScore;
+            }
+        }
     }
-    _highScore = std::stoi(tokensByLine[1]);
 }
 
 void Arc::Nibbler::initUsername()

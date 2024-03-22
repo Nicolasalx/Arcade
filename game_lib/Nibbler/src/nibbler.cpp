@@ -53,6 +53,7 @@ Arc::Nibbler::Nibbler()
 
 Arc::Nibbler::~Nibbler()
 {
+    appendScore();
     std::cout << "Nibbler is class destroyed.\n";
 }
 
