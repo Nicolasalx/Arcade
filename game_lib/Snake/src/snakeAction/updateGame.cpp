@@ -191,7 +191,7 @@ const Arc::GameData &Arc::Snake::update(const Arc::Event &event)
             break;
         }
     }
-    if (event.eventType.size() == 0 && _hasInitDir == false) {
+    if (event.eventType.empty() && !_hasInitDir) {
         changeDirection(LEFT);
     }
     moveNextCase();

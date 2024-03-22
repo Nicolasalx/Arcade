@@ -20,7 +20,7 @@ void Arc::Nibbler::putNewBoxInMap(TypeOfTile type, Pos pos)
 void Arc::Nibbler::createNewBoxMap(TypeOfTile type, Pos posScreen)
 {
     if (type == SNAKE) {
-        if (this->gameData.player.tileSet.size() == 0) {
+        if (this->gameData.player.tileSet.empty()) {
             createPlayer(posScreen, Arc::Size(40, 40), SNAKE_HEAD);
             _headSnake = Arc::Pos(18, 8);
             _mapArray.at(_headSnake.x).at(_headSnake.y) = 'S';
@@ -38,6 +38,17 @@ int Arc::Nibbler::getRandomPosToInt(int min, int max)
     return min + (std::rand()) / ((RAND_MAX) / (max - min));
 }
 
+void Arc::Nibbler::chooseBoxType(std::size_t i, size_t j, Pos posScreen)
+{
+    if (i == 18 && (j == 8 || j == 9 || j == 10 || j == 11)) {
+        createNewBoxMap(SNAKE, posScreen);
+    } else if (_mapArray.at(i).at(j) == '#') {
+        createNewBoxMap(WALL, posScreen);
+    } else {
+        createNewBoxMap(FLOOR, posScreen);
+    }
+}
+
 void Arc::Nibbler::createMap()
 {
     Pos posScreen;
@@ -47,16 +58,9 @@ void Arc::Nibbler::createMap()
     posScreen.y = Y_POS_MAP;
     numMap = getRandomPosToInt(1, 3);
     _mapArray = Arc::FileContent::getArrayFromContent("./game_src/nibbler/map_" + std::to_string(numMap) + ".txt");
-
     for (std::size_t i = 0; i < SIZE_MAP; ++i) {
         for (std::size_t j = 0; j < SIZE_MAP; ++j) {
-            if (i == 18 && (j == 8 || j == 9 || j == 10 || j == 11)) {
-                createNewBoxMap(SNAKE, posScreen);
-            } else if (_mapArray.at(i).at(j) == '#') {
-                createNewBoxMap(WALL, posScreen);
-            } else {
-                createNewBoxMap(FLOOR, posScreen);
-            }
+            chooseBoxType(i, j, posScreen);
             posScreen.x += SIZE_BORDER;
         }
         posScreen.x = X_POS_MAP;

@@ -83,15 +83,8 @@ void Arc::Nibbler::automaticMooveHorizontal(SnakeMoove &snakeMoove)
     }
 }
 
-void Arc::Nibbler::moveNextCase()
+void Arc::Nibbler::switchDirection(SnakeMoove &snakeMoove)
 {
-    SnakeMoove snakeMoove;
-
-    if (!_clockMove.isElapsed()) {
-        return;
-    }
-    _clockMove.reset();
-    snakeMoove = _snake[0];
     switch (_direction) {
         case UP:
             if (_mapArray.at(_headSnake.x - 1).at(_headSnake.y) != '#') {
@@ -122,6 +115,18 @@ void Arc::Nibbler::moveNextCase()
             }
             break;
     }
+}
+
+void Arc::Nibbler::moveNextCase()
+{
+    SnakeMoove snakeMoove;
+
+    if (!_clockMove.isElapsed()) {
+        return;
+    }
+    _clockMove.reset();
+    snakeMoove = _snake[0];
+    switchDirection(snakeMoove);
     _mapArray.at(_headSnake.x).at(_headSnake.y) = 'S';
 
     //for (std::size_t i = 0; i < SIZE_MAP; ++i) {
@@ -131,7 +136,7 @@ void Arc::Nibbler::moveNextCase()
     //    std::cout << "\n";
     //}
 
-    if (_hasMoved == false) {
+    if (!_hasMoved) {
         return;
     }
     _snake.insert(_snake.begin(), snakeMoove);

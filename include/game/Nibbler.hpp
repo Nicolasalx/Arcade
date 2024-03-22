@@ -67,9 +67,9 @@ namespace Arc
     {
         public:
             Nibbler();
-            ~Nibbler();
+            ~Nibbler() override;
 
-            const Arc::GameData &update(const Arc::Event &event);
+            const Arc::GameData &update(const Arc::Event &event) override;
 
         private:
             void createText(const std::string &name, Pos pos, Color color);
@@ -77,26 +77,27 @@ namespace Arc
             void createPlayer(Pos pos, Size sizeTile, SnakeBody snakeBody);
             void createAllTexts();
             void createMap();
-            Pos computeNewSizeItem();
-            Rect calculateRect(const Pos &pos, double size);
-            bool areaRectsInContact(const Rect &rect1, const Rect &rect2);
+            static Rect calculateRect(const Pos &pos, double size);
+            static bool areaRectsInContact(const Rect &rect1, const Rect &rect2);
             void addElemBackSnake();
             void initHighScore();
-            bool appleIsOnSnake(Pos pos);
             void putNewBoxInMap(TypeOfTile type, Pos pos);
             void isSnakeEatHimself();
 
             void updateTimeBar();
 
+            Arc::Pos computeNewSizeItem();
+            bool appleIsOnSnake(Pos pos);
+            void chooseBoxType(std::size_t i, size_t j, Pos posScreen);
             void endTheGame();
             void checkHighScore();
             void snakeEatAFood();
             void moveNextCase();
-            double getRandomPos(double min, double max);
+            static double getRandomPos(double min, double max);
             void createApple();
 
             void changeDirection(NextDirection nextDir);
-
+            void increaseNibbler(std::size_t i, Rect snakeHeadRect, Pos tail);
             void animateSnakeBody();
 
             void animateHead(std::size_t index);
@@ -115,7 +116,7 @@ namespace Arc
             void createNewBoxMap(TypeOfTile type, Pos posScreen);
             void initEndGame();
 
-            int getRandomPosToInt(int min, int max);
+            static int getRandomPosToInt(int min, int max);
             void createLeaderBoard();
             void printLeaderBoard(std::vector<std::pair<std::string, int>> &linesLexing);
             void fillLeaderBoard(std::vector<std::pair<std::string, int>> &linesLexing, std::vector<std::string> &allGame);
@@ -129,6 +130,9 @@ namespace Arc
 
             void automaticMooveVertical(SnakeMoove &snakeMoove);
             void automaticMooveHorizontal(SnakeMoove &snakeMoove);
+            void setNewHighScore(std::vector<std::string> &stockLines, std::string &line);
+
+            void switchDirection(SnakeMoove &snakeMoove);
 
             std::size_t _actualScore = SIZE_SNAKE_START;
             std::size_t _highScore = 0;

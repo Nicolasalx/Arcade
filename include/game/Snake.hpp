@@ -63,9 +63,9 @@ namespace Arc
     {
         public:
             Snake();
-            ~Snake();
+            ~Snake() override;
 
-            const Arc::GameData &update(const Arc::Event &event);
+            const Arc::GameData &update(const Arc::Event &event) override;
 
         private:
             void createText(const std::string &name, Pos pos, Color color);
@@ -74,8 +74,8 @@ namespace Arc
             void createAllTexts();
             void createMap();
             Pos computeNewSizeItem();
-            Rect calculateRect(const Pos &pos, double size);
-            bool areaRectsInContact(const Rect &rect1, const Rect &rect2);
+            static Rect calculateRect(const Pos &pos, double size);
+            static bool areaRectsInContact(const Rect &rect1, const Rect &rect2);
             void addElemBackSnake();
             void initHighScore();
             bool appleIsOnSnake(Pos pos);
@@ -83,18 +83,20 @@ namespace Arc
             void putNewBoxInMap(TypeOfTile type, Pos pos);
             void isSnakeEatHimself();
 
+            void checkLooseSnake(std::size_t i, Rect snakeHeadRect, Rect snakePartRect);
+
             void endTheGame();
             void checkHighScore();
             void snakeEatAFood();
             void moveNextCase();
-            double getRandomPos(double min, double max);
+            static double getRandomPos(double min, double max);
             void createSnake();
             void createApple();
 
             void changeDirection(NextDirection nextDir);
 
             void animateSnakeBody();
-
+            void setNewHighScore(std::vector<std::string> &stockLines);
             void animateHead(std::size_t index);
             void animateTail(std::size_t index);
             void animateBodyUp(std::size_t index);
@@ -107,6 +109,8 @@ namespace Arc
             void createLeaderBoard();
             void printLeaderBoard(std::vector<std::pair<std::string, int>> &linesLexing);
             void fillLeaderBoard(std::vector<std::pair<std::string, int>> &linesLexing, std::vector<std::string> &allGame);
+
+            void switchDirection(SnakeMoove &snakeMoove);
 
             std::size_t _actualScore = SIZE_SNAKE_START;
             std::size_t _highScore = 0;

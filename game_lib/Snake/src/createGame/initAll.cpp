@@ -10,20 +10,25 @@
 #include "getFileContent.hpp"
 #include "split_string.hpp"
 
+void Arc::Snake::setNewHighScore(std::vector<std::string> &stockLines)
+{
+    if (stockLines.size() == 2) {
+        std::size_t newScore = std::stoi(stockLines[1]);
+        if (newScore > _highScore) {
+            _highScore = newScore;
+        }
+    }
+}
+
 void Arc::Snake::initHighScore()
 {
     std::vector<std::string> tokensByLine = Arc::FileContent::getContent("./game_src/snake/snakeScore.txt");
     std::vector<std::string> stockLines;
 
-    for (const auto &line : tokensByLine) {
+    for (auto &line : tokensByLine) {
         stockLines.clear();
         my::split_string(line, ":", stockLines);
-        if (stockLines.size() == 2) {
-            std::size_t newScore = std::stoi(stockLines[1]);
-            if (newScore > _highScore) {
-                _highScore = newScore;
-            }
-        }
+        setNewHighScore(stockLines);
     }
 }
 
@@ -31,7 +36,7 @@ void Arc::Snake::initUsername()
 {
     std::vector<std::string> tokensByLine = Arc::FileContent::getContent("./game_src/username.txt");
 
-    if (tokensByLine.size() > 0) {
+    if (!tokensByLine.empty()) {
         this->gameData.player.userName = tokensByLine.at(0);
     }
 }

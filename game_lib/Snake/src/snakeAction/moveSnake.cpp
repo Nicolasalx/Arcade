@@ -29,15 +29,8 @@ void Arc::Snake::changeDirection(NextDirection nextDir)
     _hasInitDir = true;
 }
 
-void Arc::Snake::moveNextCase()
+void Arc::Snake::switchDirection(SnakeMoove &snakeMoove)
 {
-    SnakeMoove snakeMoove;
-
-    if (!_clockMove.isElapsed()) {
-        return;
-    }
-    _clockMove.reset();
-    snakeMoove = _snake[0];
     switch (_direction) {
         case UP:
             snakeMoove.pos.y -= SIZE_BORDER;
@@ -56,6 +49,18 @@ void Arc::Snake::moveNextCase()
             snakeMoove.nextDirection = RIGHT;
             break;
     }
+}
+
+void Arc::Snake::moveNextCase()
+{
+    SnakeMoove snakeMoove;
+
+    if (!_clockMove.isElapsed()) {
+        return;
+    }
+    _clockMove.reset();
+    snakeMoove = _snake[0];
+    switchDirection(snakeMoove);
     _snake.insert(_snake.begin(), snakeMoove);
     _snake.pop_back();
     for (std::size_t i = 0; i < _snake.size(); ++i) {
