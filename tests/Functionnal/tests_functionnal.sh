@@ -32,8 +32,8 @@ test_name()
 
 make
 
-test_name "Check arcade_pacman.so"
-ls ./lib/arcade_pacman.so &> /dev/null
+test_name "Check arcade_nibbler.so"
+ls ./lib/arcade_nibbler.so &> /dev/null
 check_return_success
 
 test_name "Check arcade_snake.so"
