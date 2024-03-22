@@ -14,7 +14,7 @@ void Arc::Nibbler::snakeEatAFood()
 
     for (std::size_t i = 0; i < NB_ITEM; ++i) {
         Rect itemRect = calculateRect(this->gameData.item.at(i).pos, 39);
-        SnakeMove snakeMove;
+        SnakeMoove snakeMoove;
 
         if (areaRectsInContact(snakeHeadRect, itemRect)) {
             _nbApple += 1;

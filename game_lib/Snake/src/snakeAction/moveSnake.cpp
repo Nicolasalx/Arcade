@@ -31,32 +31,32 @@ void Arc::Snake::changeDirection(NextDirection nextDir)
 
 void Arc::Snake::moveNextCase()
 {
-    SnakeMove snakeMove;
+    SnakeMoove snakeMoove;
 
     if (!_clockMove.isElapsed()) {
         return;
     }
     _clockMove.reset();
-    snakeMove = _snake[0];
+    snakeMoove = _snake[0];
     switch (_direction) {
         case UP:
-            snakeMove.pos.y -= SIZE_BORDER;
-            snakeMove.nextDirection = UP;
+            snakeMoove.pos.y -= SIZE_BORDER;
+            snakeMoove.nextDirection = UP;
             break;
         case DOWN:
-            snakeMove.pos.y += SIZE_BORDER;
-            snakeMove.nextDirection = DOWN;
+            snakeMoove.pos.y += SIZE_BORDER;
+            snakeMoove.nextDirection = DOWN;
             break;
         case LEFT:
-            snakeMove.pos.x -= SIZE_BORDER;
-            snakeMove.nextDirection = LEFT;
+            snakeMoove.pos.x -= SIZE_BORDER;
+            snakeMoove.nextDirection = LEFT;
             break;
         case RIGHT:
-            snakeMove.pos.x += SIZE_BORDER;
-            snakeMove.nextDirection = RIGHT;
+            snakeMoove.pos.x += SIZE_BORDER;
+            snakeMoove.nextDirection = RIGHT;
             break;
     }
-    _snake.insert(_snake.begin(), snakeMove);
+    _snake.insert(_snake.begin(), snakeMoove);
     _snake.pop_back();
     for (std::size_t i = 0; i < _snake.size(); ++i) {
         this->gameData.player.tileSet[i].pos = _snake[i].pos;

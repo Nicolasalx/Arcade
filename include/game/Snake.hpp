@@ -54,7 +54,7 @@ namespace Arc
         RIGHT
     };
 
-    struct SnakeMove {
+    struct SnakeMoove {
         Pos pos;
         NextDirection nextDirection;
     };
@@ -114,7 +114,7 @@ namespace Arc
             Arc::Clock _clockEvent;
             std::vector<std::string> _highScoreFromFile;
             NextDirection _direction;
-            std::vector<SnakeMove> _snake;
+            std::vector<SnakeMoove> _snake;
             bool _hasInitDir;
             void initEndGame();
     };

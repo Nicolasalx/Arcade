@@ -12,7 +12,7 @@ void Arc::Snake::snakeEatAFood()
     Pos tail;
     Rect snakeHeadRect = calculateRect(this->gameData.player.tileSet.at(0).pos, 39);
     Rect itemRect = calculateRect(this->gameData.item.at(0).pos, 39);
-    SnakeMove snakeMove;
+    SnakeMoove snakeMoove;
 
     if (areaRectsInContact(snakeHeadRect, itemRect)) {
         _actualScore += 1;

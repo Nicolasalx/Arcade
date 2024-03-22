@@ -58,7 +58,7 @@ namespace Arc
         RIGHT
     };
 
-    struct SnakeMove {
+    struct SnakeMoove {
         Pos pos;
         NextDirection nextDirection;
     };
@@ -122,6 +122,14 @@ namespace Arc
 
             void appendScore();
 
+            void mooveUp(SnakeMoove &snakeMoove);
+            void mooveDown(SnakeMoove &snakeMoove);
+            void mooveLeft(SnakeMoove &snakeMoove);
+            void mooveRight(SnakeMoove &snakeMoove);
+
+            void automaticMooveVertical(SnakeMoove &snakeMoove);
+            void automaticMooveHorizontal(SnakeMoove &snakeMoove);
+
             std::size_t _actualScore = SIZE_SNAKE_START;
             std::size_t _highScore = 0;
             Arc::Clock _clockMove;
@@ -129,7 +137,7 @@ namespace Arc
             Arc::Clock _clockGame;
             std::vector<std::string> _highScoreFromFile;
             NextDirection _direction;
-            std::vector<SnakeMove> _snake;
+            std::vector<SnakeMoove> _snake;
             std::vector<std::vector<char>> _mapArray;
             Pos _headSnake;
             bool _hasMoved;
