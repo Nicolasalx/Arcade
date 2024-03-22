@@ -28,17 +28,16 @@ __attribute__((destructor)) void destroy(void)
 
 Arc::Menu::Menu()
 {
+    getLibFromDirectory();
+    createAllText();
+    defineIdxCursor();
     std::cout << "Menu is class constructed.\n";
 }
 
 Arc::Menu::~Menu()
 {
+    setDefaultName();
     std::cout << "Menu is class destroyed.\n";
-}
-
-void Arc::Menu::stop()
-{
-    std::cerr << "Menu is stopped.\n";
 }
 
 const Arc::GameData &Arc::Menu::update(const Arc::Event &event)

@@ -37,6 +37,12 @@ bool Arc::Nibbler::appleIsOnSnake(Pos pos)
             }
         }
     }
+    for (const auto &part : this->gameData.item) {
+        snakePartRect = calculateRect(part.pos, 30);
+        if (areaRectsInContact(appleRect, snakePartRect)) {
+            return true;
+        }
+    }
     return false;
 }
 

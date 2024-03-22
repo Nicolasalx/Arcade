@@ -55,7 +55,7 @@ std::vector<std::vector<char>> Arc::FileContent::getArrayFromContent(const std::
 
 void Arc::FileContent::printContentToFile(const std::string &filename, const std::string &content)
 {
-    std::ofstream myFile(filename);
+    std::ofstream myFile(filename, std::ios::app);
 
     myFile << content;
     myFile.close();

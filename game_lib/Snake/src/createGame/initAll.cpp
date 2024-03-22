@@ -8,15 +8,23 @@
 #include "Snake.hpp"
 #include "GameException.hpp"
 #include "getFileContent.hpp"
+#include "split_string.hpp"
 
 void Arc::Snake::initHighScore()
 {
     std::vector<std::string> tokensByLine = Arc::FileContent::getContent("./game_src/snake/snakeScore.txt");
+    std::vector<std::string> stockLines;
 
-    if (tokensByLine.size() != 2) {
-        throw Arc::GameException("Invalid file high score !");
+    for (const auto &line : tokensByLine) {
+        stockLines.clear();
+        my::split_string(line, ":", stockLines);
+        if (stockLines.size() == 2) {
+            std::size_t newScore = std::stoi(stockLines[1]);
+            if (newScore > _highScore) {
+                _highScore = newScore;
+            }
+        }
     }
-    _highScore = std::stoi(tokensByLine[1]);
 }
 
 void Arc::Snake::initUsername()
@@ -28,21 +36,3 @@ void Arc::Snake::initUsername()
     }
 }
 
-void Arc::Snake::init()
-{
-    this->gameData.player.health = 100;
-    std::srand(static_cast<unsigned int>(std::time(nullptr)));
-
-    initHighScore();
-    initUsername();
-    createAllTexts();
-    createMap();
-    createSnake();
-    createApple();
-
-    _clockMove.setCooldown(std::chrono::milliseconds(100));
-    _clockMove.start();
-
-    _clockEvent.setCooldown(std::chrono::milliseconds(50));
-    _clockEvent.start();
-}

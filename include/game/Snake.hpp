@@ -64,9 +64,7 @@ namespace Arc
             Snake();
             ~Snake();
 
-            void init();
             const Arc::GameData &update(const Arc::Event &event);
-            void stop();
 
         private:
             void createText(const std::string &name, Pos pos, Color color);
@@ -103,7 +101,7 @@ namespace Arc
             void animateBodyLeft(std::size_t index);
             void animateBodyRight(std::size_t index);
             void animatePartBody(std::size_t index);
-
+            void appendScore();
             void initUsername();
 
             std::size_t _actualScore = SIZE_SNAKE_START;

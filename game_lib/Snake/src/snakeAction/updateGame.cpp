@@ -8,15 +8,19 @@
 #include "Snake.hpp"
 #include "getFileContent.hpp"
 
-void Arc::Snake::checkHighScore()
+void Arc::Snake::appendScore()
 {
     std::string content;
 
+    content = this->gameData.player.userName + ":" + std::to_string(_actualScore) + "\n";
+    Arc::FileContent::printContentToFile("./game_src/snake/snakeScore.txt", content);
+}
+
+void Arc::Snake::checkHighScore()
+{
     if (_actualScore > _highScore) {
         ++_highScore;
         this->gameData.textSet.at(2).text = "High score: " + std::to_string(_highScore);
-        content = this->gameData.player.userName + "\n" + std::to_string(_highScore);
-        Arc::FileContent::printContentToFile("./game_src/snake/snakeScore.txt", content);
     }
 }
 

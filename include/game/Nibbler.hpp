@@ -69,9 +69,7 @@ namespace Arc
             Nibbler();
             ~Nibbler();
 
-            void init();
             const Arc::GameData &update(const Arc::Event &event);
-            void stop();
 
         private:
             void createText(const std::string &name, Pos pos, Color color);

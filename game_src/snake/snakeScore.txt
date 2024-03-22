@@ -1,2 +1,7 @@
-
-35
+abc:35
+def:12
+ghi:100
+klm:10
+abc:4
+default player:6
+default player:10

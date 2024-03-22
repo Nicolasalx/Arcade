@@ -27,7 +27,6 @@ void Arc::Snake::initEndGame()
 
     createText("PRESS 'R' FOR RESTART", Arc::Pos(840, 840), Arc::Color::WHITE);
     createText("PRESS 'M' TO GO BACK ON MENU", Arc::Pos(800, 900), Arc::Color::WHITE);
-
 }
 
 void Arc::Snake::endTheGame()

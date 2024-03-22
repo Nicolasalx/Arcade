@@ -41,9 +41,7 @@ namespace Arc
         Menu();
         ~Menu();
 
-        void init();
         const Arc::GameData &update(const Arc::Event &event);
-        void stop();
 
     private:
         void createAllText();
@@ -61,6 +59,7 @@ namespace Arc
         void handleValidation(const std::string &filename);
         void handleActionUsername(const std::string &filename);
         void fillUsername(const std::string bufferEvent);
+        void setDefaultName();
 
         std::vector<std::string> _mapLibGame;
         std::vector<std::string> _mapLibGraphical;

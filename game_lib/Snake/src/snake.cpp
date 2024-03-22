@@ -27,17 +27,28 @@ __attribute__((destructor)) void destroy(void)
 
 Arc::Snake::Snake()
 {
+    this->gameData.player.health = 100;
+    std::srand(static_cast<unsigned int>(std::time(nullptr)));
+
+    initHighScore();
+    initUsername();
+    createAllTexts();
+    createMap();
+    createSnake();
+    createApple();
+
+    _clockMove.setCooldown(std::chrono::milliseconds(100));
+    _clockMove.start();
+
+    _clockEvent.setCooldown(std::chrono::milliseconds(50));
+    _clockEvent.start();
     std::cout << "Snake is class constructed.\n";
 }
 
 Arc::Snake::~Snake()
 {
+    appendScore();
     std::cout << "Snake is class destroyed.\n";
-}
-
-void Arc::Snake::stop()
-{
-    std::cout << "Snake is stopped.\n";
 }
 
 extern "C"
