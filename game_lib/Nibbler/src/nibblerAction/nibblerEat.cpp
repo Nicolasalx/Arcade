@@ -11,6 +11,7 @@ void Arc::Nibbler::increaseNibbler(std::size_t i, Rect snakeHeadRect, Pos tail)
 {
     Rect itemRect = calculateRect(this->gameData.item.at(i).pos, 39);
     SnakeMoove snakeMoove;
+
     if (areaRectsInContact(snakeHeadRect, itemRect)) {
         _nbApple += 1;
         this->gameData.item.at(i).pos = Arc::Pos(10000, 10000);

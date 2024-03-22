@@ -83,9 +83,9 @@ namespace Arc
             void initHighScore();
             void putNewBoxInMap(TypeOfTile type, Pos pos);
             void isSnakeEatHimself();
-
+            static bool checkWall(Arc::Tile &part, Rect snakePartRect, Rect appleRect);
             void updateTimeBar();
-
+            bool appleIsOnApple(Rect appleRect, Rect snakePartRect);
             Arc::Pos computeNewSizeItem();
             bool appleIsOnSnake(Pos pos);
             void chooseBoxType(std::size_t i, size_t j, Pos posScreen);
@@ -95,11 +95,11 @@ namespace Arc
             void moveNextCase();
             static double getRandomPos(double min, double max);
             void createApple();
-
+            void switchDirEvent(const Arc::Event &event);
             void changeDirection(NextDirection nextDir);
             void increaseNibbler(std::size_t i, Rect snakeHeadRect, Pos tail);
             void animateSnakeBody();
-
+            void checkLoose(std::size_t i, Rect snakeHeadRect, Rect snakePartRect);
             void animateHead(std::size_t index);
             void animateTail(std::size_t index);
             void animateBodyUp(std::size_t index);

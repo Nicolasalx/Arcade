@@ -14,7 +14,7 @@ bool Arc::Snake::areaRectsInContact(const Rect &rect1, const Rect &rect2)
     double rect2_right = rect2.x + rect2.w;
     double rect2_bottom = rect2.y + rect2.h;
 
-    return !(rect1.x > rect2_right || rect2.x > rect1_right || rect1.y > rect2_bottom || rect2.y > rect1_bottom);
+    return rect1.x <= rect2_right && rect2.x <= rect1_right && rect1.y <= rect2_bottom && rect2.y <= rect1_bottom;
 }
 
 Rect Arc::Snake::calculateRect(const Pos &pos, double size)

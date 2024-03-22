@@ -180,12 +180,8 @@ void Arc::Nibbler::updateTimeBar()
     }
 }
 
-const Arc::GameData &Arc::Nibbler::update(const Arc::Event &event)
+void Arc::Nibbler::switchDirEvent(const Arc::Event &event)
 {
-    isSnakeEatHimself();
-    if (this->gameData.player.health == 0) {
-        return this->gameData;
-    }
     for (const auto &evt : event.eventType) {
         switch (evt) {
             case Arc::EventType::UP:
@@ -204,7 +200,16 @@ const Arc::GameData &Arc::Nibbler::update(const Arc::Event &event)
             break;
         }
     }
-    if (event.eventType.size() == 0 && _hasInitDir == false) {
+}
+
+const Arc::GameData &Arc::Nibbler::update(const Arc::Event &event)
+{
+    isSnakeEatHimself();
+    if (this->gameData.player.health == 0) {
+        return this->gameData;
+    }
+    switchDirEvent(event);
+    if (event.eventType.empty() && !_hasInitDir) {
         changeDirection(LEFT);
     }
     moveNextCase();

@@ -92,7 +92,7 @@ namespace Arc
             static double getRandomPos(double min, double max);
             void createSnake();
             void createApple();
-
+            void switcDirEvent(const Arc::Event &event);
             void changeDirection(NextDirection nextDir);
 
             void animateSnakeBody();

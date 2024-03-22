@@ -22,7 +22,7 @@ void Arc::Nibbler::createPlayer(Pos pos, Size sizeTile, SnakeBody snakeBody)
             tile.c = '=';
             break;
         case SNAKE_TAIL:
-            tile.imagePath = std::string(PATH_IMG) + "item.png";
+            tile.imagePath = std::string(PATH_IMG) + "body/tailUp.png";
             tile.c = '2';
             break;
     }

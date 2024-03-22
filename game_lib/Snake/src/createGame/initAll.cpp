@@ -12,8 +12,10 @@
 
 void Arc::Snake::setNewHighScore(std::vector<std::string> &stockLines)
 {
+    std::size_t newScore = 0;
+
     if (stockLines.size() == 2) {
-        std::size_t newScore = std::stoi(stockLines[1]);
+        newScore = std::stoi(stockLines[1]);
         if (newScore > _highScore) {
             _highScore = newScore;
         }

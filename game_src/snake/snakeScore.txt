@@ -2,12 +2,3 @@ abc:35
 def:12
 ghi:100
 klm:10
-default player:4
-default player:4
-default player:4
-default player:4
-default player:4
-default player:4
-default player:4
-default player:4
-default player:7

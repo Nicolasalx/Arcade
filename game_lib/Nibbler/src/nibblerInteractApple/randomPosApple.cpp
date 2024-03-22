@@ -18,6 +18,28 @@ double Arc::Nibbler::getRandomPos(double min, double max)
     return randomValue;
 }
 
+bool Arc::Nibbler::appleIsOnApple(Rect appleRect, Rect snakePartRect)
+{
+    for (const auto &part : this->gameData.item) {
+        snakePartRect = calculateRect(part.pos, 30);
+        if (areaRectsInContact(appleRect, snakePartRect)) {
+            return true;
+        }
+    }
+    return false;
+}
+
+bool Arc::Nibbler::checkWall(Arc::Tile &part, Rect snakePartRect, Rect appleRect)
+{
+    if (part.c == '#') {
+        snakePartRect = calculateRect(part.pos, 30);
+        if (areaRectsInContact(appleRect, snakePartRect)) {
+            return true;
+        }
+    }
+    return false;
+}
+
 bool Arc::Nibbler::appleIsOnSnake(Pos pos)
 {
     Rect appleRect = calculateRect(pos, 30);
@@ -29,21 +51,12 @@ bool Arc::Nibbler::appleIsOnSnake(Pos pos)
             return true;
         }
     }
-    for (const auto &part : this->gameData.tileSet) {
-        if (part.c == '#') {
-            snakePartRect = calculateRect(part.pos, 30);
-            if (areaRectsInContact(appleRect, snakePartRect)) {
-                return true;
-            }
-        }
-    }
-    for (const auto &part : this->gameData.item) {
-        snakePartRect = calculateRect(part.pos, 30);
-        if (areaRectsInContact(appleRect, snakePartRect)) {
+    for (auto &part : this->gameData.tileSet) {
+        if (checkWall(part, snakePartRect, appleRect)) {
             return true;
         }
     }
-    return false;
+    return appleIsOnApple(appleRect, snakePartRect);
 }
 
 Arc::Pos Arc::Nibbler::computeNewSizeItem()

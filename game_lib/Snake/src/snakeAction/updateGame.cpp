@@ -166,14 +166,9 @@ void Arc::Snake::animateSnakeBody()
     }
 }
 
-const Arc::GameData &Arc::Snake::update(const Arc::Event &event)
+void Arc::Snake::switcDirEvent(const Arc::Event &event)
 {
-    endTheGame();
-
-    if (this->gameData.player.health == 0) {
-        return this->gameData;
-    }
-    for (const auto &evt : event.eventType) {
+for (const auto &evt : event.eventType) {
         switch (evt) {
             case Arc::EventType::UP:
                 changeDirection(UP);
@@ -191,6 +186,15 @@ const Arc::GameData &Arc::Snake::update(const Arc::Event &event)
             break;
         }
     }
+}
+
+const Arc::GameData &Arc::Snake::update(const Arc::Event &event)
+{
+    endTheGame();
+    if (this->gameData.player.health == 0) {
+        return this->gameData;
+    }
+    switcDirEvent(event);
     if (event.eventType.empty() && !_hasInitDir) {
         changeDirection(LEFT);
     }
