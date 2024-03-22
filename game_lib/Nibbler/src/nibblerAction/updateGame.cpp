@@ -204,6 +204,9 @@ const Arc::GameData &Arc::Nibbler::update(const Arc::Event &event)
             break;
         }
     }
+    if (event.eventType.size() == 0 && _hasInitDir == false) {
+        changeDirection(LEFT);
+    }
     moveNextCase();
     animateSnakeBody();
     snakeEatAFood();

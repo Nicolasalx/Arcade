@@ -115,6 +115,7 @@ namespace Arc
             std::vector<std::string> _highScoreFromFile;
             NextDirection _direction;
             std::vector<SnakeMove> _snake;
+            bool _hasInitDir;
             void initEndGame();
     };
 }

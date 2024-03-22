@@ -26,6 +26,7 @@ void Arc::Nibbler::changeDirection(NextDirection nextDir)
     if (nextDir == LEFT && _direction != RIGHT) {
         _direction = nextDir;
     }
+    _hasInitDir = true;
 }
 
 void Arc::Nibbler::moveNextCase()

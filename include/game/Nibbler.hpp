@@ -133,6 +133,7 @@ namespace Arc
             std::vector<std::vector<char>> _mapArray;
             Pos _headSnake;
             bool _hasMoved;
+            bool _hasInitDir;
             std::size_t _nbApple = 0;
     };
 }

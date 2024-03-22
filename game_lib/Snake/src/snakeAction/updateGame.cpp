@@ -169,6 +169,7 @@ void Arc::Snake::animateSnakeBody()
 const Arc::GameData &Arc::Snake::update(const Arc::Event &event)
 {
     endTheGame();
+
     if (this->gameData.player.health == 0) {
         return this->gameData;
     }
@@ -189,6 +190,9 @@ const Arc::GameData &Arc::Snake::update(const Arc::Event &event)
             default:
             break;
         }
+    }
+    if (event.eventType.size() == 0 && _hasInitDir == false) {
+        changeDirection(LEFT);
     }
     moveNextCase();
     animateSnakeBody();
