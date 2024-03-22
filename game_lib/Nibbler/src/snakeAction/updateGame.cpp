@@ -16,7 +16,7 @@ void Arc::Nibbler::checkHighScore()
         _highScore = _actualScore;
         this->gameData.textSet.at(2).text = "High score: " + std::to_string(_highScore) + " seconds !";
         content = this->gameData.player.userName + "\n" + std::to_string(_highScore);
-        Arc::FileContent::printContentToFile("./game_src/nibbler/nibblerScore.txt", content);
+        Arc::FileContent::appendContentToFile("./game_src/nibbler/nibblerScore.txt", content);
     }
 }
 

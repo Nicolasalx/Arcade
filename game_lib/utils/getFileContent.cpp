@@ -53,9 +53,17 @@ std::vector<std::vector<char>> Arc::FileContent::getArrayFromContent(const std::
     return tokensByLine;
 }
 
-void Arc::FileContent::printContentToFile(const std::string &filename, const std::string &content)
+void Arc::FileContent::appendContentToFile(const std::string &filename, const std::string &content)
 {
     std::ofstream myFile(filename, std::ios::app);
+
+    myFile << content;
+    myFile.close();
+}
+
+void Arc::FileContent::truncContentToFile(const std::string &filename, const std::string &content)
+{
+    std::ofstream myFile(filename);
 
     myFile << content;
     myFile.close();

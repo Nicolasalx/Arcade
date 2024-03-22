@@ -39,6 +39,6 @@ void Arc::Menu::fillUsername(const std::string bufferEvent)
             this->gameData.player.userName.pop_back();
         }
         this->gameData.textSet.at(this->gameData.textSet.size() - 1).text = this->gameData.player.userName;
-        Arc::FileContent::printContentToFile("./game_src/username.txt", this->gameData.player.userName);
+        Arc::FileContent::appendContentToFile("./game_src/username.txt", this->gameData.player.userName);
     }
 }

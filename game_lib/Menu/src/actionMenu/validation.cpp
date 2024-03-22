@@ -31,7 +31,7 @@ void Arc::Menu::defineNewCursorGraphical(const std::string &filename)
 void Arc::Menu::setDefaultName()
 {
     if (this->gameData.player.userName.size() == 0) {
-        Arc::FileContent::printContentToFile("./game_src/username.txt", "default player");
+        Arc::FileContent::truncContentToFile("./game_src/username.txt", "default player");
     }
 }
 

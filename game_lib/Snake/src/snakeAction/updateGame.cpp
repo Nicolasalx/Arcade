@@ -13,7 +13,7 @@ void Arc::Snake::appendScore()
     std::string content;
 
     content = this->gameData.player.userName + ":" + std::to_string(_actualScore) + "\n";
-    Arc::FileContent::printContentToFile("./game_src/snake/snakeScore.txt", content);
+    Arc::FileContent::appendContentToFile("./game_src/snake/snakeScore.txt", content);
 }
 
 void Arc::Snake::checkHighScore()

@@ -34,7 +34,7 @@ void Arc::Nibbler::highScoreAtEnd()
     if (getTime > _highScore) {
         _highScore = getTime;
         content = this->gameData.player.userName + "\n" + std::to_string(_highScore);
-        Arc::FileContent::printContentToFile("./game_src/nibbler/nibblerScore.txt", content);
+        Arc::FileContent::appendContentToFile("./game_src/nibbler/nibblerScore.txt", content);
     }
     checkHighScore();
 }

@@ -16,6 +16,7 @@
     #include "Clock.hpp"
     #include <iostream>
     #include <cmath>
+    #include <utility>
 
     #define PATH_IMG "./game_src/snake/"
     #define SIZE_MAP 20
@@ -103,6 +104,9 @@ namespace Arc
             void animatePartBody(std::size_t index);
             void appendScore();
             void initUsername();
+            void createLeaderBoard();
+            void printLeaderBoard(std::vector<std::pair<std::string, int>> &linesLexing);
+            void fillLeaderBoard(std::vector<std::pair<std::string, int>> &linesLexing, std::vector<std::string> &allGame);
 
             std::size_t _actualScore = SIZE_SNAKE_START;
             std::size_t _highScore = 0;
