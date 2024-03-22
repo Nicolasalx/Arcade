@@ -10,23 +10,23 @@
 
 void Arc::Nibbler::createTextEnd()
 {
-    createText("Hi " + this->gameData.player.userName + " !", Arc::Pos(460, 170), Arc::Color::RED);
+    createText("Hi " + this->gameData.player.userName + " !", Arc::Pos(620, 150), Arc::Color::CYAN);
     if (_nbApple == 10) {
-        createText("You WIN !", Arc::Pos(460, 200), Arc::Color::GREEN);
+        createText("You WIN !", Arc::Pos(660, 220), Arc::Color::GREEN);
     } else {
-        createText("You LOOSE !", Arc::Pos(460, 200), Arc::Color::RED);
+        createText("You LOOSE !", Arc::Pos(660, 200), Arc::Color::RED);
     }
-    createText("You score: " + std::to_string(_actualScore), Arc::Pos(460, 300), Arc::Color::CYAN);
+    createText("You score: " + std::to_string(_actualScore), Arc::Pos(620, 300), Arc::Color::CYAN);
     if (_highScore < 100) {
-        createText("No best time has been recorded !", Arc::Pos(420, 400), Arc::Color::YELLOW);
+        createText("No best time has been recorded !", Arc::Pos(600, 400), Arc::Color::YELLOW);
     } else {
-        createText("The best time is: " + std::to_string(_highScore), Arc::Pos(420, 400), Arc::Color::YELLOW);
+        createText("The best time is: " + std::to_string(_highScore), Arc::Pos(600, 400), Arc::Color::YELLOW);
     }
-    createText("\\       N   N  IIIII  BBBBB  BBBBB  LL     EEEE  RRRR       /", Arc::Pos(420, 600), Arc::Color::MAGENTA);
-    createText(" \\      NN  N    I    B   B  B   B  LL     E     R   R     / ", Arc::Pos(420, 620), Arc::Color::MAGENTA);
-    createText("  \\     N N N    I    BBBB   BBBB   LL     EEEE  RRRR     /  ", Arc::Pos(420, 640), Arc::Color::MAGENTA);
-    createText("   \\    N  NN    I    B   B  B   B  LL     E     R R     /   ", Arc::Pos(420, 660), Arc::Color::MAGENTA);
-    createText("    \\   N   N  IIIII  BBBBB  BBBBB  LLLLLL EEEE  R  R   /    ", Arc::Pos(420, 680), Arc::Color::MAGENTA);
+    createText("\\       N   N  IIIII  BBBBB  BBBBB  LL     EEEE  RRRR       /", Arc::Pos(400, 600), Arc::Color::MAGENTA);
+    createText(" \\      NN  N    I    B   B  B   B  LL     E     R   R     / ", Arc::Pos(400, 620), Arc::Color::MAGENTA);
+    createText("  \\     N N N    I    BBBB   BBBB   LL     EEEE  RRRR     /  ", Arc::Pos(400, 640), Arc::Color::MAGENTA);
+    createText("   \\    N  NN    I    B   B  B   B  LL     E     R R     /   ", Arc::Pos(400, 660), Arc::Color::MAGENTA);
+    createText("    \\   N   N  IIIII  BBBBB  BBBBB  LLLLLL EEEE  R  R   /    ", Arc::Pos(400, 680), Arc::Color::MAGENTA);
     createText("PRESS 'R' FOR RESTART", Arc::Pos(840, 840), Arc::Color::WHITE);
     createText("PRESS 'M' TO GO BACK ON MENU", Arc::Pos(800, 900), Arc::Color::WHITE);
 
