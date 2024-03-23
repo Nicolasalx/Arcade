@@ -2,6 +2,3 @@ abc:35
 def:12
 ghi:100
 klm:10
-klm:10
-klm:10
-klm:10
