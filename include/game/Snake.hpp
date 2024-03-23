@@ -82,9 +82,7 @@ namespace Arc
             void createNewBoxMap(std::size_t i, size_t j, double posX, double posY);
             void putNewBoxInMap(TypeOfTile type, Pos pos);
             void isSnakeEatHimself();
-
             void checkLooseSnake(std::size_t i, Rect snakeHeadRect, Rect snakePartRect);
-
             void endTheGame();
             void checkHighScore();
             void snakeEatAFood();
@@ -94,7 +92,6 @@ namespace Arc
             void createApple();
             void switcDirEvent(const Arc::Event &event);
             void changeDirection(NextDirection nextDir);
-
             void animateSnakeBody();
             void setNewHighScore(std::vector<std::string> &stockLines);
             void animateHead(std::size_t index);
@@ -109,8 +106,8 @@ namespace Arc
             void createLeaderBoard();
             void printLeaderBoard(std::vector<std::pair<std::string, int>> &linesLexing);
             void fillLeaderBoard(std::vector<std::pair<std::string, int>> &linesLexing, std::vector<std::string> &allGame);
-
             void switchDirection(SnakeMoove &snakeMoove);
+            void initEndGame();
 
             std::size_t _actualScore = SIZE_SNAKE_START;
             std::size_t _highScore = 0;
@@ -120,7 +117,6 @@ namespace Arc
             NextDirection _direction;
             std::vector<SnakeMoove> _snake;
             bool _hasInitDir;
-            void initEndGame();
     };
 }
 
