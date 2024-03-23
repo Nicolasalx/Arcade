@@ -17,7 +17,8 @@ Arc::BrickBreaker::BrickBreaker()
     this->gameData.player.health = 3; // Trouver un moyen d'afficher les 3 coeurs
     _velocity = {getRandomPos(-5, 5), 8};
 
-    createMap(); // Rename createGame
+    createMap();
+    createAllTexts();
 
     /*
         _clockMove.setCooldown(std::chrono::milliseconds(100));

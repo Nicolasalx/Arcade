@@ -25,7 +25,12 @@ void Arc::BrickBreaker::switchDirEvent(const Arc::Event &event)
 
 const Arc::GameData &Arc::BrickBreaker::update(const Arc::Event &event)
 {
+    if (this->gameData.player.health == 0) {
+        return this->gameData;
+    }
     switchDirEvent(event);
     mooveBall();
+    playerLooseOneLife();
+    checkEndGame();
     return this->gameData;
 }

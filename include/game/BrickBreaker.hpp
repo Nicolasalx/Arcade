@@ -94,9 +94,17 @@ namespace Arc {
             // Random Pos
             double getRandomPos(double min, double max);
 
+            // Loose One Life
+            void playerLooseOneLife();
+
+            // Create Text
+            void createAllTexts();
+            void createText(const std::string &name, Pos pos, Color color);
+
             Arc::Clock _clockGame;
             std::vector<std::vector<char>> _mapArray;
             Velocity _velocity;
+            Pos _iniPosBall;
     };
 }
 

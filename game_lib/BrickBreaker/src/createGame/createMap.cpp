@@ -81,6 +81,7 @@ void Arc::BrickBreaker::createBall(Pos pos)
     tile.pos = pos;
     item.tile = tile;
     item.pos = pos;
+    _iniPosBall = pos;
     this->gameData.item.push_back(item);
 }
 
