@@ -29,11 +29,11 @@ Arc::BrickBreaker::BrickBreaker()
 {
     Enemy enemy;
 
+    std::srand(static_cast<unsigned int>(std::time(nullptr)));
     this->gameData.enemy.push_back(enemy);
 
     this->gameData.player.health = 3; // Trouver un moyen d'afficher les 3 coeurs
-    _velocity = {2, 8};
-
+    _velocity = {getRandomPos(-5, 5), 8};
 
     createMap(); // Rename createGame
     // ! Définition du radius et de la vitesse dans le .hpp en define

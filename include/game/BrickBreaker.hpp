@@ -32,8 +32,8 @@ struct Rect {
 };
 
 struct Velocity {
-    float x;
-    float y;
+    double x;
+    double y;
 };
 
 namespace Arc {
@@ -46,6 +46,14 @@ namespace Arc {
                 NONE
             };
 
+            enum ColorBrick {
+                BLUE,
+                GREEN,
+                PURPLE,
+                RED,
+                YELLOW
+            };
+
             BrickBreaker();
             ~BrickBreaker() override;
 
@@ -54,7 +62,7 @@ namespace Arc {
         private:
             // Creation
             void createMap();
-            void createBrick(Pos pos);
+            void createBrick(Pos pos, ColorBrick color);
             void createWall(Pos pos);
             void createPlayer(Pos pos);
             void createBall(Pos pos);
@@ -82,6 +90,9 @@ namespace Arc {
             static bool areaRectsInContact(const Rect &rect1, const Rect &rect2);
             static Rect calculateRect(const Pos &pos, double size);
             static TypeOfContact areaRectsWithContactType(const Rect &rect1, const Rect &rect2);
+
+            // Random Pos
+            double getRandomPos(double min, double max);
 
             Arc::Clock _clockGame;
             std::vector<std::vector<char>> _mapArray;

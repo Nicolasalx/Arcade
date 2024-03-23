@@ -1,15 +1,15 @@
 ###############
 #             #
 #             #
-#  @@@@@@@@@  #
-#  @@@@@@@@@  #
-#  @@@@@@@@@  #
-#  @@@@@@@@@  #
-#  @@@@@@@@@  #
-#  @@@@@@@@@  #
-#  @@@@@@@@@  #
-#  @@@@@@@@@  #
-#  @@@@@@@@@  #
+#  BBBBBBBBB  #
+#  GGGGGGGGG  #
+#  PPPPPPPPP  #
+#  RRRRRRRRR  #
+#  YYYYYYYYY  #
+#  BBBBBBBBB  #
+#  GGGGGGGGG  #
+#  PPPPPPPPP  #
+#  RRRRRRRRR  #
 #             #
 #             #
 #             #

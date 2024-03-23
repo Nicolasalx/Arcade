@@ -8,13 +8,37 @@
 #include "BrickBreaker.hpp"
 #include "getFileContent.hpp"
 
-void Arc::BrickBreaker::createBrick(Pos pos)
+void Arc::BrickBreaker::createBrick(Pos pos, ColorBrick color)
 {
     Tile tile;
 
-    tile.imagePath = std::string(PATH_IMG) + "map/blueBox.png";
-    tile.c = '@';
-    tile.color = Arc::Color::CYAN;
+    switch (color) {
+        case BLUE:
+            tile.imagePath = std::string(PATH_IMG) + "map/blueBox.png";
+            tile.c = '@';
+            tile.color = Arc::Color::BLUE;
+            break;
+        case GREEN:
+            tile.imagePath = std::string(PATH_IMG) + "map/greenBox.png";
+            tile.c = '@';
+            tile.color = Arc::Color::GREEN;
+            break;
+        case PURPLE:
+            tile.imagePath = std::string(PATH_IMG) + "map/purpleBox.png";
+            tile.c = '@';
+            tile.color = Arc::Color::MAGENTA;
+            break;
+        case RED:
+            tile.imagePath = std::string(PATH_IMG) + "map/redBox.png";
+            tile.c = '@';
+            tile.color = Arc::Color::RED;
+            break;
+        case YELLOW:
+            tile.imagePath = std::string(PATH_IMG) + "map/yellowBox.png";
+            tile.c = '@';
+            tile.color = Arc::Color::YELLOW;
+            break;
+    }
     tile.size = Arc::Size(40, 40);
     tile.pos = pos;
     this->gameData.enemy.at(0).tileSet.push_back(tile);
@@ -26,7 +50,7 @@ void Arc::BrickBreaker::createWall(Pos pos)
 
     tile.imagePath = std::string(PATH_IMG) + "map/wall.png";
     tile.c = '#';
-    tile.color = Arc::Color::CYAN;
+    tile.color = Arc::Color::WHITE;
     tile.size = Arc::Size(40, 40);
     tile.pos = pos;
 
@@ -66,8 +90,20 @@ void Arc::BrickBreaker::chooseElemCreate(char c, Pos pos)
         case '#':
             createWall(pos);
             break;
-        case '@':
-            createBrick(pos);
+        case 'B':
+            createBrick(pos, BLUE);
+            break;
+        case 'G':
+            createBrick(pos, GREEN);
+            break;
+        case 'P':
+            createBrick(pos, PURPLE);
+            break;
+        case 'R':
+            createBrick(pos, RED);
+            break;
+        case 'Y':
+            createBrick(pos, YELLOW);
             break;
         case '0':
             createBall(pos);
