@@ -25,27 +25,6 @@ __attribute__((destructor)) void destroy(void)
     std::cout << "BrickBreaker unloaded !\n";
 }
 
-Arc::BrickBreaker::BrickBreaker()
-{
-    Enemy enemy;
-
-    std::srand(static_cast<unsigned int>(std::time(nullptr)));
-    this->gameData.enemy.push_back(enemy);
-
-    this->gameData.player.health = 3; // Trouver un moyen d'afficher les 3 coeurs
-    _velocity = {getRandomPos(-5, 5), 8};
-
-    createMap(); // Rename createGame
-    // ! Définition du radius et de la vitesse dans le .hpp en define
-    // ! Function pour bouger la raquette a gauche ou a droite
-    // ! Dans update on parcours la map et on set chaque texte en fonction
-
-    /*
-        _clockMove.setCooldown(std::chrono::milliseconds(100));
-        _clockMove.start();
-    */
-}
-
 Arc::BrickBreaker::~BrickBreaker()
 {
     std::cout << "BrickBreaker is class destroyed.\n";
