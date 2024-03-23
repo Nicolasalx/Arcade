@@ -7,19 +7,21 @@
 
 #include "BrickBreaker.hpp"
 
-Arc::BrickBreaker::BrickBreaker()
+void Arc::BrickBreaker::initBricks()
 {
     Enemy enemy;
-
-    std::srand(static_cast<unsigned int>(std::time(nullptr)));
     this->gameData.enemy.push_back(enemy);
+}
 
-    this->gameData.player.health = 3; // Trouver un moyen d'afficher les 3 coeurs
+Arc::BrickBreaker::BrickBreaker()
+{
+    std::srand(static_cast<unsigned int>(std::time(nullptr)));
+    this->gameData.player.health = 3;
     _velocity = {getRandomPos(-5, 5), 8};
-
+    initBricks();
+    initUsername();
     createMap();
     createAllTexts();
-
     /*
         _clockMove.setCooldown(std::chrono::milliseconds(100));
         _clockMove.start();

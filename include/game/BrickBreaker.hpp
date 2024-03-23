@@ -67,6 +67,7 @@ namespace Arc {
             void createPlayer(Pos pos);
             void createBall(Pos pos);
             void chooseElemCreate(char c, Pos pos);
+            void initBricks();
 
             // Update
             void switchDirEvent(const Arc::Event &event);
@@ -101,10 +102,17 @@ namespace Arc {
             void createAllTexts();
             void createText(const std::string &name, Pos pos, Color color);
 
+            // Handle Username
+            void initUsername();
+
+            // Handle HighScore
+
+
             Arc::Clock _clockGame;
             std::vector<std::vector<char>> _mapArray;
             Velocity _velocity;
             Pos _iniPosBall;
+            std::size_t _highScore;
     };
 }
 

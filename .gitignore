@@ -29,3 +29,8 @@ log.bin
 
 # ? compilation database
 compile_commands.json
+
+# ? All Data Tmp
+./game_src/snake/snakeScore.txt
+./game_src/nibbler/nibblerScore.txt
+./game_src/brickBreaker/brickBreakerScore.txt
