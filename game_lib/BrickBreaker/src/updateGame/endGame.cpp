@@ -26,6 +26,7 @@ void Arc::BrickBreaker::checkEndGame()
 void Arc::BrickBreaker::playerLooseOneLife()
 {
     if (this->gameData.item.at(0).tile.pos.y > 1080) {
+        this->gameData.item.at(this->gameData.player.health).tile.pos.x = 10000;
         this->gameData.player.health -= 1;
         this->gameData.item.at(0).tile.pos = _iniPosBall;
         _velocity.y = -_velocity.y;

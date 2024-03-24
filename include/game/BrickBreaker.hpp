@@ -81,6 +81,7 @@ namespace Arc {
             static void createBrickColorRed(Tile &tile);
             static void createBrickColorYellow(Tile &tile);
             void createEachElemMap(std::size_t &indexPlayer, std::size_t i, std::size_t j);
+            void createLifeGame();
 
             // Update
             void switchDirEvent(const Arc::Event &event);
@@ -121,12 +122,16 @@ namespace Arc {
 
             // Handle HighScore
 
+            // Update Text
+            void updateText();
+
             Arc::Clock _clockGame;
             std::vector<std::vector<char>> _mapArray;
             Velocity _velocity;
             Pos _iniPosBall;
             std::size_t _highScore;
             Pos _posScreen;
+            std::size_t _actualScore = 0;
     };
 }
 

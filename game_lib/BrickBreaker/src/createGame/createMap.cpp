@@ -101,7 +101,6 @@ void Arc::BrickBreaker::createBall()
     tile.pos = _posScreen;
     item.tile = tile;
     item.pos = _posScreen;
-    _iniPosBall = _posScreen;
     this->gameData.item.push_back(item);
 }
 

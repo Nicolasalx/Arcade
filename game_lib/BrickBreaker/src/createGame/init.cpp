@@ -13,6 +13,16 @@ void Arc::BrickBreaker::initBricks()
     this->gameData.enemy.push_back(enemy);
 }
 
+void Arc::BrickBreaker::createLifeGame()
+{
+    createBall();
+    this->gameData.item.at(1).tile.pos = Arc::Pos(300, 190);
+    createBall();
+    this->gameData.item.at(2).tile.pos = Arc::Pos(350, 190);
+    createBall();
+    this->gameData.item.at(3).tile.pos = Arc::Pos(400, 190);
+}
+
 Arc::BrickBreaker::BrickBreaker()
 {
     std::srand(static_cast<unsigned int>(std::time(nullptr)));
@@ -23,6 +33,8 @@ Arc::BrickBreaker::BrickBreaker()
     initUsername();
     createMap();
     createAllTexts();
+    createLifeGame();
+    _iniPosBall = this->gameData.item.at(0).tile.pos;
     /*
         _clockMove.setCooldown(std::chrono::milliseconds(100));
         _clockMove.start();

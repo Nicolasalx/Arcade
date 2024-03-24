@@ -18,12 +18,12 @@ void Arc::BrickBreaker::contactWithBrick(Rect ballRect, Rect partRect)
         if (result == HORIZONTAL) {
             _velocity.x = -_velocity.x;
             tile.pos.x = 10000;
-            _highScore += 100;
+            _actualScore += 100;
             break;
         } else if (result == VERTICAL) {
             _velocity.y = -_velocity.y;
             tile.pos.x = 10000;
-            _highScore += 100;
+            _actualScore += 100;
             break;
         }
     }

@@ -21,7 +21,8 @@ void Arc::BrickBreaker::createText(const std::string &name, Pos pos, Color color
 
 void Arc::BrickBreaker::createAllTexts()
 {
-    createText("Username: ", Arc::Pos(100, 100), Arc::Color::WHITE);
-    createText("Nb life actual: ", Arc::Pos(100, 500), Arc::Color::WHITE);
-    createText("HighScore: " + std::to_string(_highScore) , Arc::Pos(100, 900), Arc::Color::WHITE);
+    createText("Username: " + this->gameData.player.userName, Arc::Pos(100, 100), Arc::Color::WHITE);
+    createText("Nb life actual: ", Arc::Pos(100, 200), Arc::Color::WHITE);
+    createText("Actual Score: " + std::to_string(_actualScore), Arc::Pos(100, 300), Arc::Color::WHITE);
+    createText("HighScore: " + std::to_string(_highScore) , Arc::Pos(100, 400), Arc::Color::WHITE);
 }
