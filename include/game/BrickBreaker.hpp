@@ -93,7 +93,8 @@ namespace Arc {
             static TypeOfContact areaRectsWithContactType(const Rect &rect1, const Rect &rect2);
 
             // Random Pos
-            double getRandomPos(double min, double max);
+            static double getRandomPos(double min, double max);
+            static int getRandomPosToInt(int min, int max);
 
             // Loose One Life
             void playerLooseOneLife();

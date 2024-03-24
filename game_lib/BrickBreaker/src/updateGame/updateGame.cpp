@@ -23,6 +23,8 @@ void Arc::BrickBreaker::switchDirEvent(const Arc::Event &event)
     }
 }
 
+// ! Pb quand la balle touche un mur ou une brique par le HAUT !
+
 const Arc::GameData &Arc::BrickBreaker::update(const Arc::Event &event)
 {
     if (this->gameData.player.health == 0) {

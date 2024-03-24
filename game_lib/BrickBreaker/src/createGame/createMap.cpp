@@ -118,12 +118,13 @@ void Arc::BrickBreaker::chooseElemCreate(char c, Pos pos)
 void Arc::BrickBreaker::createMap()
 {
     Pos posScreen;
-    std::size_t numMap = 1; // ! On pourra changer de facon random
+    std::size_t numMap;
     std::size_t indexPlayer = 0;
 
     posScreen.x = X_POS_MAP;
     posScreen.y = Y_POS_MAP;
-    _mapArray = Arc::FileContent::getArrayFromContent(std::string(PATH_IMG) + "map_" + std::to_string(numMap) + ".txt");
+    numMap = getRandomPosToInt(1, 4);
+    _mapArray = Arc::FileContent::getArrayFromContent("./game_src/brickBreaker/map_" + std::to_string(numMap) + ".txt");
     for (std::size_t i = 0; i < BOX_WIDTH_MAP; ++i) {
         for (std::size_t j = 0; j < BOX_HEIGHT_MAP; ++j) {
             if (indexPlayer <= 0 || indexPlayer == 3) {
