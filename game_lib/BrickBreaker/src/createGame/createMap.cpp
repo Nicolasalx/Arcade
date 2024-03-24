@@ -8,43 +8,63 @@
 #include "BrickBreaker.hpp"
 #include "getFileContent.hpp"
 
-void Arc::BrickBreaker::createBrick(Pos pos, ColorBrick color)
+void Arc::BrickBreaker::createBrickBlue(Tile &tile)
+{
+    tile.imagePath = std::string(PATH_IMG) + "map/blueBox.png";
+    tile.c = '@';
+    tile.color = Arc::Color::BLUE;
+}
+
+void Arc::BrickBreaker::createBrickColorGreen(Tile &tile)
+{
+    tile.imagePath = std::string(PATH_IMG) + "map/greenBox.png";
+    tile.c = '@';
+    tile.color = Arc::Color::GREEN;
+}
+
+void Arc::BrickBreaker::createBrickColorPurple(Tile &tile)
+{
+    tile.imagePath = std::string(PATH_IMG) + "map/purpleBox.png";
+    tile.c = '@';
+    tile.color = Arc::Color::MAGENTA;
+}
+
+void Arc::BrickBreaker::createBrickColorRed(Tile &tile)
+{
+    tile.imagePath = std::string(PATH_IMG) + "map/redBox.png";
+    tile.c = '@';
+    tile.color = Arc::Color::RED;
+}
+
+void Arc::BrickBreaker::createBrickColorYellow(Tile &tile)
+{
+    tile.imagePath = std::string(PATH_IMG) + "map/yellowBox.png";
+    tile.c = '@';
+    tile.color = Arc::Color::YELLOW;
+}
+
+void Arc::BrickBreaker::createBrick(ColorBrick color)
 {
     Tile tile;
 
     switch (color) {
         case BLUE:
-            tile.imagePath = std::string(PATH_IMG) + "map/blueBox.png";
-            tile.c = '@';
-            tile.color = Arc::Color::BLUE;
-            break;
+            createBrickBlue(tile); break;
         case GREEN:
-            tile.imagePath = std::string(PATH_IMG) + "map/greenBox.png";
-            tile.c = '@';
-            tile.color = Arc::Color::GREEN;
-            break;
+            createBrickColorGreen(tile); break;
         case PURPLE:
-            tile.imagePath = std::string(PATH_IMG) + "map/purpleBox.png";
-            tile.c = '@';
-            tile.color = Arc::Color::MAGENTA;
-            break;
+            createBrickColorPurple(tile); break;
         case RED:
-            tile.imagePath = std::string(PATH_IMG) + "map/redBox.png";
-            tile.c = '@';
-            tile.color = Arc::Color::RED;
-            break;
+            createBrickColorRed(tile); break;
         case YELLOW:
-            tile.imagePath = std::string(PATH_IMG) + "map/yellowBox.png";
-            tile.c = '@';
-            tile.color = Arc::Color::YELLOW;
-            break;
+            createBrickColorYellow(tile); break;
     }
     tile.size = Arc::Size(40, 40);
-    tile.pos = pos;
+    tile.pos = _posScreen;
     this->gameData.enemy.at(0).tileSet.push_back(tile);
 }
 
-void Arc::BrickBreaker::createWall(Pos pos)
+void Arc::BrickBreaker::createWall()
 {
     Tile tile;
 
@@ -52,12 +72,12 @@ void Arc::BrickBreaker::createWall(Pos pos)
     tile.c = '#';
     tile.color = Arc::Color::WHITE;
     tile.size = Arc::Size(40, 40);
-    tile.pos = pos;
+    tile.pos = _posScreen;
 
     this->gameData.tileSet.push_back(tile);
 }
 
-void Arc::BrickBreaker::createPlayer(Pos pos)
+void Arc::BrickBreaker::createPlayer()
 {
     Tile tile;
 
@@ -65,11 +85,11 @@ void Arc::BrickBreaker::createPlayer(Pos pos)
     tile.c = '_';
     tile.color = Arc::Color::CYAN;
     tile.size = Arc::Size(120, 40);
-    tile.pos = pos;
+    tile.pos = _posScreen;
     this->gameData.player.tileSet.push_back(tile);
 }
 
-void Arc::BrickBreaker::createBall(Pos pos)
+void Arc::BrickBreaker::createBall()
 {
     Item item;
     Tile tile;
@@ -78,64 +98,60 @@ void Arc::BrickBreaker::createBall(Pos pos)
     tile.c = '0';
     tile.color = Arc::Color::CYAN;
     tile.size = Arc::Size(40, 40);
-    tile.pos = pos;
+    tile.pos = _posScreen;
     item.tile = tile;
-    item.pos = pos;
-    _iniPosBall = pos;
+    item.pos = _posScreen;
+    _iniPosBall = _posScreen;
     this->gameData.item.push_back(item);
 }
 
-void Arc::BrickBreaker::chooseElemCreate(char c, Pos pos)
+void Arc::BrickBreaker::chooseElemCreate(char c)
 {
     switch (c) {
         case '#':
-            createWall(pos);
-            break;
+            createWall(); break;
         case 'B':
-            createBrick(pos, BLUE);
-            break;
+            createBrick(BLUE); break;
         case 'G':
-            createBrick(pos, GREEN);
-            break;
+            createBrick(GREEN); break;
         case 'P':
-            createBrick(pos, PURPLE);
-            break;
+            createBrick(PURPLE); break;
         case 'R':
-            createBrick(pos, RED);
-            break;
+            createBrick(RED); break;
         case 'Y':
-            createBrick(pos, YELLOW);
-            break;
+            createBrick(YELLOW); break;
         case '0':
-            createBall(pos);
-            break;
+            createBall(); break;
         case '_':
-            createPlayer(pos);
-            break;
+            createPlayer(); break;
+    }
+}
+
+void Arc::BrickBreaker::createEachElemMap(std::size_t &indexPlayer, std::size_t i, std::size_t j)
+{
+    if (indexPlayer <= 0 || indexPlayer == 3) {
+        chooseElemCreate(_mapArray.at(i).at(j));
+    }
+    if (_mapArray.at(i).at(j) == '_') {
+        ++indexPlayer;
     }
 }
 
 void Arc::BrickBreaker::createMap()
 {
-    Pos posScreen;
-    std::size_t numMap;
+    std::size_t numMap = 0;
     std::size_t indexPlayer = 0;
 
-    posScreen.x = X_POS_MAP;
-    posScreen.y = Y_POS_MAP;
+    _posScreen.x = X_POS_MAP;
+    _posScreen.y = Y_POS_MAP;
     numMap = getRandomPosToInt(1, 4);
     _mapArray = Arc::FileContent::getArrayFromContent("./game_src/brickBreaker/map_" + std::to_string(numMap) + ".txt");
     for (std::size_t i = 0; i < BOX_WIDTH_MAP; ++i) {
         for (std::size_t j = 0; j < BOX_HEIGHT_MAP; ++j) {
-            if (indexPlayer <= 0 || indexPlayer == 3) {
-                chooseElemCreate(_mapArray.at(i).at(j), posScreen);
-            }
-            if (_mapArray.at(i).at(j) == '_') {
-                ++indexPlayer;
-            }
-            posScreen.x += SIZE_BORDER;
+            createEachElemMap(indexPlayer, i, j);
+            _posScreen.x += SIZE_BORDER;
         }
-        posScreen.x = X_POS_MAP;
-        posScreen.y += SIZE_BORDER;
+        _posScreen.x = X_POS_MAP;
+        _posScreen.y += SIZE_BORDER;
     }
 }

@@ -18,6 +18,7 @@ Arc::BrickBreaker::BrickBreaker()
     std::srand(static_cast<unsigned int>(std::time(nullptr)));
     this->gameData.player.health = 3;
     _velocity = {getRandomPos(-5, 5), 8};
+    _velocity.x = 5;
     initBricks();
     initUsername();
     createMap();

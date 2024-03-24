@@ -46,6 +46,13 @@ namespace Arc {
                 NONE
             };
 
+            enum TypeOfContactPlayer {
+                LEFT,
+                MIDDLE,
+                RIGHT,
+                NON
+            };
+
             enum ColorBrick {
                 BLUE,
                 GREEN,
@@ -62,12 +69,18 @@ namespace Arc {
         private:
             // Creation
             void createMap();
-            void createBrick(Pos pos, ColorBrick color);
-            void createWall(Pos pos);
-            void createPlayer(Pos pos);
-            void createBall(Pos pos);
-            void chooseElemCreate(char c, Pos pos);
+            void createBrick(ColorBrick color);
+            void createWall();
+            void createPlayer();
+            void createBall();
+            void chooseElemCreate(char c);
             void initBricks();
+            static void createBrickBlue(Tile &tile);
+            static void createBrickColorGreen(Tile &tile);
+            static void createBrickColorPurple(Tile &tile);
+            static void createBrickColorRed(Tile &tile);
+            static void createBrickColorYellow(Tile &tile);
+            void createEachElemMap(std::size_t &indexPlayer, std::size_t i, std::size_t j);
 
             // Update
             void switchDirEvent(const Arc::Event &event);
@@ -88,9 +101,9 @@ namespace Arc {
             void initEndGame();
 
             // Interaction Rect
-            static bool areaRectsInContact(const Rect &rect1, const Rect &rect2);
+            TypeOfContactPlayer areaRectsInContact(const Rect &rect1, const Rect &rect2);
             static Rect calculateRect(const Pos &pos, double size);
-            static TypeOfContact areaRectsWithContactType(const Rect &rect1, const Rect &rect2);
+            TypeOfContact areaRectsWithContactType(const Rect &rect1, const Rect &rect2);
 
             // Random Pos
             static double getRandomPos(double min, double max);
@@ -108,12 +121,12 @@ namespace Arc {
 
             // Handle HighScore
 
-
             Arc::Clock _clockGame;
             std::vector<std::vector<char>> _mapArray;
             Velocity _velocity;
             Pos _iniPosBall;
             std::size_t _highScore;
+            Pos _posScreen;
     };
 }
 

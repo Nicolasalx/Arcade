@@ -10,7 +10,7 @@
 
 void Arc::BrickBreaker::contactWithBrick(Rect ballRect, Rect partRect)
 {
-    TypeOfContact result;
+    TypeOfContact result = NONE;
 
     for (auto &tile: this->gameData.enemy.at(0).tileSet) {
         partRect = calculateRect(tile.pos, SIZE_BORDER);
@@ -31,7 +31,7 @@ void Arc::BrickBreaker::contactWithBrick(Rect ballRect, Rect partRect)
 
 void Arc::BrickBreaker::contactWithWall(Rect ballRect, Rect partRect)
 {
-    TypeOfContact result;
+    TypeOfContact result = NONE;
 
     for (const auto &tile: this->gameData.tileSet) {
         partRect = calculateRect(tile.pos, SIZE_BORDER);
@@ -48,11 +48,25 @@ void Arc::BrickBreaker::contactWithWall(Rect ballRect, Rect partRect)
 
 void Arc::BrickBreaker::contactWithPlayer(Rect ballRect, Rect partRect)
 {
-    for (const auto &tile: this->gameData.player.tileSet) {
-        partRect = calculateRect(tile.pos, 120);
-        if (areaRectsInContact(ballRect, partRect)) {
+    partRect = calculateRect(this->gameData.player.tileSet.at(0).pos, 120);
+    TypeOfContactPlayer typeContact = areaRectsInContact(ballRect, partRect);
+    switch (typeContact) {
+        case LEFT:
+            if (_velocity.x > 0) {
+                _velocity.x = -_velocity.x;
+            }
             _velocity.y = -_velocity.y;
-        }
+            break;
+        case MIDDLE:
+            _velocity.y = -_velocity.y;
+            break;
+        case RIGHT:
+            if (_velocity.x < 0) {
+                _velocity.x = -_velocity.x;
+            }
+            _velocity.y = -_velocity.y;
+        case NON:
+            break;
     }
 }
 
@@ -73,4 +87,3 @@ void Arc::BrickBreaker::mooveBall()
     contactWithWall(ballRect, partRect);
     contactWithBrick(ballRect, partRect);
 }
-
