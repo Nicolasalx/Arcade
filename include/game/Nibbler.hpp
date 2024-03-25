@@ -58,7 +58,7 @@ namespace Arc
         RIGHT
     };
 
-    struct SnakeMove {
+    struct SnakeMoove {
         Pos pos;
         NextDirection nextDirection;
     };
@@ -67,11 +67,9 @@ namespace Arc
     {
         public:
             Nibbler();
-            ~Nibbler();
+            ~Nibbler() override;
 
-            void init();
-            const Arc::GameData &update(const Arc::Event &event);
-            void stop();
+            const Arc::GameData &update(const Arc::Event &event) override;
 
         private:
             void createText(const std::string &name, Pos pos, Color color);
@@ -79,28 +77,29 @@ namespace Arc
             void createPlayer(Pos pos, Size sizeTile, SnakeBody snakeBody);
             void createAllTexts();
             void createMap();
-            Pos computeNewSizeItem();
-            Rect calculateRect(const Pos &pos, double size);
-            bool areaRectsInContact(const Rect &rect1, const Rect &rect2);
+            static Rect calculateRect(const Pos &pos, double size);
+            static bool areaRectsInContact(const Rect &rect1, const Rect &rect2);
             void addElemBackSnake();
             void initHighScore();
-            bool appleIsOnSnake(Pos pos);
             void putNewBoxInMap(TypeOfTile type, Pos pos);
             void isSnakeEatHimself();
-
+            static bool checkWall(Arc::Tile &part, Rect snakePartRect, Rect appleRect);
             void updateTimeBar();
-
+            bool appleIsOnApple(Rect appleRect, Rect snakePartRect);
+            Arc::Pos computeNewSizeItem();
+            bool appleIsOnSnake(Pos pos);
+            void chooseBoxType(std::size_t i, size_t j, Pos posScreen);
             void endTheGame();
             void checkHighScore();
             void snakeEatAFood();
             void moveNextCase();
-            double getRandomPos(double min, double max);
+            static double getRandomPos(double min, double max);
             void createApple();
-
+            void switchDirEvent(const Arc::Event &event);
             void changeDirection(NextDirection nextDir);
-
+            void increaseNibbler(std::size_t i, Rect snakeHeadRect, Pos tail);
             void animateSnakeBody();
-
+            void checkLoose(std::size_t i, Rect snakeHeadRect, Rect snakePartRect);
             void animateHead(std::size_t index);
             void animateTail(std::size_t index);
             void animateBodyUp(std::size_t index);
@@ -117,7 +116,23 @@ namespace Arc
             void createNewBoxMap(TypeOfTile type, Pos posScreen);
             void initEndGame();
 
-            int getRandomPosToInt(int min, int max);
+            static int getRandomPosToInt(int min, int max);
+            void createLeaderBoard();
+            void printLeaderBoard(std::vector<std::pair<std::string, int>> &linesLexing);
+            void fillLeaderBoard(std::vector<std::pair<std::string, int>> &linesLexing, std::vector<std::string> &allGame);
+
+            void appendScore();
+
+            void mooveUp(SnakeMoove &snakeMoove);
+            void mooveDown(SnakeMoove &snakeMoove);
+            void mooveLeft(SnakeMoove &snakeMoove);
+            void mooveRight(SnakeMoove &snakeMoove);
+
+            void automaticMooveVertical(SnakeMoove &snakeMoove);
+            void automaticMooveHorizontal(SnakeMoove &snakeMoove);
+            void setNewHighScore(std::vector<std::string> &stockLines, std::string &line);
+
+            void switchDirection(SnakeMoove &snakeMoove);
 
             std::size_t _actualScore = SIZE_SNAKE_START;
             std::size_t _highScore = 0;
@@ -126,10 +141,11 @@ namespace Arc
             Arc::Clock _clockGame;
             std::vector<std::string> _highScoreFromFile;
             NextDirection _direction;
-            std::vector<SnakeMove> _snake;
+            std::vector<SnakeMoove> _snake;
             std::vector<std::vector<char>> _mapArray;
             Pos _headSnake;
             bool _hasMoved;
+            bool _hasInitDir;
             std::size_t _nbApple = 0;
     };
 }

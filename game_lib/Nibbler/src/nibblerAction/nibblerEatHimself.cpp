@@ -7,6 +7,17 @@
 
 #include "Nibbler.hpp"
 
+void Arc::Nibbler::checkLoose(std::size_t i, Rect snakeHeadRect, Rect snakePartRect)
+{
+    if (i != 0) {
+        snakePartRect = calculateRect(this->gameData.player.tileSet.at(i).pos, 30);
+        if (areaRectsInContact(snakeHeadRect, snakePartRect)) {
+            initEndGame();
+            return;
+        }
+    }
+}
+
 void Arc::Nibbler::isSnakeEatHimself()
 {
     Rect snakeHeadRect;
@@ -19,17 +30,11 @@ void Arc::Nibbler::isSnakeEatHimself()
         initEndGame();
         return;
     }
-    if (_actualScore < 5) {
+    if (_nbApple < 1) {
         return;
     }
     snakeHeadRect = calculateRect(this->gameData.player.tileSet.at(0).pos, 30);
     for (std::size_t i = 0; i < this->gameData.player.tileSet.size(); ++i) {
-        if (i != 0) {
-            snakePartRect = calculateRect(this->gameData.player.tileSet.at(i).pos, 30);
-            if (areaRectsInContact(snakeHeadRect, snakePartRect)) {
-                initEndGame();
-                return;
-            }
-        }
+        checkLoose(i, snakeHeadRect, snakePartRect);
     }
 }

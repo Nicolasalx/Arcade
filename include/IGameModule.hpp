@@ -20,9 +20,7 @@ namespace Arc
     public:
         virtual ~IGameModule() = default;
 
-        virtual void init() = 0;
         virtual const Arc::GameData &update(const Arc::Event &event) = 0;
-        virtual void stop() = 0;
     };
 }
 

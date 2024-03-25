@@ -44,10 +44,3 @@ void Arc::Menu::defineIdxCursor()
         .graphicalLib = 25
     };
 }
-
-void Arc::Menu::init()
-{
-    getLibFromDirectory();
-    createAllText();
-    defineIdxCursor();
-}

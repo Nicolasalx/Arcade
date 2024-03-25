@@ -6,6 +6,7 @@
 */
 
 #include "Menu.hpp"
+#include "getFileContent.hpp"
 
 void Arc::Menu::defineNewCursorGame(const std::string &filename)
 {
@@ -24,6 +25,13 @@ void Arc::Menu::defineNewCursorGraphical(const std::string &filename)
             _cursorPlace.graphicalLib = _cursorPlace.elemInSelect;
             this->gameData.lib.currentDisplay = _cursorPlace.graphicalLib - this->gameData.lib.game.size();
         }
+    }
+}
+
+void Arc::Menu::setDefaultName()
+{
+    if (this->gameData.player.userName.empty()) {
+        Arc::FileContent::truncContentToFile("./game_src/username.txt", "default player");
     }
 }
 

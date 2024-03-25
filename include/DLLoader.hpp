@@ -65,7 +65,7 @@ namespace Arc
         }
 
         template<typename T2>
-        T2 getSymbol(const std::string name)
+        T2 getSymbol(const std::string &name)
         {
             auto func = reinterpret_cast<T2 (*)(void)>(dlsym(this->_handle, name.c_str()));
             if (!func) {

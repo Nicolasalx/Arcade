@@ -10,7 +10,7 @@
 void Arc::Snake::createPlayer(Pos pos, Size sizeTile, SnakeBody snakeBody)
 {
     Tile tile;
-    SnakeMove snakeMove;
+    SnakeMoove snakeMoove;
 
     switch (snakeBody) {
         case SNAKE_HEAD:
@@ -22,17 +22,17 @@ void Arc::Snake::createPlayer(Pos pos, Size sizeTile, SnakeBody snakeBody)
             tile.c = '=';
             break;
         case SNAKE_TAIL:
-            tile.imagePath = std::string(PATH_IMG) + "item.png";
+            tile.imagePath = std::string(PATH_IMG) + "body/tailUp.png";
             tile.c = '2';
             break;
     }
     tile.color = Arc::Color::CYAN;
     tile.size = sizeTile;
     tile.pos = pos;
-    snakeMove.pos = pos;
-    snakeMove.nextDirection = LEFT;
+    snakeMoove.pos = pos;
+    snakeMoove.nextDirection = LEFT;
 
-    _snake.push_back(snakeMove);
+    _snake.push_back(snakeMoove);
     this->gameData.player.tileSet.push_back(tile);
 }
 
