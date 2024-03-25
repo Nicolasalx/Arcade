@@ -10,17 +10,21 @@
 
 void Arc::Sdl2::createTextTexture(const Arc::Text &textIt)
 {
-    SDL_FreeSurface(this->_pool.surface[_surfaceI - 1]);
-    this->_pool.surface[_surfaceI - 1] = TTF_RenderText_Solid(this->_pool.font.at(textIt.fontPath),
+    if (this->_pool.surface.at(_surfaceI - 1)) {
+        SDL_FreeSurface(this->_pool.surface.at(_surfaceI - 1));
+    }
+    this->_pool.surface.at(_surfaceI - 1) = TTF_RenderText_Solid(this->_pool.font.at(textIt.fontPath),
         textIt.text.c_str(), this->_colorBind.at(textIt.color));
-    if (this->_pool.surface[_surfaceI - 1] == nullptr) {
+    if (this->_pool.surface.at(_surfaceI - 1) == nullptr) {
         throw Arc::DisplayException("Fail to render text on surface in SDL2: " + std::string(SDL_GetError()));
     }
 
-    SDL_DestroyTexture(this->_pool.textTexture[_textTextureI - 1]);
-    this->_pool.textTexture[_textTextureI - 1] =
-        SDL_CreateTextureFromSurface(this->_renderer, this->_pool.surface[_surfaceI - 1]);
-    if (this->_pool.textTexture[_textTextureI - 1] == nullptr) {
+    if (this->_pool.textTexture.at(_textTextureI - 1)) {
+        SDL_DestroyTexture(this->_pool.textTexture.at(_textTextureI - 1));
+    }
+    this->_pool.textTexture.at(_textTextureI - 1) =
+        SDL_CreateTextureFromSurface(this->_renderer, this->_pool.surface.at(_surfaceI - 1));
+    if (this->_pool.textTexture.at(_textTextureI - 1) == nullptr) {
         throw Arc::DisplayException("Fail to create a text texture in SDL2: " + std::string(SDL_GetError()));
     }
 }

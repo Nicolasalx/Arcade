@@ -9,7 +9,7 @@ SRC				:=	$(shell find src/ -name "*.cpp") \
 					$(shell find ../utils/ -name "*.cpp")
 
 CPPFLAGS		=	-std=c++20 -Wall -Wextra $(GNU_FLAGS) \
-					-shared -fpic -lSDL2 -lSDL2_image -lSDL2_ttf \
+					-shared -fpic -g3 -lSDL2 -lSDL2_image -lSDL2_ttf \
 					$(ADDITIONAL_FLAGS)
 
 GNU_FLAGS		=	-fno-gnu-unique
