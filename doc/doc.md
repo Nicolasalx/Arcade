@@ -132,10 +132,7 @@ For example, if you create a vulkan implementation for Arcade the name returned 
 
 For your graphical library you will need to create a class that will be derived from AGameModule that also derives from IGameModule:
 
-
-
-![Alt text](image.png)
-
+![image](https://github.com/EpitechPromo2027/B-OOP-400-PAR-4-1-arcade-thibaud.cathala/assets/114945623/b7e74a30-1ab7-4557-a5ff-969b4ebce8b2)
 
 In your class you will need to implement those 3 functions:
 
@@ -159,7 +156,8 @@ We can use this function to moove the player or moove all the elements of the ga
 
 The GameData structure is represent like that:
 
-![Alt text](image-1.png)
+![image](https://github.com/EpitechPromo2027/B-OOP-400-PAR-4-1-arcade-thibaud.cathala/assets/114945623/334ae887-243e-446a-a109-c46ffab3ad87)
+
 
 ```c++
 ~YOUR_CLASS_DESTRUCTOR();
