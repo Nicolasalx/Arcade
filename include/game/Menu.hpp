@@ -23,9 +23,9 @@
     #define IDX_LIST_START 2
 
 struct cursorPlace_t {
-    std::size_t elemInSelect;
-    std::size_t gameLib;
-    std::size_t graphicalLib;
+    std::size_t elemInSelect = 0;
+    std::size_t gameLib = 0;
+    std::size_t graphicalLib = 0;
 };
 
 namespace Arc

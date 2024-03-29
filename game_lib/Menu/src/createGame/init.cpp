@@ -32,11 +32,13 @@ void Arc::Menu::defineIdxCursor()
 {
     std::size_t indexText = 0;
 
-    for (const auto &text : this->gameData.textSet) {
-        if (getFileName(text.text) == "arcade_menu.so") {
-            break;
+    if (this->gameData.textSet.size() > 0) {
+        for (const auto &text : this->gameData.textSet) {
+            if (text.text.ends_with("arcade_menu.so")) {
+                break;
+            }
+            ++indexText;
         }
-        ++indexText;
     }
     _cursorPlace = {
         .elemInSelect = 0,

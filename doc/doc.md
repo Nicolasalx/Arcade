@@ -86,3 +86,82 @@ You also need to respect the display pipeline to display the game in its intende
 The ```destructor``` will be called by Arcade to shutdown your graphical environment, for example, it's here that you destroy your window and all your objects, or free the internal data of your class.
 
 ## How to implement a new game
+
+To create a new game for the arcade you will need to create a new shared library that will be placed in the ```lib/``` directory.
+
+1. Lib core function
+
+In the library you will need to implement 2 core functions that will be needed by the arcade:
+
+- get an instance of your class game library
+- get the name and type of your library
+
+Here is functions prototypes showing how to implement them :
+
+```c++
+Arc::IGameModule *entryPoint(void);
+```
+```entryPoint``` is the function that will be called by the arcade to get an instance of your game class as the interface IGameModule.
+
+Here is a code example where you just have to replace ```YOUR_GAME_LIB``` with the name of your class
+```c++
+extern "C"
+{
+    Arc::IGameModule *entryPoint(void)
+    {
+        return new YOUR_GRAPHICAL_LIB();
+    }
+}
+```
+
+The second function is ```getName```:
+
+```c++
+const std::string &getName();
+```
+this function will return a string to indicate the type of the library and its name.
+Here is the format to respect : ```arcade_[G|D]_[LIB_NAME]```
+- ```G```stands for indicating that the lib is a game
+- ```D```stands for indicating that the lib is a display
+
+For example, if you create a vulkan implementation for Arcade the name returned will be: ```arcade_D_vulkan```
+
+----
+
+2. Interface implementation
+
+For your graphical library you will need to create a class that will be derived from AGameModule that also derives from IGameModule:
+
+
+
+![Alt text](image.png)
+
+
+In your class you will need to implement those 3 functions:
+
+```c++
+YOUR_CLASS_CONSTRUCTOR();
+```
+The ```constructor``` will be the first function call by Arcade to init your game environment, for example, it's here that you can initialize your intern data to your class.
+
+Here you can init all the values need at for the game at his start.
+For example you can initialize the score, get the highscore or start the clock if you want.
+
+```c++
+const GameData &update(const Event &event);
+```
+The ```update``` function will be a function called every frame of the game, this function returns all the data of the actual game in the structure GameData.
+
+After that the core will call the function update and give all the information of the game to the graphical lib in parameter.
+
+This function will update all data of the game.
+We can use this function to moove the player or moove all the elements of the game.
+
+The GameData structure is represent like that:
+
+![Alt text](image-1.png)
+
+```c++
+~YOUR_CLASS_DESTRUCTOR();
+```
+The ```destructor``` will be called by Arcade to shutdown your game environment, for example, it's here that you can write all the information you want to stock for the next game or free the internal data of your class.

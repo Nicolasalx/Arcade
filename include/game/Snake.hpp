@@ -114,9 +114,9 @@ namespace Arc
             Arc::Clock _clockMove;
             Arc::Clock _clockEvent;
             std::vector<std::string> _highScoreFromFile;
-            NextDirection _direction;
+            NextDirection _direction = LEFT;
             std::vector<SnakeMoove> _snake;
-            bool _hasInitDir;
+            bool _hasInitDir = false;
     };
 }
 
