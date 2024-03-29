@@ -109,7 +109,7 @@ extern "C"
 {
     Arc::IGameModule *entryPoint(void)
     {
-        return new YOUR_GRAPHICAL_LIB();
+        return new YOUR_GAME_LIB();
     }
 }
 ```
