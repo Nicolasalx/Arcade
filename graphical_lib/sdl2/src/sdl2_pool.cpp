@@ -23,7 +23,7 @@ void Arc::Sdl2::appendSurfaceToPool()
 {
     ++ this->_surfaceI;
     if (this->_surfaceI >= this->_pool.surface.size()) {
-        this->_pool.surface.emplace_back();
+        this->_pool.surface.push_back(nullptr);
     }
 }
 
@@ -31,6 +31,6 @@ void Arc::Sdl2::appendTextTextureToPool()
 {
     ++ this->_textTextureI;
     if (this->_textTextureI >= this->_pool.textTexture.size()) {
-        this->_pool.textTexture.emplace_back();
+        this->_pool.textTexture.push_back(nullptr);
     }
 }
