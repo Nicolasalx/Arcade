@@ -90,6 +90,9 @@ namespace Arc {
             void moovePlayerLeft();
             void moovePlayerRight();
 
+            void mooveRight();
+            void mooveLeft();
+
             // Moove Ball
             void mooveBall();
             void contactWithBrick(Rect ballRect, Rect partRect);
@@ -142,6 +145,13 @@ namespace Arc {
             std::size_t _highScore = 0;
             Pos _posScreen;
             std::size_t _actualScore = 0;
+            Arc::Clock _clockMove;
+            Arc::Clock _clockEvent;
+
+            bool _rightMoove;
+            bool _leftMoove;
+            int _posRightStock;
+            int _posLeftStock;
     };
 }
 

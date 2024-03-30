@@ -50,7 +50,6 @@ void Arc::BrickBreaker::checkPlayerWin()
         }
     }
     if (playerWin == true) {
-        std::cout << "YES !\n";
         this->gameData.player.health = 50;
     }
 }
@@ -61,6 +60,9 @@ const Arc::GameData &Arc::BrickBreaker::update(const Arc::Event &event)
         return this->gameData;
     }
     switchDirEvent(event);
+    mooveRight();
+    mooveLeft();
+
     mooveBall();
     checkHighScore();
     updateText();

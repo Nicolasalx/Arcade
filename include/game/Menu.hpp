@@ -28,6 +28,12 @@ struct cursorPlace_t {
     std::size_t graphicalLib = 0;
 };
 
+struct allScore_t {
+    std::vector<std::pair<std::string, int>> _snakeScore;
+    std::vector<std::pair<std::string, int>> _nibblerScore;
+    std::vector<std::pair<std::string, int>> _brickBreakerScore;
+};
+
 namespace Arc
 {
     class Menu : public AGameModule
@@ -61,11 +67,16 @@ namespace Arc
         void fillUsername(const std::string &bufferEvent);
         void setDefaultName();
         static void detectDelete(const std::string &bufferEvent, bool &isADeleteChar);
+        void createLeaderBoard();
+        std::vector<std::pair<std::string, int>> getAllScore(const std::string &filepath);
+        void fillLeaderBoard(std::vector<std::pair<std::string, int>> &linesLexing, std::vector<std::string> &allGame);
 
         std::vector<std::string> _mapLibGame;
         std::vector<std::string> _mapLibGraphical;
         cursorPlace_t _cursorPlace;
         std::vector<Arc::Text> _allTextSelectable;
+
+        allScore_t _allScore;
     };
 }
 

@@ -62,8 +62,8 @@ Arc::BrickBreaker::BrickBreaker()
     createAllTexts();
     createLifeGame();
     _iniPosBall = this->gameData.item.at(0).tile.pos;
-    /*
-        _clockMove.setCooldown(std::chrono::milliseconds(100));
-        _clockMove.start();
-    */
+    _clockMove.setCooldown(std::chrono::milliseconds(10));
+    _clockMove.start();
+    _clockEvent.setCooldown(std::chrono::milliseconds(10));
+    _clockEvent.start();
 }
