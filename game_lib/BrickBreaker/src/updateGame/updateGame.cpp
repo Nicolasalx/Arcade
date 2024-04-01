@@ -62,7 +62,6 @@ const Arc::GameData &Arc::BrickBreaker::update(const Arc::Event &event)
     switchDirEvent(event);
     mooveRight();
     mooveLeft();
-
     mooveBall();
     checkHighScore();
     updateText();

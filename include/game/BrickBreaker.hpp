@@ -148,10 +148,10 @@ namespace Arc {
             Arc::Clock _clockMove;
             Arc::Clock _clockEvent;
 
-            bool _rightMoove;
-            bool _leftMoove;
-            int _posRightStock;
-            int _posLeftStock;
+            bool _rightMoove = false;
+            bool _leftMoove = false;
+            int _posRightStock = 0;
+            int _posLeftStock = 0;
     };
 }
 
