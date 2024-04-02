@@ -25,7 +25,7 @@ void Arc::Menu::modifyAllTextColor(void)
             this->gameData.textSet[indexText].color = Arc::Color::YELLOW;
         } else if (textSelectable.text == _allTextSelectable[_cursorPlace.gameLib].text) {
             this->gameData.textSet[indexText].color = Arc::Color::BLUE;
-        } else if (textSelectable.text == _allTextSelectable[_cursorPlace.graphicalLib].text) {
+        } else if (_cursorPlace.graphicalLib < _allTextSelectable.size() && textSelectable.text == _allTextSelectable[_cursorPlace.graphicalLib].text) {
             this->gameData.textSet[indexText].color = Arc::Color::BLUE;
         } else {
             this->gameData.textSet[indexText].color = Arc::Color::WHITE;

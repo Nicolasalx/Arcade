@@ -90,6 +90,9 @@ namespace Arc {
             void moovePlayerLeft();
             void moovePlayerRight();
 
+            void mooveRight();
+            void mooveLeft();
+
             // Moove Ball
             void mooveBall();
             void contactWithBrick(Rect ballRect, Rect partRect);
@@ -121,6 +124,16 @@ namespace Arc {
             void initUsername();
 
             // Handle HighScore
+            void initHighScore();
+            void setNewHighScore(std::vector<std::string> &stockLines);
+            void checkHighScore();
+            void appendScore();
+            void checkPlayerWin();
+
+            // Handle LeaderBoard
+            void createLeaderBoard();
+            void printLeaderBoard(std::vector<std::pair<std::string, int>> &linesLexing);
+            void fillLeaderBoard(std::vector<std::pair<std::string, int>> &linesLexing, std::vector<std::string> &allGame);
 
             // Update Text
             void updateText();
@@ -129,9 +142,16 @@ namespace Arc {
             std::vector<std::vector<char>> _mapArray;
             Velocity _velocity;
             Pos _iniPosBall;
-            std::size_t _highScore;
+            std::size_t _highScore = 0;
             Pos _posScreen;
             std::size_t _actualScore = 0;
+            Arc::Clock _clockMove;
+            Arc::Clock _clockEvent;
+
+            bool _rightMoove = false;
+            bool _leftMoove = false;
+            int _posRightStock = 0;
+            int _posLeftStock = 0;
     };
 }
 

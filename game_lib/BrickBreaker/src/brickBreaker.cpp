@@ -27,6 +27,7 @@ __attribute__((destructor)) void destroy(void)
 
 Arc::BrickBreaker::~BrickBreaker()
 {
+    appendScore();
     std::cout << "BrickBreaker is class destroyed.\n";
 }
 

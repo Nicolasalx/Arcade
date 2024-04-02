@@ -140,12 +140,12 @@ namespace Arc
             Arc::Clock _clockEvent;
             Arc::Clock _clockGame;
             std::vector<std::string> _highScoreFromFile;
-            NextDirection _direction;
+            NextDirection _direction = LEFT;
             std::vector<SnakeMoove> _snake;
             std::vector<std::vector<char>> _mapArray;
             Pos _headSnake;
             bool _hasMoved;
-            bool _hasInitDir;
+            bool _hasInitDir = false;
             std::size_t _nbApple = 0;
     };
 }
