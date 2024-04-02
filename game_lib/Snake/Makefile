@@ -8,7 +8,7 @@
 SRC				:=	$(shell find src/ -name "*.cpp") \
 					$(shell find ../utils/ -name "*.cpp")
 
-CPPFLAGS		=	-std=c++20 -Wall -Wextra -g3 $(GNU_FLAGS) \
+CPPFLAGS		=	-std=c++20 -Wall -Wextra $(GNU_FLAGS) \
 					-shared -fpic \
 					$(ADDITIONAL_FLAGS)
 
