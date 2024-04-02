@@ -8,10 +8,8 @@
 #ifndef MY_LOG_HPP_
     #define MY_LOG_HPP_
 
-    #include <stdexcept>
     #include <string>
     #include <source_location>
-    #include <format>
 
 namespace my::log
 {

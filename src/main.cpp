@@ -7,8 +7,6 @@
 
 #include <stdexcept>
 #include "my_log.hpp"
-#include "IDisplayModule.hpp"
-#include "IGameModule.hpp"
 #include "Arcade.hpp"
 #include "FrameRate.hpp"
 #include "DisplayException.hpp"

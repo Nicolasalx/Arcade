@@ -10,7 +10,6 @@
 
     #include "ADisplayModule.hpp"
     #include <ncurses.h>
-    #include "ColorEnum.hpp"
     #include <map>
 
 namespace Arc

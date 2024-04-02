@@ -8,10 +8,8 @@
 #ifndef IDISPLAYMODULE_HPP_
     #define IDISPLAYMODULE_HPP_
 
-    #include <string>
     #include "Event.hpp"
     #include "GameData.hpp"
-    #include <vector>
 
 namespace Arc
 {

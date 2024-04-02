@@ -8,7 +8,6 @@
 #ifndef FRAMERATE_HPP_
     #define FRAMERATE_HPP_
 
-    #include <cstddef>
     #include <chrono>
 
 namespace Arc

@@ -9,7 +9,7 @@
     #define SFML_HPP_
 
     #include "ADisplayModule.hpp"
-    #include "ColorEnum.hpp"
+    //#include "ColorEnum.hpp"
     #include <SFML/Graphics.hpp>
 
 namespace Arc
