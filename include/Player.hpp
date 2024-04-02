@@ -9,6 +9,7 @@
     #define PLAYER_HPP_
 
     #include "Pos.hpp"
+    #include <vector>
 
 namespace Arc
 {

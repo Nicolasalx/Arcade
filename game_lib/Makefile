@@ -7,8 +7,7 @@
 
 SRC		=	./Snake/ \
 			./Nibbler/ \
-			./Menu/ \
-			./BrickBreaker
+			./Menu/
 
 all: $(SRC)
 	@for game_dir in $^ ; do \

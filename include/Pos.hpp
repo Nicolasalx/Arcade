@@ -8,8 +8,6 @@
 #ifndef POS_HPP_
     #define POS_HPP_
 
-    #include <cstddef>
-
 namespace Arc
 {
     struct Pos

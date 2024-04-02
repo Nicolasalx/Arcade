@@ -8,7 +8,6 @@
 #ifndef GAMEDATA_HPP_
     #define GAMEDATA_HPP_
 
-    #include <vector>
     #include "Tile.hpp"
     #include "Text.hpp"
     #include "Player.hpp"
