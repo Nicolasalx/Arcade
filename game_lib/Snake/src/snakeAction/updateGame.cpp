@@ -46,7 +46,7 @@ void Arc::Snake::animateHead(std::size_t index)
 void Arc::Snake::animateTail(std::size_t index)
 {
     this->gameData.player.tileSet.at(index).c = '2';
-    switch (_snake.at(index).nextDirection) {
+    switch (_snake.at(index - 1).nextDirection) {
         case UP:
                 this->gameData.player.tileSet.at(index).imagePath = std::string(PATH_IMG) + "body/tailUp.png";
             break;
@@ -168,7 +168,7 @@ void Arc::Snake::animateSnakeBody()
 
 void Arc::Snake::switcDirEvent(const Arc::Event &event)
 {
-for (const auto &evt : event.eventType) {
+    for (const auto &evt : event.eventType) {
         switch (evt) {
             case Arc::EventType::UP:
                 changeDirection(UP);

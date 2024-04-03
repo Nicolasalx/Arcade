@@ -53,7 +53,7 @@ void Arc::Snake::createLeaderBoard()
     size_t indexLeaderBoard = 0;
 
     fillLeaderBoard(linesLexing, allGame);
-    std::sort(linesLexing.begin(), linesLexing.end(), [](const auto& a, const auto& b) {
+    std::sort(linesLexing.begin(), linesLexing.end(), [](const auto &a, const auto &b) {
         return a.second > b.second;
     });
     for (const auto &lines : linesLexing) {

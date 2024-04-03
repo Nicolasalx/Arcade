@@ -48,7 +48,7 @@ void Arc::Nibbler::animateHead(std::size_t index)
 void Arc::Nibbler::animateTail(std::size_t index)
 {
     this->gameData.player.tileSet.at(index).c = '2';
-    switch (_snake.at(index).nextDirection) {
+    switch (_snake.at(index - 1).nextDirection) {
         case UP:
                 this->gameData.player.tileSet.at(index).imagePath = std::string(PATH_IMG) + "body/tailUp.png";
             break;
