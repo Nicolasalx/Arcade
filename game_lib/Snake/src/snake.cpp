@@ -7,22 +7,12 @@
 
 #include "Snake.hpp"
 
-__attribute__((constructor)) void init(void)
-{
-    std::cout << "Snake loaded !\n";
-}
-
 extern "C"
 {
     Arc::IGameModule *entryPoint(void)
     {
         return new Arc::Snake();
     }
-}
-
-__attribute__((destructor)) void destroy(void)
-{
-    std::cout << "Snake unloaded !\n";
 }
 
 Arc::Snake::Snake()
@@ -42,13 +32,11 @@ Arc::Snake::Snake()
 
     _clockEvent.setCooldown(std::chrono::milliseconds(50));
     _clockEvent.start();
-    std::cout << "Snake is class constructed.\n";
 }
 
 Arc::Snake::~Snake()
 {
     appendScore();
-    std::cout << "Snake is class destroyed.\n";
 }
 
 extern "C"

@@ -8,11 +8,6 @@
 #include <iostream>
 #include "Menu.hpp"
 
-__attribute__((constructor)) void init(void)
-{
-    std::cout << "Menu loaded !\n";
-}
-
 extern "C"
 {
     Arc::IGameModule *entryPoint(void)
@@ -21,23 +16,16 @@ extern "C"
     }
 }
 
-__attribute__((destructor)) void destroy(void)
-{
-    std::cout << "Menu unloaded !\n";
-}
-
 Arc::Menu::Menu()
 {
     getLibFromDirectory();
     createAllText();
     defineIdxCursor();
-    std::cout << "Menu is class constructed.\n";
 }
 
 Arc::Menu::~Menu()
 {
     setDefaultName();
-    std::cout << "Menu is class destroyed.\n";
 }
 
 const Arc::GameData &Arc::Menu::update(const Arc::Event &event)

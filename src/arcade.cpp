@@ -87,7 +87,6 @@ void Arc::Arcade::manageLibData(const Arc::Lib &libData)
 
 void Arc::Arcade::loop()
 {
-    //this->gameModule->init();
     this->_clock.start();
 
     while (true)
@@ -105,5 +104,4 @@ void Arc::Arcade::loop()
 
         Arc::FrameRate::end();
     }
-    //this->gameModule->stop();
 }

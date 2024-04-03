@@ -49,12 +49,10 @@ void Arc::Arcade::loadSelectedGame()
     if (this->_lib.currentGame == -1) {
         return;
     }
-    //this->gameModule->stop();
     this->gameModule.reset();
     this->gameLoader.close();
     this->gameLoader.load(this->_lib.game.at(this->_lib.currentGame).path);
     this->gameModule = std::unique_ptr<IGameModule>(this->gameLoader.getInstance("entryPoint"));
-    //this->gameModule->init();
 }
 
 void Arc::Arcade::loadSelectedDisplay()

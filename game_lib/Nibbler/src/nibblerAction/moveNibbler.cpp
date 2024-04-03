@@ -128,14 +128,6 @@ void Arc::Nibbler::moveNextCase()
     snakeMoove = _snake[0];
     switchDirection(snakeMoove);
     _mapArray.at(_headSnake.x).at(_headSnake.y) = 'S';
-
-    //for (std::size_t i = 0; i < SIZE_MAP; ++i) {
-    //    for (std::size_t j = 0; j < SIZE_MAP; ++j) {
-    //        std::cout << _mapArray.at(i).at(j);
-    //    }
-    //    std::cout << "\n";
-    //}
-
     if (!_hasMoved) {
         return;
     }

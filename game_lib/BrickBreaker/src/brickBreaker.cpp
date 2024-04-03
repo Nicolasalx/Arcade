@@ -7,11 +7,6 @@
 
 #include "BrickBreaker.hpp"
 
-__attribute__((constructor)) void init(void)
-{
-    std::cout << "BrickBreaker loaded !\n";
-}
-
 extern "C"
 {
     Arc::IGameModule *entryPoint(void)
@@ -20,15 +15,9 @@ extern "C"
     }
 }
 
-__attribute__((destructor)) void destroy(void)
-{
-    std::cout << "BrickBreaker unloaded !\n";
-}
-
 Arc::BrickBreaker::~BrickBreaker()
 {
     appendScore();
-    std::cout << "BrickBreaker is class destroyed.\n";
 }
 
 extern "C"

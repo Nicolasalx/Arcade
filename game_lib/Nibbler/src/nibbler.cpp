@@ -7,22 +7,12 @@
 
 #include "Nibbler.hpp"
 
-__attribute__((constructor)) void init(void)
-{
-    std::cout << "Nibbler loaded !\n";
-}
-
 extern "C"
 {
     Arc::IGameModule *entryPoint(void)
     {
         return new Arc::Nibbler();
     }
-}
-
-__attribute__((destructor)) void destroy(void)
-{
-    std::cout << "Nibbler unloaded !\n";
 }
 
 Arc::Nibbler::Nibbler()
@@ -48,13 +38,11 @@ Arc::Nibbler::Nibbler()
 
     _clockGame.setCooldown(std::chrono::milliseconds(TIME_IN_MILI));
     _clockGame.start();
-    std::cout << "Nibbler is class constructed.\n";
 }
 
 Arc::Nibbler::~Nibbler()
 {
     appendScore();
-    std::cout << "Nibbler is class destroyed.\n";
 }
 
 extern "C"
