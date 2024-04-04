@@ -106,7 +106,7 @@ void Arc::Menu::defineIdxCursor()
 {
     std::size_t indexText = 0;
 
-    if (this->gameData.textSet.size() > 0) {
+    if (!this->gameData.textSet.empty()) {
         for (const auto &text : this->gameData.textSet) {
             if (text.text.ends_with("arcade_menu.so")) {
                 break;
