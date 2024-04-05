@@ -15,7 +15,7 @@
 int main(int argc, const char *argv[])
 {
     Arc::Arcade arcade;
-    Arc::FrameRate::setFrameRate(60);
+    Arc::FrameRate::setFrameRate(30);
 
     try {
         arcade.start(argc, argv);

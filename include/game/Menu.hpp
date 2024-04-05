@@ -67,9 +67,9 @@ namespace Arc
         void fillUsername(const std::string &bufferEvent);
         void setDefaultName();
         static void detectDelete(const std::string &bufferEvent, bool &isADeleteChar);
-        static void createLeaderBoard();
+        void createLeaderBoard();
         std::vector<std::pair<std::string, int>> getAllScore(const std::string &filepath);
-        static void fillLeaderBoard(std::vector<std::pair<std::string, int>> &linesLexing, std::vector<std::string> &allGame);
+        void fillLeaderBoard(std::vector<std::pair<std::string, int>> &linesLexing, std::vector<std::string> &allGame);
 
         std::vector<std::string> _mapLibGame;
         std::vector<std::string> _mapLibGraphical;
